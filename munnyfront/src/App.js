@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { UserProtected } from './CommonFiles/UserProtected';
+import { BusinessProtected } from './CommonFiles/BusinessProtected';
+import SalonSearch from './PublicModule/SalonSearch'
+import BusinessDashboard from './BusinessModule/BusinessDashboard'
+import UserDashboard from './UserModule/UserDashboard'
+import GymSearch from './PublicModule/GymSearch';
+import YogaSearch from './PublicModule/YogaSearch';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>        
+        <Route exact path='/' component={SalonSearch} />
+        <Route path='/salonsearch' component={SalonSearch} />
+        <Route path='/gymsearch' component={GymSearch} />
+        <Route path='/yogasearch' component={YogaSearch} />
+        <UserProtected path='/userdashboard' component={UserDashboard} />
+        <BusinessProtected path='/businessdashboard' component={BusinessDashboard} />
+      </Switch>
+    </Router>
   );
 }
-
 export default App;
