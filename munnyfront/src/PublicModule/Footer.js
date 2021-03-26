@@ -73,14 +73,14 @@ export default function Footer(props) {
             <div className="container">
                 <div className="footer-copyright">
                     <ul className="nav justify-content-center">
-                        <li className="nav-item"> <a className="nav-link active" href="#">About Us</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#">Faq</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#">Contact</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#">Support</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#">Terms of Use</a> </li>
-                        <li className="nav-item"> <a className="nav-link" href="#">Privacy Policy</a> </li>
+                        <li className="nav-item"> <Link className="nav-link active" to={"aboutus"}>About Us</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"faq"}>Faq</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"contactus"}>Contact</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"support"}>Support</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"termsandconditions"}>Terms of Use</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to={"privacypolicy"}>Privacy Policy</Link> </li>
                     </ul>
-                    <p className="copyright-text">Copyright © 2018 <a href="#">Quickai</a>. All Rights Reserved.</p>
+                    <p className="copyright-text">Copyright © 2021 <Link to={"/"}>Munny Finds</Link>. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>

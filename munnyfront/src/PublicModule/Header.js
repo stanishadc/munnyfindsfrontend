@@ -14,7 +14,7 @@ export default function Header(props) {
                         <nav className="primary-menu navbar navbar-expand-lg">
                             <div id="header-nav" className="collapse navbar-collapse">
                                 <ul className="navbar-nav">
-                                    <li className="dropdown active"> <Link className="dropdown-toggle" to={"#"}>Home</Link>
+                                    <li className="dropdown active"> <Link className="dropdown-toggle" to={"/"}>Home</Link>
                                     </li>
                                     <li className="dropdown"> <Link className="dropdown-toggle" href="#">Services</Link>
                                     </li>
