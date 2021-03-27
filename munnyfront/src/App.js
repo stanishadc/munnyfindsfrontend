@@ -14,6 +14,7 @@ import Terms from './PublicModule/Terms';
 import Aboutus from './PublicModule/Aboutus';
 import Privacy from './PublicModule/PrivacyPolicy';
 import FAQ from './PublicModule/FAQ';
+import BusinessRegister from './PublicModule/BusinessRegister';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/aboutus' component={Aboutus} />
         <Route path='/privacypolicy' component={Privacy} />
         <Route path='/faq' component={FAQ} />
+        <Route path='/registerbusiness' component={BusinessRegister} />
         <Route path='/business/:businessname' component={BusinessList} />
         <UserProtected path='/userdashboard' component={UserDashboard} />
         <BusinessProtected path='/businessdashboard' component={BusinessDashboard} />
