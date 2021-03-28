@@ -9,6 +9,5 @@ export default function UserSidebar(props) {
                 <li className="nav-item"><Link className="nav-link" to={"/user/changepassword"}><i className="fas fa-key" />Change Password</Link></li>
             </ul>
         </div>
-
     )
 }

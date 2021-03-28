@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
-export default function BusinessDashboard(props) {
+export default function BusinessPayments(props) {
     return (
         <div id="main-wrapper">
             <Header></Header>

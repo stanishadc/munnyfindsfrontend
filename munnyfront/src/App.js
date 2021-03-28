@@ -23,6 +23,16 @@ import AppointmentConfirmation from './PublicModule/AppointmentConfirmation';
 import UserProfile from './UserModule/UserProfile';
 import UserAppointments from './UserModule/UserAppointments';
 import UserChangePasword from './UserModule/UserChangePassword';
+import BusinessAvailability from './BusinessModule/BusinessAvailability';
+import BusinessCalendar from './BusinessModule/BusinessCalendar';
+import BusinessPassword from './BusinessModule/BusinessPassword';
+import BusinessPayments from './BusinessModule/BusinessPayments';
+import BusinessProfile from './BusinessModule/BusinessProfile';
+import BusinessServicePrices from './BusinessModule/BusinessServicePrices';
+import BusinessServices from './BusinessModule/BusinessServices';
+import CancelledAppointments from './BusinessModule/CancelledAppointments';
+import CompletedAppointments from './BusinessModule/CompletedAppointments';
+import UpcomingAppointments from './BusinessModule/UpcomingAppointments';
 
 function App() {
   return (
@@ -49,7 +59,17 @@ function App() {
         <Route path='/faq' component={FAQ} />
         <Route path='/notfound' component={NotFound} />
 
-        <BusinessProtected path='/businessdashboard' component={BusinessDashboard} />
+        <BusinessProtected path='/business/dashboard' component={BusinessDashboard} />
+        <BusinessProtected path='/business/availability' component={BusinessAvailability} />
+        <BusinessProtected path='/business/calendar' component={BusinessCalendar} />
+        <BusinessProtected path='/business/changepassword' component={BusinessPassword} />
+        <BusinessProtected path='/business/payments' component={BusinessPayments} />
+        <BusinessProtected path='/business/businessprofile' component={BusinessProfile} />
+        <BusinessProtected path='/business/serviceprices' component={BusinessServicePrices} />
+        <BusinessProtected path='/business/services' component={BusinessServices} />
+        <BusinessProtected path='/business/cancelledappointments' component={CancelledAppointments} />
+        <BusinessProtected path='/business/completedappointments' component={CompletedAppointments} />
+        <BusinessProtected path='/business/upcomingappointments' component={UpcomingAppointments} />
 
         <UserProtected path='/user/profile' component={UserProfile} />
         <UserProtected path='/user/appointments' component={UserAppointments} />
