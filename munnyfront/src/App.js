@@ -4,7 +4,6 @@ import { UserProtected } from './CommonFiles/UserProtected';
 import { BusinessProtected } from './CommonFiles/BusinessProtected';
 import SalonSearch from './PublicModule/SalonSearch'
 import BusinessDashboard from './BusinessModule/BusinessDashboard'
-import UserDashboard from './UserModule/UserDashboard'
 import GymSearch from './PublicModule/GymSearch';
 import YogaSearch from './PublicModule/YogaSearch';
 import BusinessList from './PublicModule/BusinessList';
@@ -21,6 +20,9 @@ import ChooseAppointment from './PublicModule/ChooseAppointment';
 import AppointmentSummary from './PublicModule/AppointmentSummary';
 import MakePayment from './PublicModule/MakePayment';
 import AppointmentConfirmation from './PublicModule/AppointmentConfirmation';
+import UserProfile from './UserModule/UserProfile';
+import UserAppointments from './UserModule/UserAppointments';
+import UserChangePasword from './UserModule/UserChangePassword';
 
 function App() {
   return (
@@ -48,7 +50,10 @@ function App() {
         <Route path='/notfound' component={NotFound} />
 
         <BusinessProtected path='/businessdashboard' component={BusinessDashboard} />
-        <UserProtected path='/userdashboard' component={UserDashboard} />
+
+        <UserProtected path='/user/profile' component={UserProfile} />
+        <UserProtected path='/user/appointments' component={UserAppointments} />
+        <UserProtected path='/user/changepassword' component={UserChangePasword} />
       </Switch>
     </Router>
   );
