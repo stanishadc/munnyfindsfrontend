@@ -42,10 +42,9 @@ function App() {
         <Route path='/salonsearch' component={SalonSearch} />
         <Route path='/gymsearch' component={GymSearch} />
         <Route path='/yogasearch' component={YogaSearch} />
-        <Route path='/business' component={BusinessList} />
         <Route path='/registerbusiness' component={BusinessRegister} />
-        <Route path='/business/:businesslist' component={BusinessList} />
-        <Route path='/salons/:businessdetails' component={BusinessDetails} />
+        <Route path='/businesslist' component={BusinessList} />
+        <Route path='/businessdetails' component={BusinessDetails} />
         <Route path='/chooseappointment' component={ChooseAppointment} />
         <Route path='/appointmentsummary' component={AppointmentSummary} />
         <Route path='/makepayment' component={MakePayment} />
