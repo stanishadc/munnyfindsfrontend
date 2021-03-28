@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import ServiceTabs from './ServiceTabs';
+import Header from '../CommonFiles/Header';
+import Footer from '../CommonFiles/Footer';
+import ServiceTabs from '../CommonFiles/ServiceTabs';
 import HomeSlider from './HomeSlider';
 import HomeContent from './HomeContent';
 export default function SalonSearch(props) {
@@ -43,10 +43,9 @@ export default function SalonSearch(props) {
                                                 <input id="hotelsCheckIn" type="text" className="form-control" required placeholder="Appointment Date" />
                                                 <span className="icon-inside"><i className="far fa-calendar-alt" /></span>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <button className="btn btn-primary btn-block" type="submit">Search</button>
+                                    <Link className="btn btn-primary btn-block" type="submit" to={"/business/salonslist"}>Search</Link>
                                 </form>
                             </div>
                             <HomeSlider></HomeSlider>

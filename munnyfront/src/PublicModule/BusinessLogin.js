@@ -22,7 +22,7 @@ export default function BusinessLogin(props) {
                                     <div className="row mb-4">
                                         <div className="col-sm">
                                             <div className="form-group">
-                                                <Link className="justify-content-end" to={"/registerbusiness"}>New Business? Signup</Link>
+                                                <Link className="justify-content-end" onClick={props.handleClose}>New Business? Signup</Link>
                                             </div>
                                         </div>
                                         <div className="col-sm text-right"><a className="justify-content-end" href="#">Forgot Password ?</a></div>

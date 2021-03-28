@@ -8,13 +8,19 @@ import UserDashboard from './UserModule/UserDashboard'
 import GymSearch from './PublicModule/GymSearch';
 import YogaSearch from './PublicModule/YogaSearch';
 import BusinessList from './PublicModule/BusinessList';
-import Contactus from './PublicModule/Contactus';
-import Support from './PublicModule/Support';
-import Terms from './PublicModule/Terms';
-import Aboutus from './PublicModule/Aboutus';
-import Privacy from './PublicModule/PrivacyPolicy';
-import FAQ from './PublicModule/FAQ';
+import Contactus from './StaticPages/Contactus';
+import Support from './StaticPages/Support';
+import Terms from './StaticPages/Terms';
+import Aboutus from './StaticPages/Aboutus';
+import Privacy from './StaticPages/PrivacyPolicy';
+import FAQ from './StaticPages/FAQ';
 import BusinessRegister from './PublicModule/BusinessRegister';
+import BusinessDetails from './PublicModule/BusinessDetails';
+import NotFound from './StaticPages/NotFound';
+import ChooseAppointment from './PublicModule/ChooseAppointment';
+import AppointmentSummary from './PublicModule/AppointmentSummary';
+import MakePayment from './PublicModule/MakePayment';
+import AppointmentConfirmation from './PublicModule/AppointmentConfirmation';
 
 function App() {
   return (
@@ -25,16 +31,24 @@ function App() {
         <Route path='/gymsearch' component={GymSearch} />
         <Route path='/yogasearch' component={YogaSearch} />
         <Route path='/business' component={BusinessList} />
+        <Route path='/registerbusiness' component={BusinessRegister} />
+        <Route path='/business/:businesslist' component={BusinessList} />
+        <Route path='/salons/:businessdetails' component={BusinessDetails} />
+        <Route path='/chooseappointment' component={ChooseAppointment} />
+        <Route path='/appointmentsummary' component={AppointmentSummary} />
+        <Route path='/makepayment' component={MakePayment} />
+        <Route path='/appointmentconfirmation' component={AppointmentConfirmation} />
+
         <Route path='/contactus' component={Contactus} />
         <Route path='/support' component={Support} />
         <Route path='/termsandconditions' component={Terms} />
         <Route path='/aboutus' component={Aboutus} />
-        <Route path='/privacypolicy' component={Privacy} />
+        <Route path='/privacypolicy' component={Privacy} />        
         <Route path='/faq' component={FAQ} />
-        <Route path='/registerbusiness' component={BusinessRegister} />
-        <Route path='/business/:businessname' component={BusinessList} />
-        <UserProtected path='/userdashboard' component={UserDashboard} />
+        <Route path='/notfound' component={NotFound} />
+
         <BusinessProtected path='/businessdashboard' component={BusinessDashboard} />
+        <UserProtected path='/userdashboard' component={UserDashboard} />
       </Switch>
     </Router>
   );

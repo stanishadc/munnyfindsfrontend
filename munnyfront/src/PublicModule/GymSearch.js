@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import ServiceTabs from './ServiceTabs';
+import Header from '../CommonFiles/Header';
+import Footer from '../CommonFiles/Footer';
+import ServiceTabs from '../CommonFiles/ServiceTabs';
 import HomeSlider from './HomeSlider';
 import HomeContent from './HomeContent';
 export default function GymSearch(props) {

@@ -17,6 +17,6 @@
   padding: 3.125rem 0;
 }
 
-@media only screen and (min-width: 1200px) {
+@include media-breakpoint-up(xl) {
   .container {max-width: 1170px !important;}
 }

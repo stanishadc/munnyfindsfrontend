@@ -7,10 +7,14 @@
   position: absolute;
   right: 0px;
   z-index: 4;
-  line-height: 50px;
   padding: 0 15px;
   font-size: 13px;
   text-decoration: underline;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
 }
 
 /* Plans */
@@ -20,10 +24,27 @@
   overflow-y: auto;
   &.page {
     max-height: 617px;
-  }
-  .table {
+  } 
+}
+
+@include media-breakpoint-up(md) {
+.plans {
+.table.table-lg {
     td, th {
       padding: 1.8rem;
     }
   }
 }
+}
+
+/* Operator selection */
+
+.operator-selection .custom-control-label {
+  padding-bottom: 1.5rem;
+  &:after, &:before {
+    top: auto;
+    bottom: 0rem;
+    left: calc(50% - 0.5rem);
+  }
+}
+

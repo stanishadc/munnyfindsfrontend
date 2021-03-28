@@ -4,10 +4,19 @@
 
 /* Bootstrap Specific */
 
-.form-control, .custom-select {
+.form-control:not(.form-control-lg), .custom-select:not(.form-control-lg) {
+/*font-size: 15px;*/
+}
+.form-control, .custom-select{
   border-color: #d5d3d3;
-  font-size: 15px;
   color: #777;
+}
+
+.custom-select option{
+  color: #777;
+}
+.custom-select:invalid {
+  color: #b1b4b6;
 }
 
 .form-control:not(.form-control-sm) {
@@ -17,6 +26,8 @@
 
 .form-control-sm{font-size:14px;}
 
+.form-control-lg{height:calc(2.4em + 1rem + 2px);}
+
 select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
   height: auto;
   padding-top: .700rem;
@@ -24,15 +35,19 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 }
 .custom-select:not(.custom-select-sm){
   height:calc(3.05rem + 2px);
+  min-height:100%;
   padding-top: .700rem;
   padding-bottom: .700rem;}
+.custom-select:not(.custom-select-sm).border-0{height:calc(3.00rem + 2px);}
 .col-form-label-sm{font-size:13px;}
 .custom-select-sm{padding-left:5px!important; font-size:14px;}
-.custom-select:not(.custom-select-sm).border-0{height:3.00rem;}
 
-.form-control:focus {
+/*.custom-select:not(.custom-select-sm).border-0{height:3.00rem;}*/
+
+.form-control:focus, .custom-select:focus{
   @include box-shadow(0 0 5px rgba(128, 189, 255, 0.5));
 }
+
 .form-control:focus[readonly]{box-shadow:none;}
 
 .input-group-text {
@@ -40,21 +55,21 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
   color: #777;
 }
 
-.form-control {
+.form-control, .custom-select {
   &::-webkit-input-placeholder {
-    color: #777;
+    color: #b1b4b6;
   }
   &:-moz-placeholder {
     /* FF 4-18 */
-    color: #777;
+    color: #b1b4b6;
   }
   &::-moz-placeholder {
     /* FF 19+ */
-    color: #777;
+    color: #b1b4b6;
   }
   &:-ms-input-placeholder, &::-ms-input-placeholder {
     /* IE 10+ */
-    color: #777;
+    color: #b1b4b6;
   }
 }
 
@@ -85,7 +100,7 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
   @include box-shadow(none);
 }
 
-@media (max-width: 575px) {
+@include media-breakpoint-down(xs) {
   .btn:not(.btn-sm){
     padding: .810rem 1rem;
   }
@@ -105,8 +120,14 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 .text-secondary{
 	color: $secondary-color !important;
 }
-.text-primary {
+.text-primary{
 	color: $primary-color !important;
+}
+.btn-link {
+	color: $primary-color;
+}
+.btn-link:hover {
+	color: $primary-color-hover !important;
 }
 
 .border-primary {
@@ -146,14 +167,17 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 	color: #fff;
   }
 }
-.page-item.active .page-link,
 .progress-bar,
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link,
-.custom-radio .custom-control-input:checked ~ .custom-control-label::before,
-.custom-control-input:checked ~ .custom-control-label::before,
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
-.custom-control-input:checked ~ .custom-control-label::before{
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
 	background-color: $primary-color;
+}
+.page-item.active .page-link,
+.custom-radio .custom-control-input:checked ~ .custom-control-label:before,
+.custom-control-input:checked ~ .custom-control-label::before,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label:before,
+.custom-control-input:checked ~ .custom-control-label:before{
+	background-color: $primary-color;
+	border-color: $primary-color;
 }
 .list-group-item.active{background-color: $primary-color; border-color: $primary-color;}
 .page-link {
@@ -161,6 +185,17 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
   &:hover {
     color: $primary-color-hover;
   }
+}
+
+/* Pagination */
+
+.page-link {
+  border-color: #f4f4f4;
+  border-radius: 0.25rem;
+  margin: 0 0.3rem;
+}
+.page-item.disabled .page-link{
+	border-color: #f4f4f4;
 }
 
 /* Slider Range (jQuery UI) */
@@ -190,7 +225,7 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 
 
 .ui-menu.ui-widget.ui-widget-content{
-	box-shadow:0px 0px 12px rgba(0, 0, 0, 0.176);
+	@include box-shadow(0px 0px 12px rgba(0, 0, 0, 0.176));
 	border: none;
     overflow: hidden;
 	overflow-y: auto;
@@ -206,4 +241,9 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 }
 .ui-menu .ui-menu-divider{
 	display:none;
+}
+
+/* Date Range Picker */
+.daterangepicker {
+  box-shadow:0px 2px 12px rgba(0, 0, 0, 0.176);
 }

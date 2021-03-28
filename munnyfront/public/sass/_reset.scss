@@ -59,10 +59,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $title-font;
 }
 
-.lead {
-  font-size: 1.3em;
-  line-height: 1.8;
-}
+.table{color: $text-color;}
+.table-hover tbody tr:hover{background-color:#f6f7f8;}
 
 /*-------- Preloader --------*/
 #preloader {
@@ -83,10 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 	height: 50px;
 	margin-left: -25px;
 	margin-top: -25px;
-	display: inline-block;
 	content: " ";
-	display: block;
-	margin: 1px;
 	border-radius: 50%;
 	border: 5px solid $primary-color;
 	border-color: $primary-color transparent $primary-color transparent;
@@ -100,4 +95,17 @@ h1, h2, h3, h4, h5, h6 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.close{font-weight:normal; font-size:1.8rem; text-shadow: none;}
+
+.modal .close.close-outside{color:#fff; opacity: 1; position:absolute; right: -24px; top: -8px;}
+
+@include media-breakpoint-down(xs) {
+.modal .close.close-outside{
+	position:absolute;
+	right:5px;
+	color: #444;
+	top: 0;
+}
 }
