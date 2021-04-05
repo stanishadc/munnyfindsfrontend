@@ -15,7 +15,7 @@ export default function UserLogin(props) {
                             <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                                 <form id="loginForm" method="post">
                                     <div className="form-group">
-                                        <input type="email" className="form-control" id="loginMobile" required placeholder="Mobile or Email ID" />
+                                        <input type="email" className="form-control" id="loginMobile" required placeholder="Email ID" />
                                     </div>
                                     <div className="form-group">
                                         <input type="password" className="form-control" id="loginPassword" required placeholder="Password" />
@@ -27,7 +27,7 @@ export default function UserLogin(props) {
                                                 <label className="custom-control-label" htmlFor="remember-me">Remember Me</label>
                                             </div>
                                         </div>
-                                        <div className="col-sm text-right"> <a className="justify-content-end" href="#">Forgot Password ?</a> </div>
+                                        <div className="col-sm text-right"> <Link to={"/forgotpassword"} className="justify-content-end">Forgot Password ?</Link> </div>
                                     </div>
                                     <button className="btn btn-primary btn-block" type="submit">Login</button>
                                 </form>

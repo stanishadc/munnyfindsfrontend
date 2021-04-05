@@ -16,7 +16,7 @@ export default function UpcomingAppointments(props) {
                         <div className="col-md-4">
                             <ul className="breadcrumb justify-content-start justify-content-md-end mb-0">
                                 <li><Link to={"/"}>Home</Link></li>
-                                <li className="active">Business Profile</li>
+                                <li className="active">Upcoming Appointments</li>
                             </ul>
                         </div>
                     </div>
@@ -28,67 +28,70 @@ export default function UpcomingAppointments(props) {
                         <BusinessSidebar></BusinessSidebar>
                         <div className="col-lg-9">
                             <div className="bg-white shadow-md rounded p-4">
-                                <h4 className="mb-4">Upcoming Appointments</h4>
-                                <hr className="mx-n4" />
+                                <h5 className="mb-4">Appointments</h5>
+                                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                    <li className="nav-item"> <Link to={"/business/upcomingappointments"} className="nav-link active" id="upcoming" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/completedappointments"} className="nav-link" id="completed" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/cancelledappointments"} className="nav-link" id="cancelled" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</Link> </li>
+                                </ul>
                                 <div className="tab-content my-3" id="myTabContent">
-                                    <div className="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
+                                    <div className="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming">
                                         <div className="table-responsive-md">
                                             <table className="table table-hover border">
                                                 <thead className="thead-light">
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Description</th>
-                                                        <th>Order ID</th>
-                                                        <th className="text-center">Status</th>
+                                                        <th>Appointment No</th>
+                                                        <th>Appointment Date & Time</th>                                                        
+                                                        <th>Customer Name</th>
+                                                        <th>Service</th>
                                                         <th className="text-right">Amount</th>
-                                                        <th className="text-center" />
+                                                        <th className="text-right">Payment</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td className="align-middle">06/06/2018</td>
-                                                        <td className="align-middle"><img src="images/brands/operator/vodafone.jpg" className="img-thumbnail d-inline-flex mr-1" /> <span className="text-1 d-inline-flex">Recharge of Vodafone Mobile 9696969696</span></td>
-                                                        <td className="align-middle">5286977475</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="tooltip" data-original-title="Your order is Successful" /></td>
+                                                    <td className="align-middle">MF254578</td>
+                                                        <td className="align-middle">06/06/2021 10:30</td>
+                                                        <td className="align-middle">Tanisha</td>
+                                                        <td className="align-middle">Boys Hair Cutting</td>
                                                         <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><a href="#" data-toggle="tooltip" data-original-title="Repeat Order"><i className="fas fa-redo-alt" /></a></td>
+                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="align-middle">02/06/2018</td>
-                                                        <td className="align-middle"><img src="images/brands/flights/indigo.png" className="img-thumbnail d-inline-flex mr-1" /> <span className="text-1 d-inline-flex">Booking of Delhi to Sydney flight</span></td>
-                                                        <td className="align-middle">5136907172</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="tooltip" data-original-title="Your order is Successful" /></td>
-                                                        <td className="align-middle text-right">$980</td>
-                                                        <td className="align-middle text-center"><a href="#" data-toggle="tooltip" data-original-title="Repeat Order"><i className="fas fa-redo-alt" /></a></td>
+                                                    <td className="align-middle">MF254578</td>
+                                                        <td className="align-middle">06/06/2021 10:30</td>
+                                                        <td className="align-middle">Tanisha</td>
+                                                        <td className="align-middle">Boys Hair Cutting</td>
+                                                        <td className="align-middle text-right">$150</td>
+                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="align-middle">31/05/2018</td>
-                                                        <td className="align-middle"><img src="images/brands/operator/vodafone.jpg" className="img-thumbnail d-inline-flex mr-1" /> <span className="text-1 d-inline-flex">Bill Payment of Vodafone Mobile 9898989898</span></td>
-                                                        <td className="align-middle">1072317951</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-ellipsis-h text-4 text-info" data-toggle="tooltip" data-original-title="Your order is in Progress" /></td>
-                                                        <td className="align-middle text-right">$99</td>
-                                                        <td className="align-middle text-center" />
+                                                    <td className="align-middle">MF254578</td>
+                                                        <td className="align-middle">06/06/2021 10:30</td>
+                                                        <td className="align-middle">Tanisha</td>
+                                                        <td className="align-middle">Boys Hair Cutting</td>
+                                                        <td className="align-middle text-right">$150</td>
+                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer paid online" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="align-middle">25/05/2018</td>
-                                                        <td><div className="d-lg-flex align-items-center"> <span className="img-thumbnail d-inline-flex text-8 p-2 mr-2"><i className="fas fa-bus" /></span> <span className="text-1 d-inline-flex">Booking of Mumbai to Surat Bus</span> </div></td>
-                                                        <td className="align-middle">4103520927</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="tooltip" data-original-title="Your order is Successful" /></td>
-                                                        <td className="align-middle text-right">$450</td>
-                                                        <td className="align-middle text-center"><a href="#" data-toggle="tooltip" data-original-title="Repeat Order"><i className="fas fa-redo-alt" /></a></td>
+                                                    <td className="align-middle">MF254578</td>
+                                                        <td className="align-middle">06/06/2021 10:30</td>
+                                                        <td className="align-middle">Tanisha</td>
+                                                        <td className="align-middle">Boys Hair Cutting</td>
+                                                        <td className="align-middle text-right">$150</td>
+                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="Customer will pay at venue" data-original-title="Customer paid online" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td className="align-middle">21/05/2018</td>
-                                                        <td className="align-middle"><img src="images/brands/operator/vodafone.jpg" className="img-thumbnail d-inline-flex mr-1" /> <span className="text-1 d-inline-flex">Recharge of Vodafone Mobile 9898989898</span></td>
-                                                        <td className="align-middle">3079317986</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-times-circle text-4 text-danger" data-toggle="tooltip" data-original-title="Your order is Failed" /></td>
-                                                        <td className="align-middle text-right">$280</td>
-                                                        <td className="align-middle text-center"><a href="#" data-toggle="tooltip" data-original-title="Retry Order"><i className="fas fa-redo-alt " /></a></td>
+                                                    <td className="align-middle">MF254578</td>
+                                                        <td className="align-middle">06/06/2021 10:30</td>
+                                                        <td className="align-middle">Tanisha</td>
+                                                        <td className="align-middle">Boys Hair Cutting</td>
+                                                        <td className="align-middle text-right">$150</td>
+                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>

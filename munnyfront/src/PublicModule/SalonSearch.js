@@ -45,7 +45,7 @@ export default function SalonSearch(props) {
                                             </div>
                                         </div>
                                     </div>
-                                    <Link className="btn btn-primary btn-block" type="submit" to={"/business/salonslist"}>Search</Link>
+                                    <Link className="btn btn-primary btn-block" type="submit" to={"/businesslist"}>Search</Link>
                                 </form>
                             </div>
                             <HomeSlider></HomeSlider>

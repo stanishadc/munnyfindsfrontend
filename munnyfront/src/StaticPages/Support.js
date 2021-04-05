@@ -1,7 +1,87 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios'
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
+const initialFieldValues = {
+    supportId: 0,
+    subjectId: "",
+    name: "",
+    email: "",
+    mobile: "",
+    message: "",
+    };
 export default function Support(props) {
+    const [supportList, setSupportList] = useState([])
+    const [subject, setSubject] = useState([]);
+    const [values, setValues] = useState(initialFieldValues)
+    const [errors, setErrors] = useState({})
+    const handleInputChange = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+    const validate = () => {
+        let temp = {}
+        temp.name = values.name === "" ? false : true;
+        temp.email = values.email === "" ? false : true;
+        temp.mobileNo = values.mobileNo === "" ? false : true;
+        setErrors(temp)
+        return Object.values(temp).every(x => x === true)
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (validate()) {
+            const formData = new FormData()
+            formData.append('supportId', values.supportId)
+            formData.append('subjectId', values.subjectId)
+            formData.append('name', values.name)
+            formData.append('email', values.email)
+            formData.append('mobile', values.mobile)
+            formData.append('message', values.message)
+            console.log(values)
+            addOrEdit(formData, resetForm)
+        }
+    }
+    const applicationAPI = (url = 'https://localhost:44313/api/support/') => {
+        return {
+            fetchSupport: () => axios.get("https://localhost:44313/api/faq/" + 'get'),
+            fetchSubjectName: (id) =>
+        axios.get("https://localhost:44313/api/subject/get/"),
+
+            create: newRecord => axios.post(url + "insert", newRecord)
+        }
+    }
+    const addOrEdit = (formData, onSuccess) => {
+        if (formData.get('supportId') === "0") {
+            applicationAPI().create(formData)
+                .then(res => {
+                    // handleSuccess("Support Added");
+                    resetForm();
+                })
+        }
+    }
+    const resetForm = () => {
+        setValues(initialFieldValues)
+    }
+    const applyErrorClass = field => ((field in errors && errors[field] === false) ? ' form-control-danger' : '')
+   
+    function refreshSupportList() {
+        applicationAPI().fetchSupport()
+            .then(res => setSupportList(res.data))
+            .catch(err => console.log(err))
+    }
+    function refreshSubject() {
+        applicationAPI()
+          .fetchSubjectName()
+          .then((res) => setSubject(res.data))
+          .catch((err) => console.log(err));
+      }
+    useEffect(() => {
+        refreshSupportList();
+        refreshSubject();
+    }, [])
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -27,33 +107,38 @@ export default function Support(props) {
                             <div className="bg-light shadow-md rounded p-4">
                                 <h2 className="text-6">Send a Request</h2>
                                 <p>Please fill out the form below and we promise you to get back to you within a couple of hours.</p>
-                                <form id="recharge-bill" method="post">
+                                <form  onSubmit={handleSubmit} id="recharge-bill" method="post">
                                     <div className="form-group">
-                                        <label htmlFor="subject">Subject</label>
-                                        <select className="custom-select" id="subject" required>
-                                            <option value>Select Your Subject</option>
-                                            <option>Recharge &amp; Bill</option>
-                                            <option>Booking</option>
-                                            <option>Account</option>
-                                            <option>Payment</option>
-                                            <option>Other</option>
-                                        </select>
+                                        <label htmlFor="subjectName">Subject</label>
+                                        <select
+                                                 name="subjectId"
+                                                     type="text"
+                                                     value={values.subjectId}
+                                                          onChange={handleInputChange}
+                                                   className="form-control" >
+                                                    <option value="0">Please Select</option>
+                                                         {subject.map((bus) => (
+                                                      <option value={bus.subjectId}>
+                                                          {bus.subjectName}
+                                                               </option>
+                                                                     ))}
+                                                                </select>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="yourName">Your Name</label>
-                                        <input type="text" className="form-control" id="yourName" required placeholder="Enter Your Name" />
+                                        <input className={"form-control" + applyErrorClass('name')} name="name" type="text" value={values.name} onChange={handleInputChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="yourEmail">Your Email</label>
-                                        <input type="email" className="form-control" id="yourEmail" required placeholder="Enter Email Id" />
+                                        <label htmlFor="email">Your Email</label>
+                                        <input className={"form-control" + applyErrorClass('email')} name="email" type="email" value={values.email} onChange={handleInputChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="mobileNumber">Mobile Number</label>
-                                        <input type="text" className="form-control" data-bv-field="number" id="mobileNumber" required placeholder="Enter Mobile Number" />
+                                        <label htmlFor="mobile">Mobile Number</label>
+                                        <input className={"form-control" + applyErrorClass('mobile')} name="mobile" type="mobile" value={values.mobile} onChange={handleInputChange} />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="yourProblem">Your Query</label>
-                                        <textarea className="form-control" rows={5} id="yourProblem" required placeholder="Specify your query" defaultValue={""} />
+                                        <label htmlFor="message">Your Query</label>
+                                        <input className={"form-control" + applyErrorClass('message')} name="message" type="text" value={values.message} onChange={handleInputChange} />
                                     </div>
                                     <button className="btn btn-primary" type="submit">Submit</button>
                                 </form>
@@ -63,62 +148,16 @@ export default function Support(props) {
                             <div className="bg-light shadow-md rounded p-4">
                                 <h2 className="text-6">FAQ</h2>
                                 <div className="accordion accordion-alternate" id="accordion">
-                                    <div className="card">
-                                        <div className="card-header" id="heading1">
-                                            <h5 className="mb-0"> <a href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">How can I make a account?</a> </h5>
-                                        </div>
-                                        <div id="collapse1" className="collapse show" aria-labelledby="heading1" data-parent="#accordion">
-                                            <div className="card-body"> Lisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Mutat tacimates id sit. Ridens mediocritatem ius an, eu nec magna imperdiet. </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header" id="heading2">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">Is there any registration fee?</a> </h5>
-                                        </div>
-                                        <div id="collapse2" className="collapse" aria-labelledby="heading2" data-parent="#accordion">
-                                            <div className="card-body"> Iisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Mutat tacimates id sit. Ridens mediocritatem ius an, eu nec magna imperdiet. </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header" id="heading3">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">Is my account information safe?</a> </h5>
-                                        </div>
-                                        <div id="collapse3" className="collapse" aria-labelledby="heading3" data-parent="#accordion">
-                                            <div className="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header" id="heading4">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">How does it work?</a> </h5>
-                                        </div>
-                                        <div id="collapse4" className="collapse" aria-labelledby="heading4" data-parent="#accordion">
-                                            <div className="card-body"> Iisque Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header" id="heading5">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">I did not receive the cashback</a> </h5>
-                                        </div>
-                                        <div id="collapse5" className="collapse" aria-labelledby="heading5" data-parent="#accordion">
-                                            <div className="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
-                                        </div>
-                                    </div>
-                                    <div className="card">
-                                        <div className="card-header" id="heading6">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">Forgot my password! What next?</a> </h5>
-                                        </div>
-                                        <div id="collapse6" className="collapse" aria-labelledby="heading6" data-parent="#accordion">
-                                            <div className="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
-                                        </div>
-                                    </div>
+                                {supportList.filter(faq => faq.subject.subjectName == 'My Account').map(faq => (
                                     <div className="card">
                                         <div className="card-header" id="heading7">
-                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">Closing Your Account</a> </h5>
+                                            <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">{faq.question}</a> </h5>
                                         </div>
                                         <div id="collapse7" className="collapse" aria-labelledby="heading7" data-parent="#accordion">
-                                            <div className="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
+                                            <div className="card-body"> {faq.answer} </div>
                                         </div>
                                     </div>
+                                     ))}
                                 </div>
                                 <a href="faq.html" className="btn btn-link btn-block btn-sm"><u>Click Here for more FAQ</u></a> </div>
                         </div>

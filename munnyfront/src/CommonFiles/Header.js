@@ -12,22 +12,27 @@ export default function Header(props) {
                 <div className="header-row">
                     <div className="header-column justify-content-start">
                         <div className="logo">
-                            <Link to={"/salonsearch"} title="Salon Search" style={{ fontSize: '25px' }}>MUNNY FINDS</Link>
+                            <Link to={"/salonsearch"} title="Salon Search"><img src="/images/logo.png" alt="logo" style={{maxWidth:'200px'}}></img></Link>
                         </div>
                     </div>
                     <div className="header-column justify-content-end">
                         <nav className="primary-menu navbar navbar-expand-lg">
                             <div id="header-nav" className="collapse navbar-collapse">
                                 <ul className="navbar-nav">
-                                    <li className="dropdown active"> <Link className="dropdown-toggle" to={"/"}>Home</Link>
+                                    <li className="dropdown active"> <Link to={"/"}>Home</Link>
                                     </li>
-                                    <li className="dropdown dropdown-mega"> <Link className="dropdown-toggle" to={"/offers"}>Offers</Link>
+                                    <li className="dropdown"> <Link to={"/"}>Salons</Link>
                                     </li>
-                                    <li className="dropdown"> <Link className="dropdown-toggle" to={"/registerbusiness"}>Become a Partner</Link>
+                                    <li className="dropdown"> <Link to={"/"}>Gyms</Link>
                                     </li>
-                                    <li className="dropdown"> <Link className="dropdown-toggle" to={"/support"}>Support</Link>
+                                    <li className="dropdown"> <Link to={"/"}>Yoga</Link>
                                     </li>
-                                    <li className="login-signup ml-lg-2"><Link className="pl-lg-4 pr-0" title="Login / Sign up" onClick={toggleUPopup}>Login / Sign up <span className="d-none d-lg-inline-block"><i className="fas fa-user" /></span></Link></li>
+                                    <li className="dropdown"> <Link to={"/offers"}>Offers</Link>
+                                    </li>
+                                    <li className="dropdown"> <Link to={"/registerbusiness"}>Become a Partner</Link>
+                                    </li>
+                                    <li className="dropdown"><Link title="Login / Sign up" onClick={toggleUPopup}>MyAccount<span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>
+</Link></li>
                                 </ul>
                             </div>
                         </nav>{/* Primary Navigation end */}

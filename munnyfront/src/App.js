@@ -28,15 +28,17 @@ import BusinessCalendar from './BusinessModule/BusinessCalendar';
 import BusinessPassword from './BusinessModule/BusinessPassword';
 import BusinessPayments from './BusinessModule/BusinessPayments';
 import BusinessProfile from './BusinessModule/BusinessProfile';
-import BusinessServicePrices from './BusinessModule/BusinessServicePrices';
 import BusinessServices from './BusinessModule/BusinessServices';
 import CancelledAppointments from './BusinessModule/CancelledAppointments';
 import CompletedAppointments from './BusinessModule/CompletedAppointments';
 import UpcomingAppointments from './BusinessModule/UpcomingAppointments';
-
+import ForgotPassword from './PublicModule/ForgotPassword';
+import VerifyOTP from './PublicModule/VerifyOTP';
+import { createBrowserHistory } from "history";
+export const history = createBrowserHistory();
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>        
         <Route exact path='/' component={SalonSearch} />
         <Route path='/salonsearch' component={SalonSearch} />
@@ -44,11 +46,13 @@ function App() {
         <Route path='/yogasearch' component={YogaSearch} />
         <Route path='/registerbusiness' component={BusinessRegister} />
         <Route path='/businesslist' component={BusinessList} />
-        <Route path='/businessdetails' component={BusinessDetails} />
+        <Route path='/businessdetails/:businessurl' component={BusinessDetails} />
         <Route path='/chooseappointment' component={ChooseAppointment} />
         <Route path='/appointmentsummary' component={AppointmentSummary} />
         <Route path='/makepayment' component={MakePayment} />
         <Route path='/appointmentconfirmation' component={AppointmentConfirmation} />
+        <Route path='/forgotpassword' component={ForgotPassword} />
+        <Route path='/verifyotp' component={VerifyOTP} />
 
         <Route path='/contactus' component={Contactus} />
         <Route path='/support' component={Support} />
@@ -64,7 +68,6 @@ function App() {
         <BusinessProtected path='/business/changepassword' component={BusinessPassword} />
         <BusinessProtected path='/business/payments' component={BusinessPayments} />
         <BusinessProtected path='/business/businessprofile' component={BusinessProfile} />
-        <BusinessProtected path='/business/serviceprices' component={BusinessServicePrices} />
         <BusinessProtected path='/business/services' component={BusinessServices} />
         <BusinessProtected path='/business/cancelledappointments' component={CancelledAppointments} />
         <BusinessProtected path='/business/completedappointments' component={CompletedAppointments} />

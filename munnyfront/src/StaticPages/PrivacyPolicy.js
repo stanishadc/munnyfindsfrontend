@@ -1,7 +1,29 @@
-import React from 'react';
+
+import React,{useState, useEffect} from 'react';
+import axios from 'axios'
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
+const initialFieldValues = {
+    privacyPolicyId: 0,
+    title: "",
+    paraGraph: "",
+    paraGraph1: "",
+};
 export default function Privacy(props) {
+    const [values, setValues] = useState(initialFieldValues)
+    const applicationAPI = (url = "https://localhost:44313/api/privacypolicy/") => {
+        return {
+          fetchAll: () => axios.get(url + "get")
+        };
+      };
+    function refreshPrivacyPolicy() {
+        applicationAPI().fetchAll()
+            .then(res => setValues(res.data[0]))
+            .catch(err => console.log(err))
+    }
+    useEffect(() => {
+        refreshPrivacyPolicy();
+    }, [])
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -23,9 +45,9 @@ export default function Privacy(props) {
             <div id="content">
                 <div className="container">
                     <div className="bg-light shadow-md rounded p-4">
-                        <h2 className="text-6">What is Quickai?</h2>
-                        <p>Instant Online recharge and Bill Payments Iisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Mutat tacimates id sit. Ridens mediocritatem ius an, eu nec <a href>magna imperdiet</a>. Mediocrem qualisque in has. Enim utroque perfecto id mei, ad eam tritani labores facilisis, ullum sensibus no cum. Eius eleifend in quo. At mei alia iriure propriae.</p>
-                        <p>Partiendo voluptatibus ex cum, sed erat fuisset ne, cum ex meis volumus mentitum. Alienum pertinacia maiestatis ne eum, verear persequeris et vim. Mea cu dicit voluptua efficiantur, nullam labitur veritus sit cu. Eum denique omittantur te, in justo epicurei his, eu mei aeque populo. Cu pro facer sententiae, ne brute graece scripta duo. No placerat quaerendum nec, pri alia <a href>ceteros adipiscing</a> ut. Quo in nobis nostrum intellegebat. Ius hinc decore erroribus eu, in case prima exerci pri. Id eum prima adipisci. Ius cu minim theophrastus, legendos pertinacia an nam.</p>
+                        <h2 className="text-6">{values.title}</h2>
+                        <p>{values.paraGraph}</p>
+                        <p>{values.paraGraph1}</p>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ export default function CompletedAppointments(props) {
                         <div className="col-md-4">
                             <ul className="breadcrumb justify-content-start justify-content-md-end mb-0">
                                 <li><Link to={"/"}>Home</Link></li>
-                                <li className="active">Business Profile</li>
+                                <li className="active">Completed Appointments</li>
                             </ul>
                         </div>
                     </div>
@@ -28,10 +28,14 @@ export default function CompletedAppointments(props) {
                         <BusinessSidebar></BusinessSidebar>
                         <div className="col-lg-9">
                             <div className="bg-white shadow-md rounded p-4">
-                                <h4 className="mb-4">Completed Appointments</h4>
-                                <hr className="mx-n4" />
+                                <h5 className="mb-4">Appointments</h5>
+                                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                    <li className="nav-item"> <Link to={"/business/upcomingappointments"} className="nav-link" id="upcoming" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/completedappointments"} className="nav-link active" id="completed" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/cancelledappointments"} className="nav-link" id="cancelled" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</Link> </li>
+                                </ul>
                                 <div className="tab-content my-3" id="myTabContent">
-                                    <div className="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
+                                    <div className="tab-pane fade show active" id="completed" role="tabpanel" aria-labelledby="completed">
                                         <div className="table-responsive-md">
                                             <table className="table table-hover border">
                                                 <thead className="thead-light">
@@ -88,7 +92,6 @@ export default function CompletedAppointments(props) {
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>

@@ -1,7 +1,31 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios'
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
+const initialFieldValues = {
+    contactUsId: 0,
+    title: "",
+    paraGraph: "",
+    email: "",
+    mobile: "",
+    address: "",
+    googleMapUrl: "",
+    };
 export default function Contactus(props) {
+    const [values, setValues] = useState(initialFieldValues)
+    const applicationAPI = (url = "https://localhost:44313/api/contactus/") => {
+        return {
+          fetchAll: () => axios.get(url + "get")
+        };
+      };
+    function refreshContactUs() {
+        applicationAPI().fetchAll()
+            .then(res => setValues(res.data[0]))
+            .catch(err => console.log(err))
+    }
+    useEffect(() => {
+        refreshContactUs();
+    }, [])
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -25,38 +49,33 @@ export default function Contactus(props) {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="bg-light shadow-md rounded h-100 p-3">
-                                <iframe className="h-100 w-100" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3151.840107317064!2d144.955925!3d-37.817214!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sin!4v1530885071349" allowFullScreen />
+                                <iframe className="h-100 w-100" src={values.googleMapUrl} allowFullScreen />
                             </div>
-                        </div>
+                    </div>
                         <div className="col-md-6 mt-4 mt-md-0">
                             <div className="bg-light shadow-md rounded p-4">
-                                <h2 className="text-6">Get in touch</h2>
-                                <p className="text-3">For Customer Support and Query, Get in touch with us: <a href="#">Help</a></p>
+                                <h2 className="text-6">{values.title}</h2>
+                                <p className="text-3">{values.paraGraph} <a href="#">Help</a></p>
                                 <div className="featured-box style-1">
                                     <div className="featured-box-icon text-primary"> <i className="fas fa-map-marker-alt" /></div>
                                     <h3>Quickai Inc.</h3>
-                                    <p>4th Floor, Plot No.22, Above Public Park<br />
-              145 Murphy Canyon Rd.<br />
-              Suite 100-18<br />
-              San Diego CA 2028 </p>
+                                    <p>{values.address}</p>
                                 </div>
                                 <div className="featured-box style-1">
                                     <div className="featured-box-icon text-primary"> <i className="fas fa-phone" /> </div>
                                     <h3>Telephone</h3>
-                                    <p>(+060) 9898980098, (+060) 8898880088</p>
+                                    <p>{values.mobile}</p>
                                 </div>
                                 <div className="featured-box style-1">
                                     <div className="featured-box-icon text-primary"> <i className="fas fa-envelope" /> </div>
                                     <h3>Business Inquiries</h3>
-                                    <p>info@quickai.com</p>
+                                    <p>{values.email}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <Footer></Footer>
         </div>
     )

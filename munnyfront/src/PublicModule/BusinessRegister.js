@@ -142,7 +142,7 @@ export default function BusinessRegister(props) {
                                     <div className="form-group row">
                                         <div class="col-lg-4">
                                             <label htmlFor="businessTypeId">Business Type</label>
-                                            <select className={"custom-select" + applyErrorClass('businessName')} value={values.businessTypeId} name="businessTypeId" onChange={handleInputChange}>
+                                            <select className={"form-control" + applyErrorClass('businessName')} value={values.businessTypeId} name="businessTypeId" onChange={handleInputChange}>
                                                 <option value="0">Select Business Type</option>
                                                 {businessTypeList.map(data =>
                                                     <option value={data.businessTypeId}>{data.business}</option>

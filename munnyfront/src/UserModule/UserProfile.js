@@ -1,9 +1,88 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios'
 import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import UserSidebar from './UserSidebar';
+const initialFieldValues = {
+    customerId: 0,
+    customerName: '',
+    customerMobile: '',
+    customerEmail: '',
+    username: '',
+    password: '',
+    status: "true",
+    createdDate: new Date().toLocaleString(),
+    updatedDate: new Date().toLocaleString()
+    }
 export default function UserProfile(props) {
+    const [values, setValues] = useState(initialFieldValues)
+    const [errors, setErrors] = useState({})
+
+    const handleInputChange = e => {
+    const { name, value } = e.target;
+    setValues({
+    ...values,
+    [name]: value
+    })
+    }
+      const validate = () => {
+        let temp = {};
+        temp.business = values.business === "" ? false : true;
+        temp.status = values.status === "0" ? false : true;
+        setErrors(temp);
+        return Object.values(temp).every((x) => x === true);
+      };
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()) {
+          const formData = new FormData();
+          formData.append("customerId", values.customerId);
+          formData.append("customerName", values.customerName);
+          formData.append("customerMobile", values.customerMobile);
+          formData.append("customerEmail", values.customerEmail);
+          formData.append("username", values.username);
+          formData.append("password", values.password);
+          formData.append("createdDate", values.createdDate);
+          formData.append("updatedDate", values.updatedDate);
+          formData.append("status", values.status);
+          formData.append("businessTypeURL", values.businessTypeURL);
+          console.log(values);
+          addOrEdit(formData, );
+        }
+      };
+      const addOrEdit = (formData, onSuccess) => {
+        if (formData.get("customerId") === "0") {
+          applicationAPI()
+            .create(formData)
+            .then((res) => {
+            //   handleSuccess("New BusinessType Added");
+            });
+        } else {
+          applicationAPI()
+            .update(formData.get("customerId"), formData)
+            .then((res) => {
+            //   handleSuccess("Business Type Details Updated");
+            });
+        }
+      };
+    const applicationAPI = (url = 'https://localhost:44313/api/customer/') => {
+    return {
+    fetchCustomerView: () => axios.get(url + 'getbyid/2' ),
+
+    update: (id, updateRecord) =>
+    axios.put(url + "update/" + id, updateRecord),
+    }
+    }
+    function refreshCustomerView() {
+    applicationAPI().fetchCustomerView()
+    .then(res => setValues(res.data[0]))
+    .catch(err => console.log(err))
+    }
+    useEffect(() => {
+    refreshCustomerView();
+    }, [])
+    const applyErrorClass = field => ((field in errors && errors[field] === false) ? ' form-control-danger' : '')
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -32,7 +111,7 @@ export default function UserProfile(props) {
                                 <hr className="mx-n4 mb-4" />
                                 <div className="row">
                                     <div className="col-lg-7">
-                                        <form id="personalInformation" method="post">
+                                        <form onSubmit={handleSubmit} id="personalInformation" method="post">
                                             <div className="mb-3">
                                                 <div className="custom-control custom-radio custom-control-inline">
                                                     <input id="male" name="profile" className="custom-control-input" defaultChecked required type="radio" />
@@ -44,16 +123,16 @@ export default function UserProfile(props) {
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="fullName">Full Name</label>
-                                                <input type="text" defaultValue="Johne Cary" className="form-control" data-bv-field="fullName" id="fullName" required placeholder="Full Name" />
+                                                <label htmlFor="customerName">Full Name</label>
+                                                <input className={"form-control" + applyErrorClass('customerName')} name="customerName" type="text" value={values.customerName}  onChange={handleInputChange} />
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="mobileNumber">Mobile Number</label>
-                                                <input type="text" defaultValue={9898989898} className="form-control" data-bv-field="mobilenumber" id="mobileNumber" required placeholder="Mobile Number" />
+                                                <label htmlFor="customerMobile">Mobile Number</label>
+                                                <input className={"form-control" + applyErrorClass('customerMobile')} name="customerMobile" type="text" value={values.customerMobile}onChange={handleInputChange} />
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="emailID">Email ID</label>
-                                                <input type="text" defaultValue="jhonecary2018@gmail.com" className="form-control" data-bv-field="emailid" id="emailID" required placeholder="Email ID" />
+                                                <label htmlFor="customerEmail">Email ID</label>
+                                                <input className={"form-control" + applyErrorClass('customerEmail')} name="customerEmail" type="text" value={values.customerEmail} onChange={handleInputChange}/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="birthDate">Date of Birth</label>
