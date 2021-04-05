@@ -36,8 +36,7 @@ export default function MakePayment(props) {
     if (localStorage.getItem('userAppointmentData') === undefined) {
         return (<Redirect to={"/"} />);
     }
-    else {
-        console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
+    else {        
         if (loop === 0) {
             setloop(1);
             setServicesData(values.user)
@@ -48,7 +47,7 @@ export default function MakePayment(props) {
             create: newRecord => axios.post(url + "insert", newRecord)
         }
     }
-    const addAppoinment = (paymentPlace) => {
+    const addAppoinment = (paymentPlace, bookingStatus,paymentStatus) => {
         const formData = new FormData()
         formData.append('appointmentId', values.appointmentId)
         formData.append('appointmentNo', values.appointmentNo)
@@ -59,8 +58,8 @@ export default function MakePayment(props) {
         formData.append('customerId', values.customerId)
         formData.append('businessId', values.businessId)
         formData.append('userServices', JSON.stringify(values.userServices))
-        formData.append('bookingStatus', values.bookingStatus)
-        formData.append('paymentStatus', values.paymentStatus)
+        formData.append('bookingStatus', bookingStatus)
+        formData.append('paymentStatus', paymentStatus)
         formData.append('modeOfPayment', values.modeOfPayment)
         formData.append('subTotal', values.subTotal)
         formData.append('discount', values.discount)
@@ -80,7 +79,12 @@ export default function MakePayment(props) {
                 console.log(res)
                 if (res.data.status === "Success") {
                     //setLoading(true);
-                    localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
+                    var NewObject={};
+                    NewObject=JSON.parse(localStorage.getItem('userAppointmentData'));
+                    NewObject.appointmentNo=res.data.data;
+                    NewObject.bookingStatus=bookingStatus;
+                    NewObject.paymentStatus=paymentStatus;
+                    localStorage.setItem('userAppointmentData',JSON.stringify(NewObject));
                     props.history.push({
                         pathname: '/appointmentconfirmation'
                     })
@@ -89,11 +93,11 @@ export default function MakePayment(props) {
     }
     function payatvenue()
     {
-        addAppoinment("Pay at Venue")
+        addAppoinment("Pay at Venue","Success","Pending")
     }
     function paypalpayment()
     {
-        addAppoinment("Online")
+        addAppoinment("Online","Success","Success");
     }
     return (
         <div id="main-wrapper">
@@ -165,14 +169,6 @@ export default function MakePayment(props) {
                                             <hr />
                                             <div className="text-dark text-4 font-weight-500 py-1"> Total Amount<span className="float-right text-7">${values.total}</span></div>
                                         </div>
-                                        {/* Payable Amount end */}
-                                        {/* Pay via Paypal
-          ============================================= */}
-                                        <div className="bg-light-2 rounded p-4 d-none d-md-block">
-                                            <h3 className="text-4 mb-3">We value your Privacy.</h3>
-                                            <p className="mb-0">We will not sell or distribute your information. Read our <a href="#">Privacy Policy</a>.</p>
-                                        </div>
-                                        {/* Cards Details end */}
                                     </div>
                                 </div>
                             </div>

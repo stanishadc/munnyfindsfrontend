@@ -6,6 +6,11 @@ import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
 import { handleSuccess, handleError } from "../CommonFiles/CustomAlerts";
 import AddDuration from './AddDuration';
+const OpeningHoursField={
+    day:true,
+    openingHour:'',
+    closingHour:''
+}
 const initialFieldValues = {
     businessAvailabilityId: 0,
     businessId: "0",
@@ -33,6 +38,7 @@ const initialFieldValues = {
 }
 export default function BusinessAvailability(props) {
     const [values, setValues] = useState(initialFieldValues)
+    const [openingHours, setOpeningHours] = useState(initialFieldValues)
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({

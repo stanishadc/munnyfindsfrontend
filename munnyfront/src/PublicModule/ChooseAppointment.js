@@ -111,6 +111,7 @@ export default function ChooseAppointment(props) {
             appointmentFieldValues.appointmentDate = moment(cValue);
             appointmentFieldValues.customerId = 2;
             appointmentFieldValues.businessId = values.businessId;
+            appointmentFieldValues.businessName = values.businessName;
             appointmentFieldValues.bookingStatus = 'Pending';
             appointmentFieldValues.paymentStatus = 'Pending';
             appointmentFieldValues.modeOfPayment = 'Cash';
@@ -149,7 +150,7 @@ export default function ChooseAppointment(props) {
         bindTimings(newdate);
     }
     function bindTimings(sdate) {
-        var duration = 60;//initialFieldValues.duration;        
+        var duration = 30;//initialFieldValues.duration;        
         var starttime = 9;//initialFieldValues.startTime;
         var endtime = 20;//initialFieldValues.endTime;
         var todayee = new Date();
@@ -175,8 +176,8 @@ export default function ChooseAppointment(props) {
         for (var i = 0; tt < Number(Number(endtime)) * 60; i++) {
             var hh = Math.floor(tt / 60);
             var mm = (tt % 60);
-            //times[i] = ("" + ((hh == 12) ? 12 : hh % 12)).slice(-2) + ':' + ("0" + mm).slice(-2) + ap[Math.floor(hh / 12)];
-            times[i] = ("" + ((hh == 24) ? 24 : hh % 24)).slice(-2);
+            times[i] = ("" + ((hh == 12) ? 12 : hh % 12)).slice(-2) + ':' + ("0" + mm).slice(-2) + ap[Math.floor(hh / 12)];
+            //times[i] = ("" + ((hh == 24) ? 24 : hh % 24)).slice(-2);
             tt = tt + x;
         }
         {

@@ -11,6 +11,7 @@ export default function AppointmentSummary(props) {
         return (<Redirect to={"/"} />);
     }
     else {
+        console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
         if (loop === 0) {
             setloop(1);
             setServicesData(values.userServices)
@@ -56,7 +57,23 @@ export default function AppointmentSummary(props) {
                             <p className="lead">Confirm appointment details</p>
                         </div>
                         <div className="col-md-8 col-lg-6 col-xl-5 mx-auto">
-                            <div className="bg-white shadow-sm rounded p-3 p-sm-4 mb-0 mb-sm-4">
+                            <div className="bg-white shadow-sm rounded p-3 p-sm-4 mb-0 mb-sm-4">                                
+                                <div className="row">
+                                    <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Date</p>
+                                    <p className="col-sm text-sm-right font-weight-500">{moment(values.appointmentDate).format('MMMM Do YYYY')}</p>
+                                </div>
+                                <div className="row">
+                                    <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Time</p>
+                                    <p className="col-sm text-sm-right font-weight-500">{values.appointmentTime}</p>
+                                </div>
+                                <div className="row">
+                                    <p className="col-sm text-muted mb-0 mb-sm-3">Service provider:</p>
+                                    <p className="col-sm text-sm-right font-weight-500">{values.businessName}</p>
+                                </div>
+                                <div className="row">
+                                    <p className="col-sm text-muted mb-0 mb-sm-3">Amount:</p>
+                                    <p className="col-sm text-sm-right font-weight-500">${values.subTotal}</p>
+                                </div>
                                 <div className="row">
                                     <table className="table">
                                         <thead>
@@ -76,26 +93,6 @@ export default function AppointmentSummary(props) {
                                             )}
                                         </tbody>
                                     </table>
-                                </div>
-                                <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Date</p>
-                                    <p className="col-sm text-sm-right font-weight-500">{moment(values.appointmentDate).format('MMMM Do YYYY')}</p>
-                                </div>
-                                <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Time</p>
-                                    <p className="col-sm text-sm-right font-weight-500">{values.appointmentTime}</p>
-                                </div>
-                                <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Service provider:</p>
-                                    <p className="col-sm text-sm-right font-weight-500">{values.businessName}</p>
-                                </div>
-                                <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Amount:</p>
-                                    <p className="col-sm text-sm-right font-weight-500">${values.subTotal}</p>
-                                </div>
-                                <div className="row">
-                                    <p className="col-12 text-muted mb-0">Terms and Conditions:</p>
-                                    <p className="col-12 text-1">Local calls free &amp; STD calls free &amp; Roaming Incoming &amp; Outgoing calls free &amp; 300 Local &amp; National SMS &amp; 1 GB 3G/4G Data &amp; Data Validity 28 day(s) &amp; For 3G/4G user - T&amp;C apply</p>
                                 </div>
                                 <div className="bg-light-4 rounded p-3">
                                     <div className="row">

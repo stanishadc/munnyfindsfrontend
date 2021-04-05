@@ -11,6 +11,7 @@ export default function AppointmentConfirmation(props) {
         return (<Redirect to={"/"} />);
     }
     else {
+        console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
         if (loop === 0) {
             setloop(1);
             setServicesData(values.userServices)
@@ -110,8 +111,8 @@ export default function AppointmentConfirmation(props) {
                                 </div>
                             </div>
                             <div className="text-center">
-                                <a href="#" className="btn-link text-muted mx-3 my-2 align-items-center d-inline-flex"><span className="text-5 mr-2"><i className="far fa-file-pdf" /></span>Save as PDF</a>
-                                <a href="#" className="btn-link text-muted mx-3 my-2 align-items-center d-inline-flex"><span className="text-5 mr-2"><i className="fas fa-print" /></span>Print Receipt</a>
+                                {/* <a href="#" className="btn-link text-muted mx-3 my-2 align-items-center d-inline-flex"><span className="text-5 mr-2"><i className="far fa-file-pdf" /></span>Save as PDF</a>
+                                <a href="#" className="btn-link text-muted mx-3 my-2 align-items-center d-inline-flex"><span className="text-5 mr-2"><i className="fas fa-print" /></span>Print Receipt</a> */}
                                 <a href="#" className="btn-link text-muted mx-3 my-2 align-items-center d-inline-flex"><span className="text-5 mr-2"><i className="far fa-envelope" /></span>Email Receipt</a>
                             </div>
                         </div>
