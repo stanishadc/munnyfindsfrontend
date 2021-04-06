@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
+import moment from 'moment'
 export default function UpcomingAppointments(props) {
+    const [appointmentList, setAppointmentList] = useState([])
+    const applicationAPI = (url = 'https://localhost:44313/api/appointments/') => {
+        return {
+            fetchByCustomer: () => axios.get(url + 'GetUpComingAppointments/'+localStorage.getItem('MFFBusinessId'))
+        }
+    }
+    function refreshAppointmentList() {
+        applicationAPI().fetchByCustomer()
+            .then(res => setAppointmentList(res.data))
+            .catch(err => console.log(err))
+    }
+    useEffect(() => {
+        refreshAppointmentList();
+    }, [])
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -40,55 +56,23 @@ export default function UpcomingAppointments(props) {
                                             <table className="table table-hover border">
                                                 <thead className="thead-light">
                                                     <tr>
-                                                        <th>Appointment No</th>
-                                                        <th>Appointment Date & Time</th>                                                        
-                                                        <th>Customer Name</th>
-                                                        <th>Service</th>
-                                                        <th className="text-right">Amount</th>
-                                                        <th className="text-right">Payment</th>
+                                                        <th>AppointmentNo</th>
+                                                        <th>Customer</th>
+                                                        <th>mobileNo</th>
+                                                        <th>Appointment Date & Time</th>
+                                                        <th>Payment Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                    <td className="align-middle">MF254578</td>
-                                                        <td className="align-middle">06/06/2021 10:30</td>
-                                                        <td className="align-middle">Tanisha</td>
-                                                        <td className="align-middle">Boys Hair Cutting</td>
-                                                        <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td className="align-middle">MF254578</td>
-                                                        <td className="align-middle">06/06/2021 10:30</td>
-                                                        <td className="align-middle">Tanisha</td>
-                                                        <td className="align-middle">Boys Hair Cutting</td>
-                                                        <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td className="align-middle">MF254578</td>
-                                                        <td className="align-middle">06/06/2021 10:30</td>
-                                                        <td className="align-middle">Tanisha</td>
-                                                        <td className="align-middle">Boys Hair Cutting</td>
-                                                        <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-warning" data-toggle="Customer will pay at venue" data-original-title="Customer paid online" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td className="align-middle">MF254578</td>
-                                                        <td className="align-middle">06/06/2021 10:30</td>
-                                                        <td className="align-middle">Tanisha</td>
-                                                        <td className="align-middle">Boys Hair Cutting</td>
-                                                        <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="Customer will pay at venue" data-original-title="Customer paid online" /></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <td className="align-middle">MF254578</td>
-                                                        <td className="align-middle">06/06/2021 10:30</td>
-                                                        <td className="align-middle">Tanisha</td>
-                                                        <td className="align-middle">Boys Hair Cutting</td>
-                                                        <td className="align-middle text-right">$150</td>
-                                                        <td className="align-middle text-center"><i className="fas fa-check-circle text-4 text-success" data-toggle="Customer will pay at venue" data-original-title="Customer will pay at venue" /></td>
-                                                    </tr>
+                                                    {appointmentList.map(app =>
+                                                        <tr key={app.appointmentId}>
+                                                            <td>{app.appointmentNo}</td>
+                                                            <td>{app.customer.customerName}</td>
+                                                            <td>{app.customer.customerMobile}</td>
+                                                            <td>{moment(app.appointmentDate).format('MMMM Do yyyy')} - {app.startTime}</td>
+                                                            <td>{app.paymentStatus}</td>
+                                                        </tr>
+                                                    )}
                                                 </tbody>
                                             </table>
                                         </div>

@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import UserSidebar from './UserSidebar';
+import moment from 'moment'
 export default function UserAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
     const applicationAPI = (url = 'https://localhost:44313/api/appointments/') => {
-    return {
-    fetchByCustomer: () => axios.get(url + 'GetByCustomer/2'),
-    }
+        return {
+            fetchByCustomer: () => axios.get(url + 'GetByCustomer/'+localStorage.getItem('MFFUserId'))
+        }
     }
     function refreshAppointmentList() {
-    applicationAPI().fetchByCustomer()
-    .then(res => setAppointmentList(res.data))
-    .catch(err => console.log(err))
+        applicationAPI().fetchByCustomer()
+            .then(res => setAppointmentList(res.data))
+            .catch(err => console.log(err))
     }
     useEffect(() => {
         refreshAppointmentList();
@@ -48,26 +49,28 @@ export default function UserAppointments(props) {
                                 <div className="tab-content my-3" id="myTabContent">
                                     <div className="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
                                         <div className="table-responsive-md">
-                                        <table className="table table-bordered table-striped mt-3" id="appointmentList">
-                                         <thead>
-                                          <tr>
-                                           <th>Appointment No</th>
-                                            <th>Appointment Status</th>
-                                            <th>Booking Date</th>
-                                            <th>Payment Status</th> 
-                                           </tr>
-                                            </thead>
-                                               <tbody>
-                                             {appointmentList.map(app =>
-                                                <tr key={app.appointmentId}>
-                                                <td>{app.appointmentNo}</td>
-                                                 <td>{app.appointmentStatus}</td>
-                                                 <td>{app.bookingDate}</td>
-                                                 <td>{app.paymentStatus}</td>
-                                                  </tr>
+                                        <table className="table table-hover border">
+                                                <thead className="thead-light">
+                                                    <tr>
+                                                        <th>AppointmentNo</th>
+                                                        <th>Business Name</th>
+                                                        <th>Appointment Date & Time</th>
+                                                        <th>Payment Status</th>
+                                                        <th>Booking Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {appointmentList.map(app =>
+                                                        <tr key={app.appointmentId}>
+                                                            <td>{app.appointmentNo}</td>
+                                                            <td>{app.business.businessName}</td>
+                                                            <td>{moment(app.appointmentDate).format('MMMM Do yyyy')} - {app.startTime}</td>
+                                                            <td>{app.paymentStatus}</td>
+                                                            <td>{app.bookingStatus}</td>
+                                                        </tr>
                                                     )}
                                                 </tbody>
-                                             </table>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

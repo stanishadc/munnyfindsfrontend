@@ -1,6 +1,67 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link,useHistory } from 'react-router-dom';
+import auth from '../CommonFiles/Auth';
+const initialLoginValues = {
+    email: '',
+    password: ''
+}
 export default function UserLogin(props) {
+    const history = useHistory();
+    const [values, setValues] = useState(initialLoginValues)
+    const [errors, setErrors] = useState({})
+    const applyErrorClass = field => ((field in errors && errors[field] == false) ? 'form-control-danger' : '')
+    const applicationAPI = (url = 'https://localhost:44313/api/customer/') => {
+        return {
+            checkBusiness: newRecord => axios.post(url + "customerlogin", newRecord)
+        }
+    }
+    const handleInputChange = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+    const validate = () => {
+        let temp = {}
+        temp.email = values.email == "" ? false : true;
+        temp.password = values.password == "" ? false : true;
+        setErrors(temp)
+        return Object.values(temp).every(x => x == true)
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (validate()) {
+            try {
+                initialLoginValues.email = values.email
+                initialLoginValues.password = values.password
+                checkUser(initialLoginValues)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
+    const checkUser = (loginData) => {
+        applicationAPI().checkBusiness(loginData)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.status === "Login Success") {
+                    auth.blogin(() => {                        
+                        localStorage.setItem('MFFUserId', res.data.userId);
+                        { 
+                            props.handleClose();
+                            // props.history.push({
+                            //     pathname: '/business/businessprofile'
+                            // })
+                        }
+                    });
+                }
+                else {
+                    alert("Invalid credentails");
+                }
+            })
+    }
     return (
         <div className="popup-box">
             <div className="userLogin">
@@ -13,21 +74,20 @@ export default function UserLogin(props) {
                         </ul>
                         <div className="tab-content pt-4">
                             <div className="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                                <form id="loginForm" method="post">
+                            <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                                     <div className="form-group">
-                                        <input type="email" className="form-control" id="loginMobile" required placeholder="Email ID" />
+                                    <input className={"form-control" + applyErrorClass('email')} name="email" type="text" value={values.email} onChange={handleInputChange} placeholder="Email" />
                                     </div>
                                     <div className="form-group">
-                                        <input type="password" className="form-control" id="loginPassword" required placeholder="Password" />
+                                    <input className={"form-control" + applyErrorClass('password')} name="password" type="password" value={values.password} onChange={handleInputChange} placeholder="Password" />
                                     </div>
                                     <div className="row mb-4">
                                         <div className="col-sm">
-                                            <div className="form-check custom-control custom-checkbox">
-                                                <input id="remember-me" name="remember" className="custom-control-input" type="checkbox" />
-                                                <label className="custom-control-label" htmlFor="remember-me">Remember Me</label>
+                                            <div className="form-group">
+                                                
                                             </div>
                                         </div>
-                                        <div className="col-sm text-right"> <Link to={"/forgotpassword"} className="justify-content-end">Forgot Password ?</Link> </div>
+                                        <div className="col-sm text-right"><Link to={"/forgotpassword"} className="justify-content-end">Forgot Password ?</Link></div>
                                     </div>
                                     <button className="btn btn-primary btn-block" type="submit">Login</button>
                                 </form>

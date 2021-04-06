@@ -80,42 +80,23 @@ export default function BusinessProfile(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'https://munnyfindsapi.azurewebsites.net/api/business/') => {
+    const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
         return {
+
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
-            fetchType: () => axios.get('https://munnyfindsapi.azurewebsites.net/api/businesstype/get'),
-            fetchAll: () => axios.get(url + 'GetById/' + localStorage.getItem('MFFBusinessId')),
+            fetchType: () => axios.get('https://localhost:44313/api/businesstype/get'),
+            fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
         }
     }
+
     const addOrEdit = (formData, onSuccess) => {
-        if (formData.get('businessId') === "0") {
-            applicationAPI().create(formData)
-                .then(res => {
-                    if(res.data.status==="success")
-                    {
-                        alert("New Business Added Successfully");
-                    }
-                    else{
-                        alert("Failed to Add New Business");
-                    }
-                    resetForm();
-                })
-        }
-        else {
-            applicationAPI().update(formData.get('businessId'), formData)
-                .then(res => {
-                    if(res.data.status==="success")
-                    {
-                        alert("Profile Updated Successfully");
-                    }
-                    else{
-                        alert("Profile Update Failed");
-                    }
-                    
-                })
-        }
-    }
+          applicationAPI().update(formData.get("businessId"), formData)
+            .then((res) => {
+                alert("Business Profile Details Updated");
+            });
+      };
+
     const resetForm = () => {
         setValues(initialFieldValues)
     }
@@ -125,14 +106,14 @@ export default function BusinessProfile(props) {
             .then(res => setBusinessTypeList(res.data))
             .catch(err => console.log(err))
     }
-    function refreshBusinessList() {
-        applicationAPI().fetchAll()
-            .then(res => setValues(res.data[0]))
-            .catch(err => console.log(err))
-    }
+    function refreshBusinessView() {
+        applicationAPI().fetchBusinessView()
+        .then(res => setValues(res.data[0]))
+        .catch(err => console.log(err))
+        }
     useEffect(() => {
         refreshBusinessTypeList();
-        refreshBusinessList();
+        refreshBusinessView();
     }, [])
     return (
         <div id="main-wrapper">
@@ -232,10 +213,6 @@ export default function BusinessProfile(props) {
                                                 <div class="col-lg-4">
                                                     <label htmlFor="zipCode">Zip Code/Postal Code</label>
                                                     <input className={"form-control" + applyErrorClass('zipCode')} name="zipCode" type="text" value={values.zipCode} onChange={handleInputChange} placeholder="ZipCode/Postal Code" />
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <label htmlFor="Password">Password</label>
-                                                    <input className={"form-control" + applyErrorClass('password')} name="password" type="password" value={values.password} onChange={handleInputChange} placeholder="Password" />
                                                 </div>
                                             </div>
                                             <div className="form-group row">

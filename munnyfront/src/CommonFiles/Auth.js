@@ -1,31 +1,34 @@
 class Auth {
     constructor() {
-        this.uauthenticated = false
-        this.bauthenticated = false
+        this.Uauthenticated = false
+        this.Bauthenticated = false
     }
     ulogin(cb) {
-        this.uauthenticated = true
+        this.Uauthenticated = true
         cb()
     }
-    ulogout(cb) {
-        this.uauthenticated = false
+    ulogout(cb) {        
         localStorage.setItem('MFFUserId','null');
+        localStorage.setItem('MFFBusinessId','null');
+        this.Uauthenticated = false;
+        this.Bauthenticated = false;
         cb()
     }
     blogin(cb) {
-        this.bauthenticated = true
+        this.Bauthenticated = true
         cb()
     }
     blogout(cb) {
-        this.bauthenticated = false
+        localStorage.setItem('MFFUserId','null');
         localStorage.setItem('MFFBusinessId','null');
-        cb()
+        this.Uauthenticated = false;
+        this.Bauthenticated = false;
     }
     isUAuthenticated() {
         return this.uauthenticated;
     }
     isBAuthenticated() {
-        return this.bauthenticated;
+        return this.Bauthenticated;
     }
 }
 export default new Auth()

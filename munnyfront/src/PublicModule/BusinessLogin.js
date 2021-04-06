@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link,useHistory } from 'react-router-dom';
-import auth from '../CommonFiles/Auth'
+import auth from '../CommonFiles/Auth';
 const initialLoginValues = {
     email: '',
     password: ''
 }
-export default function BusinessLogin(props) {    
-const [bLoggedIn, setBLoggedIn] = useState(localStorage.getItem('MFFBusinessId'));
+export default function BusinessLogin(props) {
     const history = useHistory();
     const [values, setValues] = useState(initialLoginValues)
     const [errors, setErrors] = useState({})
     const applyErrorClass = field => ((field in errors && errors[field] == false) ? 'form-control-danger' : '')
-    const applicationAPI = (url = 'https://munnyfindsapi.azurewebsites.net/api/business/') => {
+    const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
         return {
             checkBusiness: newRecord => axios.post(url + "businesslogin", newRecord)
         }
@@ -46,11 +45,16 @@ const [bLoggedIn, setBLoggedIn] = useState(localStorage.getItem('MFFBusinessId')
     const checkUser = (loginData) => {
         applicationAPI().checkBusiness(loginData)
             .then(res => {
+                console.log(res.data)
                 if (res.data.status === "Login Success") {
-                    auth.blogin(() => {
-                        console.log(res.data)
+                    auth.blogin(() => {                        
                         localStorage.setItem('MFFBusinessId', res.data.userId);
-                        { props.handleClose() }
+                        { 
+                            props.handleClose();
+                            props.history.push({
+                                pathname: '/business/businessprofile'
+                            })
+                        }
                     });
                 }
                 else {

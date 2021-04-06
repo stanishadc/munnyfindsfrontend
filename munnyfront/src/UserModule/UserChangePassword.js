@@ -1,9 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import UserSidebar from './UserSidebar';
+const initialFieldValues = {
+    customerId: 0,
+    customerName: '',
+    customerMobile: '',
+    customerEmail: '',
+    password: '',
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+    status: "true",
+    createdDate: new Date().toLocaleString(),
+    updatedDate: new Date().toLocaleString()
+}
 export default function UserChangePasword(props) {
+    const [values, setValues] = useState(initialFieldValues)
+    const [errors, setErrors] = useState({})
+
+    const handleInputChange = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+    const validate = () => {
+        let temp = {};
+        //temp.oldPassword = values.password !== values.oldPassword ? false : true;
+        setErrors(temp);
+        return Object.values(temp).every((x) => x === true);
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()) {
+            const formData = new FormData();
+            formData.append("customerId", values.customerId);
+            formData.append("customerName", values.customerName);
+            formData.append("customerMobile", values.customerMobile);
+            formData.append("customerEmail", values.customerEmail);
+            formData.append("password", values.newPassword);
+            formData.append("createdDate", values.createdDate);
+            formData.append("updatedDate", values.updatedDate);
+            formData.append("status", values.status);
+            formData.append("businessTypeURL", values.businessTypeURL);
+            console.log(values);
+            addOrEdit(formData,);
+        }
+    };
+    const addOrEdit = (formData) => {
+        
+        applicationAPI().update(formData.get("customerId"), formData)
+            .then((res) => {
+                   alert("Profile Updated");
+            });
+    };
+    const applicationAPI = (url = 'https://localhost:44313/api/customer/') => {
+        return {
+            fetchCustomerView: () => axios.get(url + 'getbyid/' + localStorage.getItem('MFFUserId')),
+            update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)
+        }
+    }
+    function refreshCustomerView() {
+        applicationAPI().fetchCustomerView()
+            .then(res => setValues(res.data[0]))
+            .catch(err => console.log(err))
+    }
+    useEffect(() => {
+        refreshCustomerView();
+    }, [])
+    const applyErrorClass = field => ((field in errors && errors[field] === false) ? ' form-control-danger' : '')
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -32,18 +101,18 @@ export default function UserChangePasword(props) {
                                     <hr className="mx-n4 mb-4" />
                                     <div className="row">
                                         <div className="col-lg-8">
-                                            <form id="changePassword" method="post">
+                                        <form onSubmit={handleSubmit} id="personalInformation" method="post">
                                                 <div className="form-group">
-                                                    <label htmlFor="existingPassword">Existing Password</label>
-                                                    <input type="text" className="form-control" data-bv-field="existingpassword" id="existingPassword" required placeholder="Existing Password" />
+                                                    <label htmlFor="oldPassword">Existing Password</label>
+                                                    <input className={"form-control" + applyErrorClass('oldPassword')} name="oldPassword" type="password" value={values.oldPassword} onChange={handleInputChange} />
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="newPassword">New Password</label>
-                                                    <input type="text" className="form-control" data-bv-field="newpassword" id="newPassword" required placeholder="New Password" />
+                                                    <input className={"form-control" + applyErrorClass('newPassword')} name="newPassword" type="password" value={values.newPassword} onChange={handleInputChange} />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label htmlFor="existingPassword">Confirm Password</label>
-                                                    <input type="text" className="form-control" data-bv-field="confirmgpassword" id="confirmPassword" required placeholder="Confirm Password" />
+                                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                                    <input className={"form-control" + applyErrorClass('confirmPassword')} name="confirmPassword" type="password" value={values.confirmPassword} onChange={handleInputChange} />
                                                 </div>
                                                 <button className="btn btn-primary" type="submit">Update Password</button>
                                             </form>
