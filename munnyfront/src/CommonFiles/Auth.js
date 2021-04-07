@@ -8,8 +8,8 @@ class Auth {
         cb()
     }
     ulogout(cb) {        
-        localStorage.setItem('MFFUserId','null');
-        localStorage.setItem('MFFBusinessId','null');
+        localStorage.setItem('MFFUserId',null);
+        localStorage.setItem('MFFBusinessId',null);
         this.Uauthenticated = false;
         this.Bauthenticated = false;
         cb()
@@ -19,13 +19,13 @@ class Auth {
         cb()
     }
     blogout(cb) {
-        localStorage.setItem('MFFUserId','null');
-        localStorage.setItem('MFFBusinessId','null');
+        localStorage.setItem('MFFUserId',null);
+        localStorage.setItem('MFFBusinessId',null);
         this.Uauthenticated = false;
         this.Bauthenticated = false;
     }
     isUAuthenticated() {
-        return this.uauthenticated;
+        return this.Uauthenticated;
     }
     isBAuthenticated() {
         return this.Bauthenticated;

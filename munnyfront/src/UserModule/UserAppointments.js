@@ -62,7 +62,7 @@ export default function UserAppointments(props) {
                                                 <tbody>
                                                     {appointmentList.map(app =>
                                                         <tr key={app.appointmentId}>
-                                                            <td>{app.appointmentNo}</td>
+                                                            <td><Link to={"/user/appointment/"+app.appointmentId}>{app.appointmentNo}</Link></td>
                                                             <td>{app.business.businessName}</td>
                                                             <td>{moment(app.appointmentDate).format('MMMM Do yyyy')} - {app.startTime}</td>
                                                             <td>{app.paymentStatus}</td>

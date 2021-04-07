@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserLogin from '../PublicModule/UserLogin'
+import auth from './Auth'
 export default function Header(props) {
     const [isUOpen, setIsUOpen] = useState(false);    
     const toggleUPopup = () => {
@@ -29,10 +30,13 @@ export default function Header(props) {
                                     </li>
                                     <li className="dropdown"> <Link to={"/offers"}>Offers</Link>
                                     </li>
-                                    <li className="dropdown"> <Link to={"/registerbusiness"}>Become a Partner</Link>
-                                    </li>
-                                    <li className="dropdown"><Link title="Login / Sign up" onClick={toggleUPopup}>MyAccount<span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>
-</Link></li>
+                                    {auth.isUAuthenticated()?
+                                    <li className="dropdown"><Link to={"/user/profile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>MyAccount</Link></li>
+                                    :auth.isUAuthenticated()?
+                                    <li className="dropdown"> <Link to={"/business/businessprofile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>MyAccount</Link></li>
+                                    :
+                                    <li> <Link to={"/registerbusiness"}>Become a Partner</Link><Link title="Login / Sign up" onClick={toggleUPopup}>Login / Sign up</Link></li>
+                                    }
                                 </ul>
                             </div>
                         </nav>{/* Primary Navigation end */}

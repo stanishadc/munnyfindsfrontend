@@ -36,6 +36,8 @@ import ForgotPassword from './PublicModule/ForgotPassword';
 import VerifyOTP from './PublicModule/VerifyOTP';
 import auth from './CommonFiles/Auth';
 import { createBrowserHistory } from "history";
+import BusinessAppointmentsView from './BusinessModule/BusinessAppointmentsView';
+import UserAppointmentsView from './UserModule/UserAppointmentsView';
 
 export const history = createBrowserHistory();
 export default class App extends Component {
@@ -81,10 +83,12 @@ export default class App extends Component {
           <BusinessProtected path='/business/cancelledappointments' component={CancelledAppointments} />
           <BusinessProtected path='/business/completedappointments' component={CompletedAppointments} />
           <BusinessProtected path='/business/upcomingappointments' component={UpcomingAppointments} />
+          <BusinessProtected path='/business/appointment/:appointmentId' component={BusinessAppointmentsView} />
 
           <UserProtected path='/user/profile' component={UserProfile} />
           <UserProtected path='/user/appointments' component={UserAppointments} />
           <UserProtected path='/user/changepassword' component={UserChangePasword} />
+          <UserProtected path='/user/appointment/:appointmentId' component={UserAppointmentsView} />
         </Switch>
       </Router>
     );

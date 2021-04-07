@@ -12,7 +12,8 @@ const initialFieldValues = {
     password: '',
     status: "true",
     createdDate: new Date().toLocaleString(),
-    updatedDate: new Date().toLocaleString()
+    updatedDate: new Date().toLocaleString(),
+    customerOTP:0
 }
 export default function UserProfile(props) {
     const [values, setValues] = useState(initialFieldValues)
@@ -44,8 +45,8 @@ export default function UserProfile(props) {
             formData.append("createdDate", values.createdDate);
             formData.append("updatedDate", values.updatedDate);
             formData.append("status", values.status);
-            console.log(values);
-            addOrEdit(formData,);
+            formData.append("customerOTP", values.customerOTP);
+            addOrEdit(formData);
         }
     };
     const addOrEdit = (formData, onSuccess) => {
