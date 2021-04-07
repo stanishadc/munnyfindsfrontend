@@ -100,7 +100,7 @@ export default function UserAppointmentsView(props) {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h1>User Profile</h1>
+              <h1>Appointment Details</h1>
             </div>
             <div className="col-md-4">
               <ul className="breadcrumb justify-content-start justify-content-md-end mb-0">
