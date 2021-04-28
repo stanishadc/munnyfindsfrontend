@@ -38,7 +38,7 @@ const appointmentFieldValues = {
     endTime: moment(new Date()).add(60, 'minutes').format('LT'),
     duration: '',
     appointmentTime: moment().format('LT'),
-    customerId: 2,
+    customerId: 0,
     businessId: 0,
     userServices: [],
     bookingStatus: 'Pending',
@@ -55,7 +55,8 @@ const appointmentFieldValues = {
     createdDate: moment(new Date()),
     updatedDate: moment(new Date()),
     review: '',
-    rating: 0
+    rating: 0,
+    businessEmployeeId: ''
 }
 export default function ChooseAppointment(props) {
     const [Timings, setTimings] = useState([])
@@ -68,6 +69,8 @@ export default function ChooseAppointment(props) {
     const [loop, setloop] = useState(0)
     const [totalAmount, setTotalAmount] = useState(0)
     const [appointmentOfflineData, setAppointmentOfflineData] = useState([])
+    const [businessEmployeeList, setBusinessEmployeeList] = useState([]);
+    const [errors, setErrors] = useState({});
     if (localStorage.getItem('userAppointmentData') === undefined) {
         return (<Redirect to={"/"} />);
     }
@@ -79,6 +82,7 @@ export default function ChooseAppointment(props) {
             fetchOpeningHours();
             fetchAppointment();
             setTotalAmount(values.total)
+            fetchBusinessEmployee();
         }
     }
     async function fetchOpeningHours() {
@@ -86,6 +90,12 @@ export default function ChooseAppointment(props) {
         const json = await response.json();
         //setValues(json);
     }
+    async function fetchBusinessEmployee() {
+        const response = await fetch('https://localhost:44313/api/BusinessEmployee/GetById/' + values.businessId);
+        const json = await response.json();
+        setBusinessEmployeeList(json)
+        fetchBusinessEmployee()
+        }
     async function fetchOffline() {
         const response = await fetch('https://localhost:44313/api/BusinessOffline/GetById/' + values.businessId);
         const json = await response.json();
@@ -109,7 +119,7 @@ export default function ChooseAppointment(props) {
         }
         else {
             appointmentFieldValues.appointmentDate = moment(cValue);
-            appointmentFieldValues.customerId = 2;
+            appointmentFieldValues.customerId = localStorage.getItem('MFFUserId');
             appointmentFieldValues.businessId = values.businessId;
             appointmentFieldValues.businessName = values.businessName;
             appointmentFieldValues.bookingStatus = 'Pending';
@@ -125,6 +135,7 @@ export default function ChooseAppointment(props) {
             appointmentFieldValues.startDate = moment(cValue).format();
             appointmentFieldValues.userServices = values.userServices;
             appointmentFieldValues.duration = appointmentDuration;
+            appointmentFieldValues.businessEmployeeId = values.businessEmployeeId;
             //console.log(values)
             console.log(appointmentFieldValues)
             localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
@@ -196,6 +207,15 @@ export default function ChooseAppointment(props) {
         setAppointmentDuration(duration);
         getTime();
     }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setValues({
+        ...values,
+        [name]: value,
+        });
+        };
+        const applyErrorClass = (field) =>
+        field in errors && errors[field] === false ? " form-control-danger" : "";
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -251,7 +271,19 @@ export default function ChooseAppointment(props) {
                                         </tbody>
                                     </table>
                                 </div>
-
+                                <div className="row">
+<p className="col-sm text-muted mb-0 mb-sm-3">Select Employee:</p>
+<p className="col-sm text-sm-right font-weight-500">
+<div class="col-lg-12">
+<select className={"form-control" + applyErrorClass('businessEmployeeId')} value={values.businessEmployeeId} name="businessEmployeeId" onChange={handleInputChange}>
+<option value="0">Select Employee</option>
+{businessEmployeeList.map(data =>
+<option value={data.businessEmployeeId}>{data.name}</option>
+)}
+</select>
+</div>
+</p>
+</div>
                                 <div className="row">
                                     <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Date:</p>
                                     <p className="col-sm text-sm-right font-weight-500">

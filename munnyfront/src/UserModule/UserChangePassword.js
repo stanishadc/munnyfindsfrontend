@@ -104,18 +104,18 @@ export default function UserChangePasword(props) {
                                         <form onSubmit={handleSubmit} id="personalInformation" method="post">
                                                 <div className="form-group">
                                                     <label htmlFor="oldPassword">Existing Password</label>
-                                                    <input className={"form-control" + applyErrorClass('oldPassword')} name="oldPassword" type="password" value={values.oldPassword} onChange={handleInputChange} />
+                                                    <input className={"form-control" + applyErrorClass('oldPassword')} name="oldPassword" type="password" value={values.oldPassword} onChange={handleInputChange} placeholder="Existing Password" />
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="newPassword">New Password</label>
-                                                    <input className={"form-control" + applyErrorClass('newPassword')} name="newPassword" type="password" value={values.newPassword} onChange={handleInputChange} />
+                                                    <input className={"form-control" + applyErrorClass('newPassword')} name="newPassword" type="password" value={values.newPassword} onChange={handleInputChange} placeholder="New Password" />
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="confirmPassword">Confirm Password</label>
-                                                    <input className={"form-control" + applyErrorClass('confirmPassword')} name="confirmPassword" type="password" value={values.confirmPassword} onChange={handleInputChange} />
+                                                    <input className={"form-control" + applyErrorClass('confirmPassword')} name="confirmPassword" type="password" value={values.confirmPassword} onChange={handleInputChange} placeholder="Confirm Password"/>
                                                 </div>
                                                 <button className="btn btn-primary" type="submit">Update Password</button>
-                                            </form>
+                                            </form>s
                                         </div>
                                     </div>
                                 </div>

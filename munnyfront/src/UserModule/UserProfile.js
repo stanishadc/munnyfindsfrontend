@@ -12,8 +12,7 @@ const initialFieldValues = {
     password: '',
     status: "true",
     createdDate: new Date().toLocaleString(),
-    updatedDate: new Date().toLocaleString(),
-    customerOTP:0
+    updatedDate: new Date().toLocaleString()
 }
 export default function UserProfile(props) {
     const [values, setValues] = useState(initialFieldValues)
@@ -28,7 +27,7 @@ export default function UserProfile(props) {
     }
     const validate = () => {
         let temp = {};
-        temp.business = values.business === "" ? false : true;
+        temp.customerName = values.customerName === "" ? false : true;
         temp.status = values.status === "0" ? false : true;
         setErrors(temp);
         return Object.values(temp).every((x) => x === true);
@@ -45,8 +44,8 @@ export default function UserProfile(props) {
             formData.append("createdDate", values.createdDate);
             formData.append("updatedDate", values.updatedDate);
             formData.append("status", values.status);
-            formData.append("customerOTP", values.customerOTP);
-            addOrEdit(formData);
+            console.log(values);
+            addOrEdit(formData,);
         }
     };
     const addOrEdit = (formData, onSuccess) => {

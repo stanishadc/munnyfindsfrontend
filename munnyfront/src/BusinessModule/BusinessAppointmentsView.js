@@ -217,8 +217,6 @@ export default function BusinessAppointmentsView(props) {
                         </div>
                       </div>
                       <button className="btn btn-primary" type="submit">Update Now</button>
-  
-  
                     </form>
                   </div>
                 </div>

@@ -27,7 +27,8 @@ const appointmentFieldValues = {
     createdDate: moment(new Date()),
     updatedDate: moment(new Date()),
     review: '',
-    rating: 0
+    rating: 0,
+    businessEmployeeId : 0
 }
 export default function MakePayment(props) {
     const [servicesData, setServicesData] = useState([])
@@ -57,6 +58,7 @@ export default function MakePayment(props) {
         formData.append('appointmentTime', values.appointmentTime)
         formData.append('customerId', values.customerId)
         formData.append('businessId', values.businessId)
+        formData.append('businessEmployeeId', values.businessEmployeeId)
         formData.append('userServices', JSON.stringify(values.userServices))
         formData.append('bookingStatus', bookingStatus)
         formData.append('paymentStatus', paymentStatus)
@@ -74,6 +76,8 @@ export default function MakePayment(props) {
         formData.append('review', values.review)
         formData.append('rating', values.rating)
         formData.append('paymentPlace', paymentPlace)
+        formData.append('businessEmployeeId', values.businessEmployeeId)
+        alert(values.businessEmployeeId)
         applicationAPI().create(formData)
             .then(res => {
                 console.log(res)
@@ -93,11 +97,11 @@ export default function MakePayment(props) {
     }
     function payatvenue()
     {
-        addAppoinment("Pay at Venue","Success","Pending")
+        addAppoinment("Pay at Venue","Confirmed","Pending")
     }
     function paypalpayment()
     {
-        addAppoinment("Online","Success","Success");
+        addAppoinment("Online","Confirmed","Success");
     }
     return (
         <div id="main-wrapper">

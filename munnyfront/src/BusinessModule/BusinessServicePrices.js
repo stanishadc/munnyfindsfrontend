@@ -6,20 +6,21 @@ import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
 import { handleSuccess, handleError } from "../CommonFiles/CustomAlerts";
 const initialFieldValues = {
-    serviceId: 0,
-    serviceName: "",
-    description: "",
-    businessId: 0,
-    categoryId: 0,
-    status: "true",
-    createdDate: new Date().toLocaleString(),
-    updatedDate: new Date().toLocaleString(),
+  servicePriceId: 0,
+  servicePriceName: "",
+  duration: "",
+  price: "",
+  description: "",
+  status: "true",
+  serviceId: "",
+    // createdDate: new Date().toLocaleString(),
+    // updatedDate: new Date().toLocaleString(),
 }
-export default function BusinessServices(props) {
+export default function BusinessServicePrices(props) {
     const [values, setValues] = useState(initialFieldValues)
     const [errors, setErrors] = useState({})
-    const [categoryList, setCategoryList] = useState([])
-    const [servicesList, setServicesList] = useState([])
+    const [serviceList, setServiceList] = useState([])
+    const [servicePriceList, setServicePriceList] = useState([])
     const [recordForEdit, setRecordForEdit] = useState(null)
     useEffect(() => {
         if (recordForEdit !== null)
@@ -34,8 +35,9 @@ export default function BusinessServices(props) {
     }
     const validate = () => {
         let temp = {}
-        temp.serviceName = values.serviceName === "" ? false : true;
-        temp.categoryId = values.categoryId === "0" ? false : true;
+        temp.price = values.price === "0" ? false : true;
+        temp.duration = values.duration === "" ? false : true;
+        temp.servicePriceName = values.servicePriceName === "" ? false : true;
         setErrors(temp)
         return Object.values(temp).every(x => x === true)
     }
@@ -43,21 +45,26 @@ export default function BusinessServices(props) {
         e.preventDefault();
         if (validate()) {
             const formData = new FormData()
-            if (values.serviceId === 0)
+            if (values.servicePriceId === 0)
             {
-                formData.append('categoryId', values.categoryId)
-                formData.append('serviceName', values.serviceName)            
+                formData.append('servicePriceId', values.servicePriceId)
+                formData.append('servicePriceName', values.servicePriceName)            
+                formData.append('duration', values.duration)
+                formData.append('price', values.price)
                 formData.append('description', values.description)
+                formData.append('serviceId', values.serviceId)
                 formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('status', values.status)
                 add(formData)
             }
             else
             {
-                formData.append('serviceId', values.serviceId)
-                formData.append('categoryId', values.categoryId)
-                formData.append('serviceName', values.serviceName)            
+                formData.append('servicePriceId', values.servicePriceId)
+                formData.append('servicePriceName', values.servicePriceName)
+                formData.append('duration', values.duration)            
+                formData.append('price', values.price)
                 formData.append('description', values.description)
+                formData.append('serviceId', values.serviceId)
                 formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('createdDate', values.createdDate)
                 formData.append('updatedDate', values.updatedDate)
@@ -66,62 +73,64 @@ export default function BusinessServices(props) {
             }
         }
     }
-    const applicationAPI = (url = 'https://localhost:44313/api/service/') => {
+    const applicationAPI = (url = 'https://localhost:44313/api/serviceprice/') => {
         return {
              fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchCategory: () => axios.get('https://localhost:44313/api/category/Get'),
+            fetchservice: () => axios.get('https://localhost:44313/api/service/GetById/'+localStorage.getItem('MFFBusinessId')),
         }
     }
     const showEditDetails = data => {
         setRecordForEdit(data)
     }
+   
     const onDelete = (e, id) => {
         if (window.confirm('Are you sure to delete this record?'))
             applicationAPI().delete(id)
                 .then(res => {
-                    handleSuccess("Service Deleted Succesfully");
-                    refreshServicesList()
+                    handleSuccess("Service Price Deleted Succesfully");
+                    refreshServicePriceList()
                 })
-                .catch(err => handleError("Service Deleted Failed"))
+                .catch(err => handleError("Service price Deleted Failed"))
     }
     const add = (formData) => {
             applicationAPI()
                 .create(formData)
                 .then((res) => {
-                    alert("New Service Added");
+                    alert("New Service price Added");
                     resetForm();
-                    refreshServicesList();
+                    refreshServicePriceList();
                 });
         } 
     const update = (formData) => {
             applicationAPI()
-                .update(formData.get("serviceId"), formData)
+                .update(formData.get("servicePriceId"), formData)
                 .then((res) => {
-                    alert("Service Details Updated");
+                    alert("Service price Details Updated");
                     resetForm();
-                    refreshServicesList();
+                    refreshServicePriceList();
                 });
     };
     const resetForm = () => {
         setValues(initialFieldValues)
     }
     const applyErrorClass = field => ((field in errors && errors[field] === false) ? ' form-control-danger' : '')
-    function refreshCategoryList() {
-        applicationAPI().fetchCategory()
-            .then(res => setCategoryList(res.data))
+
+    function refreshServiceList() {
+        applicationAPI().fetchservice()
+            .then(res => setServiceList(res.data))
             .catch(err => console.log(err))
     }
-    function refreshServicesList() {
+    function refreshServicePriceList() {
         applicationAPI().fetchAll()
-            .then(res => setServicesList(res.data))
+            .then(res => setServicePriceList(res.data))
             .catch(err => console.log(err))
     }
     useEffect(() => {
-        refreshCategoryList();
-        refreshServicesList();
+        refreshServiceList();
+        refreshServicePriceList();
     }, [])
     return (
         <div id="main-wrapper">
@@ -138,7 +147,7 @@ export default function BusinessServices(props) {
                                 <li className="active">Business Services</li>
                             </ul>
                         </div>
-                    </div>ss
+                    </div>
                 </div>
             </section>{/* Page Header end */}
             <div id="content">
@@ -150,8 +159,8 @@ export default function BusinessServices(props) {
                                 <h5 className="mb-4">Business Profile</h5>
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item"> <Link to={"/business/businessprofile"} className="nav-link " id="businessprofile" data-toggle="tab" href="#businessprofile" role="tab" aria-controls="businessprofile" aria-selected="false">Profile</Link> </li>
-                                    <li className="nav-item"> <Link to={"/business/services"} className="nav-link active" id="services" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="true">Services</Link> </li>
-                                    <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="false">ServicePrices</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="services" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link active" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="true">ServicePrices</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/availability"} className="nav-link" id="availability" data-toggle="tab" href="#availability" role="tab" aria-controls="availability" aria-selected="false">Availability</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
@@ -159,23 +168,39 @@ export default function BusinessServices(props) {
                                         <form onSubmit={handleSubmit} autoComplete="off" noValidate>
                                             <div className="form-group row">
                                                 <div class="col-lg-6">
-                                                    <label htmlFor="categoryId">Category</label>
-                                                    <select className={"form-control" + applyErrorClass('categoryId')} value={values.categoryId} name="categoryId" onChange={handleInputChange}>
-                                                        <option value="0">Select Category</option>
-                                                        {categoryList.map(data =>
-                                                            <option value={data.categoryId}>{data.categoryName}</option>
+                                                    <label htmlFor="serviceId">Service</label>
+                                                    <select className={"form-control" + applyErrorClass('serviceId')} value={values.serviceId} name="serviceId" onChange={handleInputChange}>
+                                                        <option value="0">Select Service</option>
+                                                        {serviceList.map(data =>
+                                                            <option value={data.serviceId}>{data.serviceName}</option>
                                                         )}
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label htmlFor="serviceName">Service Name</label>
-                                                    <input className={"form-control" + applyErrorClass('serviceName')} name="serviceName" type="text" value={values.serviceName} onChange={handleInputChange} placeholder="Service Name" />
+                                                    <label htmlFor="price">ServicePriceName</label>
+                                                    <input className={"form-control" + applyErrorClass('servicePriceName')} name="servicePriceName" type="text" value={values.servicePriceName} onChange={handleInputChange} placeholder="ServicePriceName" />
+                                                </div>
+                                                </div>
+                                                <div className="form-group row">
+                                                <div class="col-lg-6">
+                                                    <label htmlFor="price">Price</label>
+                                                    <input className={"form-control" + applyErrorClass('price')} name="price" type="text" value={values.price} onChange={handleInputChange} placeholder="Price" />
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label htmlFor="duration">Duration</label>
+                                                    <select className={"form-control" + applyErrorClass('duration')} type="text" value={values.duration} name="duration" onChange={handleInputChange}>
+                                                        <option value="0">Select Duration</option>
+                                                        <option  value="30">30 mins</option>
+                                                        <option value="60">1 Hour</option>
+                                                        <option value="90">1 Hour 30 mins</option>
+                                                        <option value="120">2 Hours</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
                                                 <div class="col-lg-12">
                                                     <label htmlFor="description">Description</label>
-                                                    <input className={"form-control" + applyErrorClass('description')} name="description" type="text" value={values.description} onChange={handleInputChange} placeholder="Please Enter Service Description" />
+                                                    <input className={"form-control" + applyErrorClass('description')} name="description" type="text" value={values.description} onChange={handleInputChange} placeholder="Please Enter Description" />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -190,22 +215,26 @@ export default function BusinessServices(props) {
                                     </div>
                                 </div>
                                 <div className="table-responsive product-list">
-                                <table className="table table-bordered table-striped mt-3" id="categoryList">
+                                <table className="table table-bordered table-striped mt-3" id="servicePriceList">
                                     <thead>
                                         <tr>
                                             <th>Service Name</th>
-                                            <th>Category</th>
+                                            <th>Service Price Name</th>
+                                            <th>Duration</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {servicesList.map(service =>
-                                            <tr key={service.serviceId}>
-                                                <td>{service.serviceName}</td>
-                                                <td>{service.category.categoryName}</td>
+                                        {servicePriceList.map(servicePrice =>
+                                            <tr key={servicePrice.servicePriceId}>
+                                                <td>{servicePrice.service.serviceName}</td>
+                                                <td>{servicePrice.servicePriceName}</td>
+                                                <td>{servicePrice.duration}</td>
+                                                <td>{servicePrice.price}</td>
                                                 <td>
-                                                    <button className="btn btn-success mr-2" onClick={() => { showEditDetails(service) }}><i className="fa fa-pencil" /></button>
-                                                    <button className="btn btn-danger" onClick={e => onDelete(e, parseInt(service.serviceId))}><i className="fas fa-trash" /></button></td>
+                                                    <button className="btn btn-success mr-2" onClick={() => { showEditDetails(servicePrice) }}><i className="fa fa-pencil" /></button>
+                                                    <button className="btn btn-danger" onClick={e => onDelete(e, parseInt(servicePrice.servicePriceId))}><i className="fas fa-trash" /></button></td>
                                             </tr>
                                         )}
                                     </tbody>
@@ -219,4 +248,4 @@ export default function BusinessServices(props) {
             <Footer></Footer>
         </div>
     )
- }
+}

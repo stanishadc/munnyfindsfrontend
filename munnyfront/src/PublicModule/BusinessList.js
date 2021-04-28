@@ -8,7 +8,7 @@ export default function BusinessList(props) {
     const [businessList, setBusinessList] = useState([])
     const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
         return {
-            fetchAll: () => axios.get(url + 'get')
+            fetchAll: () => axios.get(url + 'GetByTypeName/'+props.match.params["businesstype"]),
         }
     }
     function refreshBusinessList() {
@@ -26,13 +26,13 @@ export default function BusinessList(props) {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-md-8">
-                            <h1>Salons</h1>
+                            <h1>{props.match.params["businesstype"]}</h1>
                         </div>
                         <div className="col-md-4">
                             <ul className="breadcrumb justify-content-start justify-content-md-end mb-0">
                                 <li><a href="index.html">Home</a></li>
                                 <li><a href="booking-hotels.html">Business</a></li>
-                                <li className="active">Salons List</li>
+                                <li className="active">{props.match.params["businesstype"]} List</li>
                             </ul>
                         </div>
                     </div>

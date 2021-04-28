@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
+import Autoomplete from 'react-google-autocomplete';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const initialFieldValues = {
     businessId: 0,
     businessName: '',
@@ -26,18 +28,38 @@ const initialFieldValues = {
     createdDate: new Date().toLocaleString(),
     updatedDate: new Date().toLocaleString(),
     businessurl: '',
-    password: ''
+    password: '',
+    currency: '',
+    about: ''
+
 }
 export default function BusinessProfile(props) {
     const [values, setValues] = useState(initialFieldValues)
     const [errors, setErrors] = useState({})
     const [businessTypeList, setBusinessTypeList] = useState([])
+    const onPlaceSelected = (place) => {
+        console.log(place)
+        // const address = place.formatted_address,
+        //    addressArray =  place.address_components;
+        //    const city = this.getCity( addressArray );
+        //    const area = this.getArea( addressArray );
+        //    const state = this.getState( addressArray );
+        //    const latValue = place.geometry.location.lat();
+        //    const lngValue = place.geometry.location.lng();
+        //    console.log(place)
+         };
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({
             ...values,
             [name]: value
         })
+        console.log(value)
+    }
+    function completeaddress(place)
+    {
+        console.log('ok')
+        console.log(place)
     }
     const validate = () => {
         let temp = {}
@@ -76,14 +98,14 @@ export default function BusinessProfile(props) {
             formData.append('updatedDate', values.updatedDate)
             formData.append('status', values.status)
             formData.append('password', values.password)
+            formData.append('currency', values.currency)
+            formData.append('about', values.about)
             console.log(values)
             addOrEdit(formData, resetForm)
         }
     }
     const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
         return {
-
-            create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             fetchType: () => axios.get('https://localhost:44313/api/businesstype/get'),
             fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
@@ -141,9 +163,10 @@ export default function BusinessProfile(props) {
                             <div className="bg-white shadow-md rounded p-4">
                                 <h5 className="mb-4">Business Profile</h5>
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
-                                    <li className="nav-item"> <Link to={"/business/businessprofile"} className="nav-link active" id="upcoming" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Profile</Link> </li>
-                                    <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="completed" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Services</Link> </li>
-                                    <li className="nav-item"> <Link to={"/business/availability"} className="nav-link" id="cancelled" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Availability</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/businessprofile"} className="nav-link active" id="businessprofile" data-toggle="tab" href="#businessprofile" role="tab" aria-controls="businessprofile" aria-selected="true">Profile</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="services" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="false">ServicePrices</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/availability"} className="nav-link" id="availability" data-toggle="tab" href="#availability" role="tab" aria-controls="availability" aria-selected="false">Availability</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
                                     <div className="tab-pane show active">
@@ -184,7 +207,8 @@ export default function BusinessProfile(props) {
                                             <div className="form-group row">
                                                 <div class="col-lg-8">
                                                     <label htmlFor="address">Address</label>
-                                                    <input className={"form-control" + applyErrorClass('address')} name="address" type="text" value={values.address} onChange={handleInputChange} placeholder="Please Enter Address" />
+                                                    <Autoomplete apiKey='AIzaSyAysr8AxbLW2LHnWXCZ-eGtk578USEn-Zs' onPlaceSelected={onPlaceSelected} types={['(regions)']} className={"form-control" + applyErrorClass('address')} placeholder="Please Enter Address"/>
+                                                    <GooglePlacesAutocomplete apiKey="AIzaSyAysr8AxbLW2LHnWXCZ-eGtk578USEn-Zs" onSelect={onPlaceSelected} className="form-control" types={['(geocode)']}/>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label htmlFor="location">Location/Area</label>
@@ -214,13 +238,29 @@ export default function BusinessProfile(props) {
                                                     <label htmlFor="zipCode">Zip Code/Postal Code</label>
                                                     <input className={"form-control" + applyErrorClass('zipCode')} name="zipCode" type="text" value={values.zipCode} onChange={handleInputChange} placeholder="ZipCode/Postal Code" />
                                                 </div>
+                                                <div class="col-lg-4">
+                                                    <label htmlFor="currency">Currency</label>
+                                                    <select className={"form-control" + applyErrorClass('currency')} type="text" value={values.currency} name="currency" onChange={handleInputChange}>
+                                                        <option value="0">Select Currency</option>
+                                                        <option  value="INR">INR</option>
+                                                        <option value="EUR">EUR</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="AUD">AUD</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div className="form-group row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-12">
+                                                    <label htmlFor="about">About</label>
+                                                    <input className={"form-control" + applyErrorClass('about')} name="about" type="text" value={values.about} onChange={handleInputChange} placeholder="about" />
                                                 </div>
-                                                <div class="col-lg-6">
+                                            </div>
+                                            <div className="form-group row">
+                                                <div class="col-lg-12">
                                                     <button className="btn btn-primary mr-2" type="submit">Update Profile</button>
-                                                    <button className="btn btn-warning" type="button" onClick={resetForm}>Cancel</button>
+                                                    <button className="btn btn-warning mr-2" type="button" onClick={resetForm}>Cancel</button>
+                                                    <Link to={"/business/businessimages/" + values.businessId} className="btn btn-theme mr-2"><i className="fa fa-image" />Add Image</Link>
+                                                     <Link to={"/business/businessemployee/" + values.businessId} className="btn btn-theme mr-2">Add Employee</Link>
                                                 </div>
                                             </div>
                                         </form>

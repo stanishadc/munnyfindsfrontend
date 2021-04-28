@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link,useHistory } from 'react-router-dom';
+import { Link,useHistory,Redirect } from 'react-router-dom';
 import auth from '../CommonFiles/Auth';
 const initialLoginValues = {
     email: '',
@@ -45,15 +45,12 @@ export default function BusinessLogin(props) {
     const checkUser = (loginData) => {
         applicationAPI().checkBusiness(loginData)
             .then(res => {
-                console.log(res.data)
                 if (res.data.status === "Login Success") {
                     auth.blogin(() => {                        
                         localStorage.setItem('MFFBusinessId', res.data.userId);
                         { 
                             props.handleClose();
-                            props.history.push({
-                                pathname: '/business/businessprofile'
-                            })
+                            return <Redirect to='/business/businessprofile'/>
                         }
                     });
                 }
