@@ -26,10 +26,10 @@ export default function SalonSearch(props) {
         console.log();
         return {
           fetchBusinessType: (id) =>
-          axios.get("https://localhost:44313/api/businesstype/Get/"),
+          axios.get("https://munnyapi.azurewebsites.net/api/businesstype/Get/"),
         
           fetchCategory: (id) =>
-          axios.get("https://localhost:44313/api/category/GetByType/" + id),
+          axios.get("https://munnyapi.azurewebsites.net/api/category/GetByType/" + id),
          
         };
       };
