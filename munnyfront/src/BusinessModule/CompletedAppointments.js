@@ -7,7 +7,7 @@ import BusinessSidebar from './BusinessSidebar';
 import moment from 'moment'
 export default function CompletedAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
-    const applicationAPI = (url = 'https://localhost:44313/api/appointments/') => {
+    const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/appointments/') => {
         return {
             fetchByCustomer: () => axios.get(url + 'GetCompletedAppointments/'+localStorage.getItem('MFFBusinessId'))
         }
@@ -66,7 +66,7 @@ export default function CompletedAppointments(props) {
                                                 <tbody>
                                                     {appointmentList.map(app =>
                                                         <tr key={app.appointmentId}>
-                                                            <td>{app.appointmentNo}</td>
+                                                              <td><Link to={"/business/appointment/"+app.appointmentId}>{app.appointmentNo}</Link></td>
                                                             <td>{app.customer.customerName}</td>
                                                             <td>{app.customer.customerMobile}</td>
                                                             <td>{moment(app.appointmentDate).format('MMMM Do yyyy')} - {app.startTime}</td>

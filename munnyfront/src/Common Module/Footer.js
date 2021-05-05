@@ -37,8 +37,8 @@ export default function Footer(props) {
                 formData.append('subscribeId', values.subscribeId)
                 formData.append('subscribeEmail', values.subscribeEmail)
                 formData.append('status', values.status)
-                // formData.append('createdDate', values.createdDate)
-                // formData.append('updatedDate', values.updatedDate)
+                formData.append('createdDate', values.createdDate)
+                formData.append('updatedDate', values.updatedDate)
                 console.log(values)
                 submitSubscribe(formData,resetForm)
                 
@@ -62,7 +62,7 @@ export default function Footer(props) {
     const resetForm = () => {
         setValues(initialFieldValues)
         }
-    const applicationAPI = (url = 'https://localhost:44313/api/subscribe/') => {
+    const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/subscribe/') => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }

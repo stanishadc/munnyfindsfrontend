@@ -11,7 +11,7 @@ const initialFieldValues = {
 };
 export default function Privacy(props) {
     const [values, setValues] = useState(initialFieldValues)
-    const applicationAPI = (url = "https://localhost:44313/api/privacypolicy/") => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/privacypolicy/") => {
         return {
           fetchAll: () => axios.get(url + "get")
         };

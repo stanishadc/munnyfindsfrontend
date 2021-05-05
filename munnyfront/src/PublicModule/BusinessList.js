@@ -6,15 +6,16 @@ import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 export default function BusinessList(props) {
     const [businessList, setBusinessList] = useState([])
-    const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/business/") => {
         return {
-            fetchAll: () => axios.get(url + 'GetByTypeName/'+props.match.params["businesstype"]),
+            fetchAll: () => axios.get(url + 'GetListByType/'+ props.match.params["businesstype"])
         }
     }
     function refreshBusinessList() {
         applicationAPI().fetchAll()
             .then(res => setBusinessList(res.data))
             .catch(err => console.log(err))
+        
     }
     useEffect(() => {
         refreshBusinessList();
@@ -73,7 +74,7 @@ export default function BusinessList(props) {
                                 {businessList.map(bus=>
                                     <div className="col-md-6">
                                         <div className="card shadow-md border-0 mb-4">
-                                            <a href="#"><img src="/images/brands/hotels/hotel-1.jpg" className="card-img-top d-block" alt="..." /></a>
+                                            <a href="#"><img src={bus.imageSrc} className="card-img-top d-block" alt="..." /></a>
                                             <div className="card-body">
                                                 <h5><a href="#" className="text-dark text-5">{bus.businessName}</a></h5>
                                                 <p className="mb-2">
@@ -107,8 +108,7 @@ export default function BusinessList(props) {
                                                             <h5 className="mb-0"> <a href="#" className="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">About Venue</a></h5>
                                                         </div>
                                                         <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionDefault">
-                                                            <div className="card-body"> 
-                                                            Iisque persius interesset his et, in quot quidam persequeris vim, ad mea essent possim iriure. Mutat tacimates id sit. Ridens mediocritatem ius an, eu nec magna imperdiet. 
+                                                            <div className="card-body">{bus.about}
                                                             <h5>Timings</h5>
                                                             <table style={{width:'100%'}}>
                                                                 <tr><td>Monday</td><td>10:00 - 19:00</td><td className="text-danger">Closed</td></tr>

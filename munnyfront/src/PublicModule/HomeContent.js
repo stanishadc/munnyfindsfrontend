@@ -1,63 +1,94 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import OwlCarousel from 'react-owl-carousel2';
 export default function HomeContent(props) {
+    const [businessList, setBusinessList] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
+    const options = {
+        nav: false,
+        rewind: true,
+        loop: ((".owl-carousel .item").length > 1) ? true : false,
+        autoplay: true,
+        margin: 10,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            500: {
+                items: 3,
+            },
+            768: {
+                items: 5,
+            }
+        }
+    };
+    const applicationAPI = () => {
+        console.log();
+        return {
+            fetchBusinessList: () => axios.get("https://munnyapi.azurewebsites.net/api/business/GetTopBusiness/"),        
+          fetchCategory: () => axios.get("https://munnyapi.azurewebsites.net/api/category/GetTopCategory/")         
+        };
+      };
+    function refreshBusinessList() {
+        applicationAPI().fetchBusinessList()
+          .then((res) => setBusinessList(res.data))
+          .catch((err) => console.log(err));
+      }
+      function refreshCategoryList() {
+        applicationAPI().fetchCategory()
+          .then((res) => setCategoryList(res.data))
+          .catch((err) => console.log(err));
+      }
+    useEffect(() => {
+        refreshBusinessList();
+        refreshCategoryList();
+      }, []);
     return (
         <div>
-            <div class="section pt-4 pb-3">
-                <div className="container">
-                    <h2 className="text-9 font-weight-500 text-center">Featured Offers</h2>
-                    <p className="lead text-center mb-4">Get Best Offers &amp; Discounts</p>
-                    <div className="row banner">
-                        <div className="col-md-6">
-                            <div className="item rounded"> <a href="#">
-                                <div className="caption">
-                                    <h2>Save 20% on Hair Cut</h2>
-                                    <p>Use Code: Recharge20</p>
+            <section className="section bg-light" style={{paddingTop:'5px', paddingBottom:'5px'}}>
+                <div className="container mt-5 py-2">
+                    <h2 className="text-6 font-weight-500 mb-0">Popular Categories</h2>
+                    <p className="text-3">Explore these places and some other thing here</p>
+                    {categoryList.length>0 && 
+                    <OwlCarousel options={options}>
+                        {categoryList.map(category=>
+                        <div className="item">
+                            <a href="#">
+                                <div className="card border-0"> <img className="card-img-top rounded" src="images/brands/hotels/dubai.jpg" alt="banner" />
+                                    <div className="card-body px-0 py-1">
+                                        <p className="card-title font-weight-500 text-dark mb-0">{category.categoryName}</p>
+                                    </div>
                                 </div>
-                                <div className="banner-mask" />
-                                <img className="img-fluid" src="images/slider/small-banner-11-600x220.jpg" alt="banner" /> </a> </div>
+                            </a>
                         </div>
-                        <div className="col-md-6">
-                            <div className="item rounded"> <a href="#">
-                                <div className="caption">
-                                    <h2>5% OFF on Bill Payment</h2>
-                                    <p>Use Code: Bill5</p>
-                                </div>
-                                <div className="banner-mask" />
-                                <img className="img-fluid" src="images/slider/small-banner-12-600x220.jpg" alt="banner" /> </a> </div>
-                        </div>
-                    </div>
-                    <div className="row banner mt-4 mb-2">
-                        <div className="col-md-4">
-                            <div className="item rounded"> <a href="#">
-                                <div className="caption">
-                                    <h2>10% OFF</h2>
-                                    <p>On GYM Booking</p>
-                                </div>
-                                <div className="banner-mask" />
-                                <img className="img-fluid" src="images/slider/small-banner-13-600x320.jpg" alt="banner" /> </a> </div>
-                        </div>
-                        <div className="col-md-4 mt-4 mt-md-0">
-                            <div className="item rounded"> <a href="#">
-                                <div className="caption">
-                                    <h2>15% OFF</h2>
-                                    <p>On Salon Bill Payment</p>
-                                </div>
-                                <div className="banner-mask" />
-                                <img className="img-fluid" src="images/slider/small-banner-14-600x320.jpg" alt="banner" /> </a> </div>
-                        </div>
-                        <div className="col-md-4 mt-4 mt-md-0">
-                            <div className="item rounded"> <a href="#">
-                                <div className="caption">
-                                    <h2>10% OFF</h2>
-                                    <p>On Yoga Services</p>
-                                </div>
-                                <div className="banner-mask" />
-                                <img className="img-fluid" src="images/slider/small-banner-15-600x320.jpg" alt="banner" /> </a> </div>
-                        </div>
-                    </div>
+                        )}
+                    </OwlCarousel>
+                    }
                 </div>
-            </div>
+            </section>
+            <section className="section bg-light" style={{paddingTop:'5px'}}>
+                <div className="container mt-5 py-2">
+                    <h2 className="text-6 font-weight-500 mb-0">Popular Brands</h2>
+                    <p className="text-3">Explore these places and some other thing here</p>
+                    {businessList.length>0 && 
+                    <OwlCarousel options={options}>
+                        {businessList.map(business=>
+                        <div className="item">
+                            <Link to={"/businessdetails/"+business.businessUrl}>
+                                <div className="card border-0"> <img className="card-img-top rounded" src={business.imageSrc} alt="banner" />
+                                    <div className="card-body px-0 py-1">
+                                        <p className="card-title font-weight-500 text-dark mb-0">{business.businessName}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                        )}
+                    </OwlCarousel>
+                    }    
+                </div>
+            </section>
+
             <div className="section bg-light shadow-md">
                 <div className="container">
                     <section className="section px-5">
@@ -86,7 +117,6 @@ export default function HomeContent(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-center pt-4"> <a href="#" className="btn btn-primary">Get Started Earn</a> </div>
                     </section>
                 </div>{/* Refer & Earn end */}
             </div>

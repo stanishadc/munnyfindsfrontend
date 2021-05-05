@@ -41,7 +41,7 @@ export default function UserAppointmentsView(props) {
       [name]: value
     })
   }
-  const applicationAPI = (url = 'https://localhost:44313/api/appointments/') => {
+  const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/appointments/') => {
     return {
       fetchAppointmentDetails: () => axios.get(url + 'getbyid/' + props.match.params["appointmentId"]),
       update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
@@ -188,7 +188,7 @@ export default function UserAppointmentsView(props) {
                     <div className="form-group row">
                       <div className="col-sm-4 col-12">
                         <label htmlFor="rating">Rating</label>
-                        <select name="paymentStatus" value={values.paymentStatus} onChange={handleInputChange} className="form-control" disabled={values.bookingStatus == "Completed" ? false : true}>
+                        <select name="rating" value={values.rating} onChange={handleInputChange} className="form-control" disabled={values.bookingStatus == "Completed" ? false : true}>
                           <option value="0">0</option>
                           <option value="1">1</option>
                           <option value="2">2</option>

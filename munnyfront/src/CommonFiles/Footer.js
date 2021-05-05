@@ -1,6 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+const initialFieldValues = {
+    subscribeId: 0,
+    subscribeEmail: "",
+    status: true,
+    createdDate: new Date().toLocaleString(),
+    updatedDate: new Date().toLocaleString()
+  }
 export default function Footer(props) {
+    const [values, setValues] = useState(initialFieldValues)
+    const [errors, setErrors] = useState({})
+
+    const applyErrorClass = field => ((field in errors && errors[field] == false) ? ' form-control-danger' : '')
+
+
+    const handleInputChange = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+    const validate = () => {
+        let temp = {}
+        temp.subscribeEmail = values.subscribeEmail == "" ? false : true;
+        setErrors(temp)
+        return Object.values(temp).every(x => x == true)
+    }
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (validate()) {
+            try {
+                const formData = new FormData()
+                formData.append('subscribeId', values.subscribeId)
+                formData.append('subscribeEmail', values.subscribeEmail)
+                formData.append('status', values.status)
+                formData.append('createdDate', values.createdDate)
+                formData.append('updatedDate', values.updatedDate)
+                console.log(values)
+                submitSubscribe(formData,resetForm)
+                
+            } catch (err) {
+                alert("Something Went Wrong");
+                console.log(err);
+            }
+        }
+    }
+    const submitSubscribe = (formData) => {
+        applicationAPI().create(formData)
+            .then(res => {
+                if(res.data.status==="Success")
+                {
+                    alert("Subscribed");
+                    resetForm();
+                   
+                }
+            })
+    }
+    const resetForm = () => {
+        setValues(initialFieldValues)
+        }
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/subscribe/") => {
+        return {
+            create: newRecord => axios.post(url + "insert", newRecord)
+        }
+    }
     return (
         <footer id="footer">
             <section className="section bg-light shadow-md pt-4 pb-3">
@@ -49,14 +114,16 @@ export default function Footer(props) {
                             <li><a href="#" target="_blank"> <img data-toggle="tooltip" src="/images/payment/mastercard.png" alt="discover" title="Discover" /></a></li>
                         </ul>
                     </div>
-                    <div className="col-md-4 mb-3 mb-md-0">
+                    <form onSubmit={handleSubmit} autoComplete="off" noValidate>
+                    <div className="col-md-12 mb-3 mb-md-0">
                         <p>Subscribe</p>
                         <div className="input-group newsletter">
-                            <input className="form-control" placeholder="Your Email Address" name="newsletterEmail" id="newsletterEmail" type="text" />
+                        <input className={"form-control" + applyErrorClass('subscribeEmail')} name="subscribeEmail" type="text" value={values.subscribeEmail} onChange={handleInputChange} placeholder="Please Enter Email" />
                             <span className="input-group-append">
                                 <button className="btn btn-secondary" type="submit">Subscribe</button>
                             </span> </div>
                     </div>
+                    </form>
                     <div className="col-md-4 d-flex align-items-md-end flex-column">
                         <p>Keep in touch</p>
                         <ul className="social-icons">

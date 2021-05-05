@@ -29,15 +29,19 @@ import BusinessPassword from './BusinessModule/BusinessPassword';
 import BusinessPayments from './BusinessModule/BusinessPayments';
 import BusinessProfile from './BusinessModule/BusinessProfile';
 import BusinessServices from './BusinessModule/BusinessServices';
+import BusinessServicePrices from './BusinessModule/BusinessServicePrices';
+import BusinessAppointmentsView from './BusinessModule/BusinessAppointmentsView';
 import CancelledAppointments from './BusinessModule/CancelledAppointments';
 import CompletedAppointments from './BusinessModule/CompletedAppointments';
 import UpcomingAppointments from './BusinessModule/UpcomingAppointments';
 import ForgotPassword from './PublicModule/ForgotPassword';
 import VerifyOTP from './PublicModule/VerifyOTP';
+import BusinessImages from './BusinessModule/BusinessImages';
 import auth from './CommonFiles/Auth';
 import { createBrowserHistory } from "history";
-import BusinessAppointmentsView from './BusinessModule/BusinessAppointmentsView';
+import BusinessEmployee from './BusinessModule/BusinessEmployee';
 import UserAppointmentsView from './UserModule/UserAppointmentsView';
+
 
 export const history = createBrowserHistory();
 export default class App extends Component {
@@ -55,6 +59,8 @@ export default class App extends Component {
           <Route path='/salonsearch' component={SalonSearch} />
           <Route path='/gymsearch' component={GymSearch} />
           <Route path='/yogasearch' component={YogaSearch} />
+          <Route path='/vendors/:businesstype' component={BusinessList} />
+
           <Route path='/registerbusiness' component={BusinessRegister} />
           <Route path='/businesslist' component={BusinessList} />
           <Route path='/businessdetails/:businessurl' component={BusinessDetails} />
@@ -80,10 +86,14 @@ export default class App extends Component {
           <BusinessProtected path='/business/payments' component={BusinessPayments} />
           <BusinessProtected path='/business/businessprofile' component={BusinessProfile} />
           <BusinessProtected path='/business/services' component={BusinessServices} />
+          <BusinessProtected path='/business/serviceprices' component={BusinessServicePrices} />
           <BusinessProtected path='/business/cancelledappointments' component={CancelledAppointments} />
           <BusinessProtected path='/business/completedappointments' component={CompletedAppointments} />
           <BusinessProtected path='/business/upcomingappointments' component={UpcomingAppointments} />
           <BusinessProtected path='/business/appointment/:appointmentId' component={BusinessAppointmentsView} />
+
+          <BusinessProtected path='/business/bimages/:businessId' component={BusinessImages} />
+          <BusinessProtected path='/business/businessemployee/:businessId' component={BusinessEmployee} />
 
           <UserProtected path='/user/profile' component={UserProfile} />
           <UserProtected path='/user/appointments' component={UserAppointments} />
@@ -94,3 +104,4 @@ export default class App extends Component {
     );
   }
 }
+

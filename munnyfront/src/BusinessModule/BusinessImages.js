@@ -76,7 +76,7 @@ else {
 alert("Please Enter Highlighted Values");
 }
 }
-const applicationAPI = (url = 'https://localhost:44313/api/businessimages/') => {
+const applicationAPI = (url = 'https://munnyfindsapi.azurewebsites.net/api/businessimages/') => {
 return {
 fetchProductImages: () => axios.get(url + 'GetByBusiness/' + props.match.params["businessId"]),
 create: newRecord => axios.post(url + "insert", newRecord),

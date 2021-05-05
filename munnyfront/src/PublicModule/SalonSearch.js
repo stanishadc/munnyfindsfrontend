@@ -22,8 +22,7 @@ export default function SalonSearch(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [values, setValues] = useState(initialFieldValues);
 
-    const applicationAPI = (url = "") => {
-        console.log();
+    const applicationAPI = (url) => {
         return {
           fetchBusinessType: (id) =>
           axios.get("https://munnyapi.azurewebsites.net/api/businesstype/Get/"),

@@ -14,12 +14,13 @@ const appointmentFieldValues = {
     duration: '',
     appointmentTime: moment().format('LT'),
     customerId: 0,
-    businesssId:0,
-    userServices:[],
+    customerName: '',
+    businesssId: 0,
+    userServices: [],
     bookingStatus: 'Pending',
     paymentStatus: 'Pending',
     modeOfPayment: '',
-    paymentPlace:'',
+    paymentPlace: '',
     subTotal: 0,
     discount: 0,
     total: 0,
@@ -31,8 +32,8 @@ const appointmentFieldValues = {
     updatedDate: moment(new Date()),
     review: '',
     rating: 0,
-    businessName:'',
-    businessTypeName:''
+    businessName: '',
+    businessTypeName: ''
 }
 const initialFieldValues = {
     businessId: 0,
@@ -54,14 +55,15 @@ const initialFieldValues = {
     rating: 0,
     businessurl: ''
 }
-const selectedServices={
-    servicePriceId:0,
-    servicePriceName:'',
-    duration:'',
-    servicePrice:0
+const selectedServices = {
+    servicePriceId: 0,
+    servicePriceName: '',
+    duration: '',
+    servicePrice: 0
 }
 export default function BusinessDetails(props) {
     const [values, setValues] = useState(initialFieldValues)
+    const [reviewList, setReviewList] = useState([])
     const [businessImagesList, setBusinessImagesList] = useState([])
     const [servicesList, setServicesList] = useState([])
     const [itemSelected, setItemSelected] = useState([])
@@ -69,9 +71,10 @@ export default function BusinessDetails(props) {
     const [total, setTotal] = useState(0);
     const applicationAPI = () => {
         return {
-            fetchBusinessDetails: () => axios.get('https://localhost:44313/api/business/GetByURL/' + props.match.params["businessurl"]),
-            fetchBusinessImages: (id) => axios.get('https://localhost:44313/api/BusinessImages/GetByBusiness/' + id),
-            fetchServices: (id) => axios.get('https://localhost:44313/api/ServicePrice/GetByBusinessId/' + id),
+            fetchBusinessDetails: () => axios.get('https://munnyapi.azurewebsites.net/api/business/GetByURL/' + props.match.params["businessurl"]),
+            fetchBusinessImages: (id) => axios.get('https://munnyapi.azurewebsites.net/api/BusinessImages/GetByBusiness/' + id),
+            fetchServices: (id) => axios.get('https://munnyapi.azurewebsites.net/api/ServicePrice/GetByBusinessId/' + id),
+            fetchReviews: (id) => axios.get('https://munnyapi.azurewebsites.net/api/appointments/GetByBusinessId/' + id),
         }
     }
     function refreshBusinessList() {
@@ -80,7 +83,8 @@ export default function BusinessDetails(props) {
             (
                 setValues(res.data[0]),
                 refreshBusinessImagesList(res.data[0].businessId),
-                refreshServiceList(res.data[0].businessId)
+                refreshServiceList(res.data[0].businessId),
+                refreshReviewsList(res.data[0].businessId)
             ))
             .catch(err => console.log(err))
     }
@@ -94,11 +98,16 @@ export default function BusinessDetails(props) {
             .then(res => setServicesList(res.data))
             .catch(err => console.log(err))
     }
+    function refreshReviewsList(id) {
+        applicationAPI().fetchReviews(id)
+            .then(res => setReviewList(res.data))
+            .catch(err => console.log(err))
+    }
     function AddToCart(serviceData) {
 
         setCart(current => [...current, serviceData]);
         setTotal(current => current + serviceData.price);
-        setItemSelected(current=> [...current, serviceData.serviceId]);
+        setItemSelected(current => [...current, serviceData.serviceId]);
     }
     function RemoveFromCart(serviceData) {
         setItemSelected(itemSelected.filter(item => item.serviceId !== serviceData.serviceId))
@@ -106,11 +115,11 @@ export default function BusinessDetails(props) {
         setTotal(current => current - serviceData.price);
     }
     function movetoCart() {
-        appointmentFieldValues.total=total;
-        appointmentFieldValues.userServices=cart;
-        appointmentFieldValues.businessId=values.businessId;
-        appointmentFieldValues.businessName=values.businessName;
-        localStorage.setItem('userAppointmentData',JSON.stringify(appointmentFieldValues));
+        appointmentFieldValues.total = total;
+        appointmentFieldValues.userServices = cart;
+        appointmentFieldValues.businessId = values.businessId;
+        appointmentFieldValues.businessName = values.businessName;
+        localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
         props.history.push({
             pathname: '/chooseappointment'
         })
@@ -131,7 +140,7 @@ export default function BusinessDetails(props) {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-md-8">
-                            <h1 className="text-6 mb-1 d-flex flex-wrap align-items-center">{values.businessName} <span className="ml-2 text-2" data-toggle="tooltip" data-original-title="4 Star Hotel"><StarRatings rating={values.rating} starDimension="20px" starSpacing="1px" starRatedColor="#8FCD2E"/></span> </h1>
+                            <h1 className="text-6 mb-1 d-flex flex-wrap align-items-center">{values.businessName} <span className="ml-2 text-2" data-toggle="tooltip" data-original-title="4 Star Hotel"><StarRatings rating={values.rating} starDimension="20px" starSpacing="1px" starRatedColor="#8FCD2E" /></span> </h1>
                             <p className="opacity-8 mb-0"><i className="fas fa-map-marker-alt" /> {values.location}, {values.city}, {values.country}</p>
                         </div>
                         <div className="col-md-4">
@@ -149,11 +158,13 @@ export default function BusinessDetails(props) {
                     <div className="row">
                         <div className="col-lg-8">
                             <div className="bg-light shadow-md rounded p-3 p-sm-4 confirm-details">
-                                <OwlCarousel options={options} >
-                                    {businessImagesList.map(businessimage =>
-                                        <div className="item"><a href="#"><img className="img-fluid" src={businessimage.imageSrc} alt="Hotel photo" /></a></div>
-                                    )}
-                                </OwlCarousel>
+                                {businessImagesList.length > 0 &&
+                                    <OwlCarousel options={options} >
+                                        {businessImagesList.map(businessimage =>
+                                            <div className="item"><a href="#"><img className="img-fluid" src={businessimage.imageSrc} alt="Hotel photo" /></a></div>
+                                        )}
+                                    </OwlCarousel>
+                                }
                                 <p id="known-for">{values.about}</p>
                                 <div className="row">
                                     <div className="col-md-12">
@@ -174,7 +185,7 @@ export default function BusinessDetails(props) {
                                                                                 <td className="text-2 text-left align-middle" style={{ width: '50%' }}>{services.servicePriceName}</td>
                                                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration} Duration</td>
                                                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
-                                                                                <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" disabled={itemSelected.indexOf(services.serviceId)!==-1} onClick={() => { AddToCart(services) }}>{itemSelected.indexOf(services.serviceId)!==-1 ? "Selected" : "Select"}</button></td>
+                                                                                <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" disabled={itemSelected.indexOf(services.serviceId) !== -1} onClick={() => { AddToCart(services) }}>{itemSelected.indexOf(services.serviceId) !== -1 ? "Selected" : "Select"}</button></td>
                                                                             </tr>
                                                                         )}
                                                                     </tbody>
@@ -189,17 +200,28 @@ export default function BusinessDetails(props) {
                                 </div>
                                 <hr className="my-4" />
                                 <h2 id="reviews" className="text-6 mb-3 mt-2">Reviews</h2>
-                                <div className="row">
-                                    <div className="col-12 col-sm-3 text-center">
-                                        <div className="review-tumb bg-dark-5 text-light rounded-circle d-inline-block mb-2 text-center text-8">R</div>
-                                        <p className="mb-0 line-height-1">Ruby Clinton</p>
-                                        <small><em>Jan 25, 2019</em></small> </div>
-                                    <div className="col-12 col-sm-9 text-center text-sm-left"> <span className="text-2"> <i className="fas fa-star text-warning" /> <i className="fas fa-star text-warning" /> <i className="fas fa-star text-warning" /> <i className="fas fa-star text-warning" /> <i className="fas fa-star text-muted opacity-4" /> </span>
-                                        <p className="font-weight-600 mb-1">Excellent hotel with great location</p>
-                                        <p>We stayed in this hotel for one night and were happy that we booked this hotel. Location is excellent and hotel has a lovely ambience . Rooms are very spacious with a decent decor. Overall experience was good.</p>
-                                        <hr />
+
+
+
+                                {reviewList && reviewList.filter(customer => customer.rating > 0).map(customer =>
+                                    <div className="row">
+                                        <div className="col-12 col-sm-3 text-center">
+                                            <div className="review-tumb bg-dark-5 text-light rounded-circle d-inline-block mb-2 text-center text-8">R</div>
+                                            <p className="mb-0 line-height-1">{customer.customer.customerName}</p>
+                                            <small><em>{moment(customer.updatedDate).format('MMMM Do YYYY')}</em></small>
+                                        </div>
+                                        <div
+                                            className="col-12 col-sm-9 text-center text-sm-left"> <span className="text-2">  <StarRatings rating={customer.rating} starDimension="20px" starSpacing="1px" starRatedColor="#8FCD2E" />  </span>
+                                            <p className="font-weight-600 mb-1">{customer.review}</p>
+                                            {/* <p>We stayed in this hotel for one night and were happy that we booked this hotel. Location is excellent and hotel has a lovely ambience . Rooms are very spacious with a decent decor. Overall experience was good.</p> */}
+                                            <hr />
+                                        </div>
                                     </div>
-                                </div>
+
+                                )}
+
+
+
                             </div>
                         </div>
                         <aside className="col-lg-4 mt-4 mt-lg-0">
@@ -219,8 +241,8 @@ export default function BusinessDetails(props) {
                                         <tr><td></td><td></td><td>Total</td><td>$ {total}</td></tr>
                                     </tfoot>
                                 </table>
-                                    {/* <Link className="btn btn-primary btn-block" to={{ pathname: '/chooseappointment', cartData: { appointmentData: cart,totalAmount:total}}}>Book Now</Link> */}
-                                    <Link className="btn btn-primary btn-block" onClick={()=>movetoCart()}>Book Now</Link>
+                                {/* <Link className="btn btn-primary btn-block" to={{ pathname: '/chooseappointment', cartData: { appointmentData: cart,totalAmount:total}}}>Book Now</Link> */}
+                                <Link className="btn btn-primary btn-block" onClick={() => movetoCart()}>Book Now</Link>
                             </div>
                         </aside>
                     </div>

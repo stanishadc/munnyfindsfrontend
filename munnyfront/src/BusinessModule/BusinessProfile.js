@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
-import Autoomplete from 'react-google-autocomplete';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const initialFieldValues = {
     businessId: 0,
     businessName: '',
@@ -37,29 +35,12 @@ export default function BusinessProfile(props) {
     const [values, setValues] = useState(initialFieldValues)
     const [errors, setErrors] = useState({})
     const [businessTypeList, setBusinessTypeList] = useState([])
-    const onPlaceSelected = (place) => {
-        console.log(place)
-        // const address = place.formatted_address,
-        //    addressArray =  place.address_components;
-        //    const city = this.getCity( addressArray );
-        //    const area = this.getArea( addressArray );
-        //    const state = this.getState( addressArray );
-        //    const latValue = place.geometry.location.lat();
-        //    const lngValue = place.geometry.location.lng();
-        //    console.log(place)
-         };
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({
             ...values,
             [name]: value
         })
-        console.log(value)
-    }
-    function completeaddress(place)
-    {
-        console.log('ok')
-        console.log(place)
     }
     const validate = () => {
         let temp = {}
@@ -104,10 +85,10 @@ export default function BusinessProfile(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'https://localhost:44313/api/business/') => {
+    const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/business/') => {
         return {
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
-            fetchType: () => axios.get('https://localhost:44313/api/businesstype/get'),
+            fetchType: () => axios.get('https://munnyapi.azurewebsites.net/api/businesstype/get'),
             fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
         }
     }
@@ -207,8 +188,7 @@ export default function BusinessProfile(props) {
                                             <div className="form-group row">
                                                 <div class="col-lg-8">
                                                     <label htmlFor="address">Address</label>
-                                                    <Autoomplete apiKey='AIzaSyAysr8AxbLW2LHnWXCZ-eGtk578USEn-Zs' onPlaceSelected={onPlaceSelected} types={['(regions)']} className={"form-control" + applyErrorClass('address')} placeholder="Please Enter Address"/>
-                                                    <GooglePlacesAutocomplete apiKey="AIzaSyAysr8AxbLW2LHnWXCZ-eGtk578USEn-Zs" onSelect={onPlaceSelected} className="form-control" types={['(geocode)']}/>
+                                                    <input className={"form-control" + applyErrorClass('address')} name="address" type="text" value={values.address} onChange={handleInputChange} placeholder="Please Enter Address" />
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label htmlFor="location">Location/Area</label>
