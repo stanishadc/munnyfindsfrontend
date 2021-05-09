@@ -271,28 +271,39 @@ export default function ChooseAppointment(props) {
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div className="row">
-<p className="col-sm text-muted mb-0 mb-sm-3">Select Employee:</p>
-<p className="col-sm text-sm-right font-weight-500">
-<div class="col-lg-12">
-<select className={"form-control" + applyErrorClass('businessEmployeeId')} value={values.businessEmployeeId} name="businessEmployeeId" onChange={handleInputChange}>
-<option value="0">Select Employee</option>
-{businessEmployeeList.map(data =>
-<option value={data.businessEmployeeId}>{data.name}</option>
-)}
-</select>
-</div>
-</p>
-</div>
-                                <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Appointment Date:</p>
-                                    <p className="col-sm text-sm-right font-weight-500">
-                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => setCValue(date), date => handleDateChange(date)} inline minDate={new Date()} />
-                                    </p>
+                                    <div className="col-12 col-md-5">
+                                        <label className="text-muted mb-0 mb-sm-3">Select Employee :</label>
+                                    </div>
+
+                                    <div class="col-12 col-md-7">
+                                        <select className={"form-control text-muted mb-0 mb-sm-3" + applyErrorClass('businessEmployeeId')} value={values.businessEmployeeId} name="businessEmployeeId" onChange={handleInputChange}>
+                                            <option value="0">Select Employee</option>
+                                            {businessEmployeeList.map(data =>
+                                                <option value={data.businessEmployeeId}>{data.name}</option>
+                                            )}
+                                        </select>
+                                    </div>
                                 </div>
+
                                 <div className="row">
-                                    <p className="col-sm text-muted mb-0 mb-sm-3">Time:</p>
-                                    <p className="col-sm text-sm-right font-weight-500">{getTime()}</p>
+                                <div className="col-12 col-md-5">
+                                        <label className="text-muted mb-0 mb-sm-3">Appointment Date :</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => setCValue(date), date => handleDateChange(date)} inline minDate={new Date()} /> 
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                <div className="col-12 col-md-7">
+                                        <label className="text-muted mb-0 mb-sm-3">Time :</label>
+                                    </div>
+                                    
+                                    <div class="col-12 col-md-5">
+                                    <span className="col-sm text-sm-right font-weight-500">{getTime()}</span>
+                                    </div>
                                 </div>
                                 <div className="bg-light-4 rounded p-3">
                                     <div className="row">

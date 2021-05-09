@@ -70,7 +70,7 @@ export default function CancelledAppointments(props) {
                                                             <td>{app.customer.customerName}</td>
                                                             <td>{app.customer.customerMobile}</td>
                                                             <td>{moment(app.appointmentDate).format('MMMM Do yyyy')} - {app.startTime}</td>
-                                                            <td>{app.paymentStatus}</td>
+                                                            <td className="">{app.paymentStatus}</td>
                                                         </tr>
                                                     )}
                                                 </tbody>

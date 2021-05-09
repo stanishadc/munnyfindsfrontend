@@ -55,9 +55,9 @@ export default function HomeContent(props) {
                         {categoryList.map(category=>
                         <div className="item">
                             <a href="#">
-                                <div className="card border-0"> <img className="card-img-top rounded" src="images/brands/hotels/dubai.jpg" alt="banner" />
+                                <div className="card border-0"><img className="card-img-top rounded img-category" src={category.imageSrc} alt="banner" />
                                     <div className="card-body px-0 py-1">
-                                        <p className="card-title font-weight-500 text-dark mb-0">{category.categoryName}</p>
+                                        <p className="card-title font-weight-500 text-dark mb-0 text-center">{category.categoryName}</p>
                                     </div>
                                 </div>
                             </a>
@@ -76,7 +76,7 @@ export default function HomeContent(props) {
                         {businessList.map(business=>
                         <div className="item">
                             <Link to={"/businessdetails/"+business.businessUrl}>
-                                <div className="card border-0"> <img className="card-img-top rounded" src={business.imageSrc} alt="banner" />
+                                <div className="card border-0"><img className="card-img-top rounded" src={business.imageSrc} alt="banner" style={{height:'160px'}} />
                                     <div className="card-body px-0 py-1">
                                         <p className="card-title font-weight-500 text-dark mb-0">{business.businessName}</p>
                                     </div>

@@ -115,7 +115,7 @@ export default function UserChangePasword(props) {
                                                     <input className={"form-control" + applyErrorClass('confirmPassword')} name="confirmPassword" type="password" value={values.confirmPassword} onChange={handleInputChange} placeholder="Confirm Password"/>
                                                 </div>
                                                 <button className="btn btn-primary" type="submit">Update Password</button>
-                                            </form>s
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

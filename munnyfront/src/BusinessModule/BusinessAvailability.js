@@ -139,6 +139,7 @@ export default function BusinessAvailability(props) {
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item"> <Link to={"/business/businessprofile"} className="nav-link" id="upcoming" data-toggle="tab" href="#upcoming" role="tab" aria-controls="upcoming" aria-selected="true">Profile</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="completed" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Services</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="false">ServicePrices</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/availability"} className="nav-link active" id="cancelled" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Availability</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
@@ -266,7 +267,7 @@ export default function BusinessAvailability(props) {
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <button className="btn btn-primary mr-2" type="submit">Submit</button>
-                                                    <button className="btn btn-warning" type="button" onClick={resetForm}>Cancel</button>
+                                                    <button className="btn btn-danger" type="button" onClick={resetForm}>Cancel</button>
                                                 </div>
                                             </div>
                                         </form>

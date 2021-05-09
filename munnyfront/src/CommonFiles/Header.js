@@ -22,12 +22,12 @@ export default function Header(props) {
                                 <ul className="navbar-nav">
                                     <li className="dropdown active"> <Link to={"/"}>Home</Link>
                                     </li>
-                                    <li className="dropdown"> <Link to={"/"}>Salons</Link>
+                                    {/* <li className="dropdown"> <Link to={"/"}>Salons</Link>
                                     </li>
                                     <li className="dropdown"> <Link to={"/"}>Gyms</Link>
                                     </li>
                                     <li className="dropdown"> <Link to={"/"}>Yoga</Link>
-                                    </li>
+                                    </li> */}
                                     <li className="dropdown"> <Link to={"/offers"}>Offers</Link>
                                     </li>
                                     {auth.isUAuthenticated()?

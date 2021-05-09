@@ -182,8 +182,8 @@ export default function BusinessServices(props) {
                                                 <div class="col-lg-7">
                                                 </div>
                                                 <div class="col-lg-5">
-                                                    <button className="btn btn-primary mr-2" type="submit">Submit</button>
-                                                    <button className="btn btn-warning" type="button" onClick={resetForm}>Cancel</button>
+                                                    <button className="btn btn-primary  mr-2" type="submit">Submit</button>
+                                                    <button className="btn btn-danger" type="button" onClick={resetForm}>Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -204,8 +204,8 @@ export default function BusinessServices(props) {
                                                 <td>{service.serviceName}</td>
                                                 <td>{service.category.categoryName}</td>
                                                 <td>
-                                                    <button className="btn btn-success mr-2" onClick={() => { showEditDetails(service) }}><i className="fa fa-pencil" /></button>
-                                                    <button className="btn btn-danger" onClick={e => onDelete(e, parseInt(service.serviceId))}><i className="fas fa-trash" /></button></td>
+                                                    <button className="btn btn-success btn-sm mr-2" onClick={() => { showEditDetails(service) }}><i className="fas fa-pencil-alt" /></button>
+                                                    <button className="btn btn-danger btn-sm" onClick={e => onDelete(e, parseInt(service.serviceId))}><i className="fas fa-trash-alt" /></button></td>
                                             </tr>
                                         )}
                                     </tbody>

@@ -219,26 +219,33 @@ export default function BusinessDetails(props) {
                                     </div>
 
                                 )}
-
-
-
                             </div>
                         </div>
                         <aside className="col-lg-4 mt-4 mt-lg-0">
                             <div className="bg-light shadow-md rounded p-3 sticky-top">
+                            <h5 className="mb-4">Order Summary</h5>
                                 <table className="table table-hover">
+                                    <thead>
+                                        <tr>
+                                        <th>Name</th>
+                                        <th>Duration</th>
+                                        <th>Price</th>
+                                        <th>Remove</th>
+                                        </tr>
+                                        </thead>
                                     <tbody>
                                         {cart.map(services =>
                                             <tr>
                                                 <td className="text-2 text-left align-middle" style={{ width: '50%' }}>{services.servicePriceName}</td>
                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration}</td>
                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
-                                                <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" onClick={() => { RemoveFromCart(services) }}>D</button></td>
+                                                <td className="align-middle" style={{ width: '20%' }}>
+                                                <button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" onClick={() => { RemoveFromCart(services) }}><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         )}
                                     </tbody>
                                     <tfoot>
-                                        <tr><td></td><td></td><td>Total</td><td>$ {total}</td></tr>
+                                        <tr><td></td><td></td><td><b>Total</b></td><td><b>$ {total}</b></td></tr>
                                     </tfoot>
                                 </table>
                                 {/* <Link className="btn btn-primary btn-block" to={{ pathname: '/chooseappointment', cartData: { appointmentData: cart,totalAmount:total}}}>Book Now</Link> */}

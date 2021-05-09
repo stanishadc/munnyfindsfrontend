@@ -208,7 +208,7 @@ export default function BusinessServicePrices(props) {
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <button className="btn btn-primary mr-2" type="submit">Submit</button>
-                                                    <button className="btn btn-warning" type="button" onClick={resetForm}>Cancel</button>
+                                                    <button className="btn btn-danger" type="button" onClick={resetForm}>Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -233,8 +233,8 @@ export default function BusinessServicePrices(props) {
                                                 <td>{servicePrice.duration}</td>
                                                 <td>{servicePrice.price}</td>
                                                 <td>
-                                                    <button className="btn btn-success mr-2" onClick={() => { showEditDetails(servicePrice) }}><i className="fa fa-pencil" /></button>
-                                                    <button className="btn btn-danger" onClick={e => onDelete(e, parseInt(servicePrice.servicePriceId))}><i className="fas fa-trash" /></button></td>
+                                                    <button className="btn btn-success btn-sm mr-2" onClick={() => { showEditDetails(servicePrice) }}><i className="fas fa-pencil-alt" /></button>
+                                                    <button className="btn btn-danger btn-sm" onClick={e => onDelete(e, parseInt(servicePrice.servicePriceId))}><i className="fas fa-trash-alt" /></button></td>
                                             </tr>
                                         )}
                                     </tbody>

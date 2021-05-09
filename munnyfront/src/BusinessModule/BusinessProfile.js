@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
+const defaultProductImage = "/assets/img/default-avatar.jpg";
 const initialFieldValues = {
     businessId: 0,
     businessName: '',
@@ -28,7 +29,10 @@ const initialFieldValues = {
     businessurl: '',
     password: '',
     currency: '',
-    about: ''
+    about: '',
+    imageName: '',
+    imageSrc: defaultProductImage,
+    imageFile: null,
 
 }
 export default function BusinessProfile(props) {
@@ -42,6 +46,29 @@ export default function BusinessProfile(props) {
             [name]: value
         })
     }
+
+    const showPreview = e => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+             reader.onload = x => {
+                setValues({
+                    ...values,
+                    imageFile,
+                    imageSrc: x.target.result
+                })
+            }
+            reader.readAsDataURL(imageFile)
+        }
+        else {
+            setValues({
+                ...values,
+                imageFile: null,
+                imageSrc: defaultProductImage
+            })
+        }
+    }
+
     const validate = () => {
         let temp = {}
         temp.businessName = values.businessName === "" ? false : true;
@@ -235,12 +262,22 @@ export default function BusinessProfile(props) {
                                                     <input className={"form-control" + applyErrorClass('about')} name="about" type="text" value={values.about} onChange={handleInputChange} placeholder="about" />
                                                 </div>
                                             </div>
+
+                                            <div className="form-group row">
+                                                <div class="col-md-3">
+                                                    <label>Select category Image</label>
+                                                    <img src={values.imageSrc} className="rounded-circle" width="130px" height="130px" />
+                                                    <input id="image-uploader" className={"form-control-file" + applyErrorClass('imageSrc')} type="file" accept="image/*" onChange={showPreview} />
+                                                </div>
+                                            </div>
+
+                                          
                                             <div className="form-group row">
                                                 <div class="col-lg-12">
                                                     <button className="btn btn-primary mr-2" type="submit">Update Profile</button>
-                                                    <button className="btn btn-warning mr-2" type="button" onClick={resetForm}>Cancel</button>
-                                                    <Link to={"/business/businessimages/" + values.businessId} className="btn btn-theme mr-2"><i className="fa fa-image" />Add Image</Link>
-                                                     <Link to={"/business/businessemployee/" + values.businessId} className="btn btn-theme mr-2">Add Employee</Link>
+                                                    <button className="btn btn-danger mr-2" type="button" onClick={resetForm}>Cancel</button>
+                                                    <Link to={"/business/businessimages/" + values.businessId} className="btn btn-success mr-2"> Add Image</Link>
+                                                     <Link to={"/business/businessemployee/" + values.businessId} className="btn btn-info mr-2">Add Employee</Link>
                                                 </div>
                                             </div>
                                         </form>

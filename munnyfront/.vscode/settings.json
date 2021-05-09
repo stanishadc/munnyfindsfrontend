@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3d95d1c0-83ba-4ec6-b8a8-c484a1e80b82/resourceGroups/munny/providers/Microsoft.Web/sites/munnyfrontend",
+    "appService.deploySubpath": "build"
+}

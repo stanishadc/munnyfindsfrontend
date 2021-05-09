@@ -21,6 +21,7 @@ export default function BusinessList(props) {
         refreshBusinessList();
     }, [])
     return (
+               
         <div id="main-wrapper">
             <Header></Header>
             <section className="page-header page-header-text-light bg-secondary">
@@ -39,15 +40,16 @@ export default function BusinessList(props) {
                     </div>
                 </div>
             </section>
+            
             <div id="content">
                 <section className="container">
                     <div className="row">
                         <div className="col-lg-12 mt-4 mt-lg-0">
                             <div className="border-bottom mb-3 pb-3">
                                 <div className="row align-items-center">
-                                    <div className="col-6 col-md-8">
+                                    <div className="col-12 col-md-6 mb-2">
                                         <div className="row no-gutters ml-auto">
-                                            <label className="col-form-label-sm text-left mr-2 mb-0" htmlFor="input-sort">Search by Venue:</label>
+                                            <label className="col-form-label-sm text-left mr-2 mb-0" htmlFor="input-sort">Search by Venue :</label>
                                             <select id="input-sort" className="custom-select custom-select-sm col">
                                                 <option value selected="selected">Popularity</option>
                                                 <option value>Price - Low to High</option>
@@ -56,9 +58,9 @@ export default function BusinessList(props) {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="col-6 col-md-4">
+                                    <div className="col-12 col-md-6 mb-2">
                                         <div className="row no-gutters ml-auto">
-                                            <label className="col col-form-label-sm text-right mr-2 mb-0" htmlFor="input-sort">Sort By:</label>
+                                            <label className="col-form-label-sm text-right mr-2 mb-0" htmlFor="input-sort">Sort By :</label>
                                             <select id="input-sort" className="custom-select custom-select-sm col">
                                                 <option value selected="selected">Popularity</option>
                                                 <option value>Price - Low to High</option>
