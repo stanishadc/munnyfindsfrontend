@@ -41,6 +41,7 @@ import auth from './CommonFiles/Auth';
 import { createBrowserHistory } from "history";
 import BusinessEmployee from './BusinessModule/BusinessEmployee';
 import UserAppointmentsView from './UserModule/UserAppointmentsView';
+import OffersList from './PublicModule/OffersList';
 
 
 export const history = createBrowserHistory();
@@ -60,6 +61,7 @@ export default class App extends Component {
           <Route path='/gymsearch' component={GymSearch} />
           <Route path='/yogasearch' component={YogaSearch} />
           <Route path='/vendors/:businesstype' component={BusinessList} />
+          <Route path='/offers' component={OffersList} />
 
           <Route path='/registerbusiness' component={BusinessRegister} />
           <Route path='/businesslist' component={BusinessList} />

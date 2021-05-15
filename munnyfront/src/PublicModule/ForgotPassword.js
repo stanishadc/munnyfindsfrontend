@@ -20,7 +20,7 @@ export default function ForgotPassword(props) {
                                     </div>
                                     <button className="btn btn-primary btn-block my-4" type="submit">Continue</button>
                                 </form>
-                                <p className="text-center mb-0"><Link className="btn-link" to={"/userlogin"}>Return to Log In</Link> <span className="text-muted mx-3">|</span><Link className="btn-link" href={"/verifyotp"}>Request OTP</Link></p>
+                                <p className="text-center mb-0"><Link className="btn-link" to={"/"}>Return to Home Page</Link> <span className="text-muted mx-3">|</span><Link className="btn-link" href={"/verifyotp"}>Request OTP</Link></p>
                             </div>
                         </div>
                     </div>

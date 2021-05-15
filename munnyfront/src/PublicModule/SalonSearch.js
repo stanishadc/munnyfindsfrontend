@@ -20,6 +20,7 @@ export default function SalonSearch(props) {
    const [businessType, setBusinessType] = useState([]);
   const [businessTypeList, setBusinessTypeList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [location, setlocation] = useState([]);
   const [values, setValues] = useState(initialFieldValues);
 
     const applicationAPI = (url) => {
@@ -29,6 +30,9 @@ export default function SalonSearch(props) {
         
           fetchCategory: (id) =>
           axios.get("https://munnyapi.azurewebsites.net/api/category/GetByType/" + id),
+
+          fetchLocation: (id) =>
+          axios.get("https://munnyapi.azurewebsites.net/api/business/GetList/" + id),
          
         };
       };
@@ -49,11 +53,18 @@ export default function SalonSearch(props) {
         var index = e.nativeEvent.target.selectedIndex;
         setBusinessType(e.nativeEvent.target[index].text)
         GetCategory(e.target.value);
+        GetLocation(e.target.value);
       };
       function GetCategory(id) {
         applicationAPI()
           .fetchCategory(id)
           .then((res) => setCategoryList(res.data))
+          .catch((err) => console.log(err));
+      }
+      function GetLocation(id) {
+        applicationAPI()
+          .fetchLocation(id)
+          .then((res) => setlocation(res.data))
           .catch((err) => console.log(err));
       }
       function refreshBusinessType() {
@@ -99,8 +110,6 @@ export default function SalonSearch(props) {
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="form-row">
                                         <div class="col-lg-12 form-group">
                                         <select
@@ -117,17 +126,26 @@ export default function SalonSearch(props) {
                           </option>
                         ))}
                       </select>
-                                        </div>
+                       </div>
                                     </div>
-                                    <div class="form-row">
+                                  <div class="form-row">
                                         <div class="col-lg-12 form-group">
-                                            <div>
-                                                <input type="text" className="form-control" id="hotelsFrom" required placeholder="Enter Locality, City" />
-                                                <span className="icon-inside"><i className="fas fa-map-marker-alt" /></span>
-                                            </div>
+                                        <select
+                                        name="businessId"
+                                        type="text"
+                                            value={values.businessId}
+                                            onChange={handleInputChange}
+                                      className="form-control"
+                      >
+                        <option value="0">Please Select</option>
+                        {location.map((bus) => (
+                          <option value={bus.businessId}>
+                            {bus.location}
+                          </option>
+                        ))}
+                      </select>
                                         </div>
                                     </div>
-                                  
                                     <Link className="btn btn-primary btn-block" type="submit" to={"/vendors/"+businessType}>Search</Link>
                                 </form>
                             </div>
