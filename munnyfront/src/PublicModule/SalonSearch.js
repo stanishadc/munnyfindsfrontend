@@ -26,13 +26,13 @@ export default function SalonSearch(props) {
     const applicationAPI = (url) => {
         return {
           fetchBusinessType: (id) =>
-          axios.get("https://munnyapi.azurewebsites.net/api/businesstype/Get/"),
+          axios.get("http://165.22.216.222/api/businesstype/Get/"),
         
           fetchCategory: (id) =>
-          axios.get("https://munnyapi.azurewebsites.net/api/category/GetByType/" + id),
+          axios.get("http://165.22.216.222/api/category/GetByType/" + id),
 
           fetchLocation: (id) =>
-          axios.get("https://munnyapi.azurewebsites.net/api/business/GetList/" + id),
+          axios.get("http://165.22.216.222/api/business/GetList/" + id),
          
         };
       };

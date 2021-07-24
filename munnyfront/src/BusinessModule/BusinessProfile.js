@@ -112,10 +112,10 @@ export default function BusinessProfile(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/business/') => {
+    const applicationAPI = (url = 'http://165.22.216.222/api/business/') => {
         return {
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
-            fetchType: () => axios.get('https://munnyapi.azurewebsites.net/api/businesstype/get'),
+            fetchType: () => axios.get('http://165.22.216.222/api/businesstype/get'),
             fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
         }
     }

@@ -26,8 +26,8 @@ export default function HomeContent(props) {
     const applicationAPI = () => {
         console.log();
         return {
-            fetchBusinessList: () => axios.get("https://munnyapi.azurewebsites.net/api/business/GetTopBusiness/"),        
-          fetchCategory: () => axios.get("https://munnyapi.azurewebsites.net/api/category/GetTopCategory/")         
+            fetchBusinessList: () => axios.get("http://165.22.216.222/api/business/GetTopBusiness/"),        
+          fetchCategory: () => axios.get("http://165.22.216.222/api/category/GetTopCategory/")         
         };
       };
     function refreshBusinessList() {

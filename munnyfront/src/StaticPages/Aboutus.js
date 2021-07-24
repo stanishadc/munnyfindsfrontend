@@ -17,7 +17,7 @@ const initialFieldValues = {
   };
 export default function Aboutus(props) {
     const [values, setValues] = useState(initialFieldValues)
-    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/aboutus/") => {
+    const applicationAPI = (url = "http://165.22.216.222/api/aboutus/") => {
         return {
           fetchAll: () => axios.get(url + "get")
         };

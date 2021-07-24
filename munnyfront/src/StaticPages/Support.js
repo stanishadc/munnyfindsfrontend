@@ -44,11 +44,11 @@ export default function Support(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/support/") => {
+    const applicationAPI = (url = "http://165.22.216.222/api/support/") => {
         return {
-            fetchSupport: () => axios.get("https://munnyapi.azurewebsites.net/api/faq/" + 'get'),
+            fetchSupport: () => axios.get("http://165.22.216.222/api/faq/" + 'get'),
             fetchSubjectName: (id) =>
-        axios.get("https://munnyapi.azurewebsites.net/api/subject/get/"),
+        axios.get("http://165.22.216.222/api/subject/get/"),
 
             create: newRecord => axios.post(url + "insert", newRecord)
         }

@@ -7,7 +7,7 @@ import UserSidebar from './UserSidebar';
 import moment from 'moment'
 export default function UserAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
-    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/appointments/") => {
+    const applicationAPI = (url = "http://165.22.216.222/api/appointments/") => {
         return {
             fetchByCustomer: () => axios.get(url + 'GetByCustomer/'+localStorage.getItem('MFFUserId'))
         }

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 export default function BusinessList(props) {
     const [businessList, setBusinessList] = useState([])
-    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/business/") => {
+    const applicationAPI = (url = "http://165.22.216.222/api/business/") => {
         return {
             fetchAll: () => axios.get(url + 'GetListByType/'+ props.match.params["businesstype"])
         }
