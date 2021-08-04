@@ -109,10 +109,10 @@ export default function BusinessRegister(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'http://165.22.216.222/api/business/') => {
+    const applicationAPI = (url = 'https://api.munnyfinds.com/api/business/') => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord),
-            fetchType: () => axios.get('http://165.22.216.222/api/businesstype/Get/'),
+            fetchType: () => axios.get('https://api.munnyfinds.com/api/businesstype/Get/'),
         }
     }
     const addOrEdit = (formData, onSuccess) => {

@@ -53,7 +53,7 @@ addOrEdit(formData, resetForm)
 }
 };
 const applicationAPI = (
-url = "http://165.22.216.222/api/businessemployee/"
+url = "https://api.munnyfinds.com/api/businessemployee/"
 ) => {
 return {
 fetchAll: () => axios.get(url + 'GetById/' + localStorage.getItem('MFFBusinessId')),

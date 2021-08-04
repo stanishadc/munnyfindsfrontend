@@ -28,7 +28,7 @@ export default function OffersList(props) {
         console.log();
         return {
           
-            fetchOffers: () => axios.get("http://165.22.216.222/api/offers/GetOffers/")         
+            fetchOffers: () => axios.get("https://api.munnyfinds.com/api/offers/GetOffers/")         
         };
       };
       function refreshOffersList() {

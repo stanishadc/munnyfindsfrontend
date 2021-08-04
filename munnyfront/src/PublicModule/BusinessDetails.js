@@ -71,10 +71,10 @@ export default function BusinessDetails(props) {
     const [total, setTotal] = useState(0);
     const applicationAPI = () => {
         return {
-            fetchBusinessDetails: () => axios.get('http://165.22.216.222/api/business/GetByURL/' + props.match.params["businessurl"]),
-            fetchBusinessImages: (id) => axios.get('http://165.22.216.222/api/BusinessImages/GetByBusiness/' + id),
-            fetchServices: (id) => axios.get('http://165.22.216.222/api/ServicePrice/GetByBusinessId/' + id),
-            fetchReviews: (id) => axios.get('http://165.22.216.222/api/appointments/GetByBusinessId/' + id),
+            fetchBusinessDetails: () => axios.get('https://api.munnyfinds.com/api/business/GetByURL/' + props.match.params["businessurl"]),
+            fetchBusinessImages: (id) => axios.get('https://api.munnyfinds.com/api/BusinessImages/GetByBusiness/' + id),
+            fetchServices: (id) => axios.get('https://api.munnyfinds.com/api/ServicePrice/GetByBusinessId/' + id),
+            fetchReviews: (id) => axios.get('https://api.munnyfinds.com/api/appointments/GetByBusinessId/' + id),
         }
     }
     function refreshBusinessList() {

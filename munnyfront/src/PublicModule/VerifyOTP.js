@@ -16,7 +16,7 @@ export default function VerifyOTP(props) {
     const [values, setValues] = useState(initialLoginValues)
     const [errors, setErrors] = useState({})
     const applyErrorClass = field => ((field in errors && errors[field] == false) ? 'form-control-danger' : '')
-    const applicationAPI = (url = "http://165.22.216.222/api/customer/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/customer/") => {
         return {
             checkOTP: newRecord => axios.post(url + "verifyCustomer", newRecord)
         }

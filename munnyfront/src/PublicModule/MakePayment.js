@@ -43,7 +43,7 @@ export default function MakePayment(props) {
             setServicesData(values.user)
         }
     }
-    const applicationAPI = (url = "http://165.22.216.222/api/appointments/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/appointments/") => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }

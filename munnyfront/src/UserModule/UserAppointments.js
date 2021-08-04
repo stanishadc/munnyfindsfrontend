@@ -7,7 +7,7 @@ import UserSidebar from './UserSidebar';
 import moment from 'moment'
 export default function UserAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
-    const applicationAPI = (url = "http://165.22.216.222/api/appointments/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/appointments/") => {
         return {
             fetchByCustomer: () => axios.get(url + 'GetByCustomer/'+localStorage.getItem('MFFUserId'))
         }
