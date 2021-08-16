@@ -120,22 +120,6 @@ export default function HomeContent(props) {
                     </section>
                 </div>{/* Refer & Earn end */}
             </div>
-            <section className="hero-wrap section pb-5 pb-lg-4">
-                <div className="hero-bg" style={{ backgroundImage: 'url("./images/bg/image-5.jpg")' }} />
-                <div className="hero-content">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-6 text-center"> <img className="img-fluid" alt src="images/app-mobile-2.png" /> </div>
-                            <div className="col-lg-6 text-center text-lg-left">
-                                <h2 className="text-9 font-weight-600 text-light my-4">Download Our Quickai<br className="d-none d-lg-inline-block" />
-            Mobile App Now</h2>
-                                <p className="lead text-light">Download our app for the fastest, most convenient way to Recharge &amp; Bill Payment, Booking and more....</p>
-                                <div className="pt-3"><a href="#" className="mr-4 btn btn-outline-light"><i className="fab fa-apple mr-1" /> App Store</a> <a href="#" className="mr-4 btn btn-outline-light"><i className="fab fa-android mr-1" /> Play Store</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
     )
 }

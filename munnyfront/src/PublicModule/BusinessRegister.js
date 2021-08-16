@@ -238,15 +238,6 @@ export default function BusinessRegister(props) {
                                         <input className={"form-control" + applyErrorClass('password')} name="password" type="text" value={values.password} onChange={handleInputChange} placeholder="Password" />
                                     </div>
                                 </div>
-
-                                <div className="form-group row">
-                                    <div class="col-md-3">
-                                        <label>Select Category Image</label>
-                                        <img src={values.imageSrc} className="rounded-circle" width="130px" height="130px" />
-                                        <input id="image-uploader" className={"form-control-file" + applyErrorClass('imageSrc')} type="file" accept="image/*" onChange={showPreview} />
-                                    </div>
-                                </div>
-                              
                                 <div className="form-group row">
                                     <div class="col-lg-4">
                                     </div>
