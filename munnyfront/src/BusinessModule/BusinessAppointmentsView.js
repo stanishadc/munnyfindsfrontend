@@ -80,14 +80,13 @@ export default function BusinessAppointmentsView(props) {
       applicationAPI()
         .update(formData.get("appointmentId"), formData)
         .then((res) => {
-          console.log(res)
           alert("Appointment Details Updated");
         });
     };
     function GetAppointment() {
       applicationAPI()
         .fetchAppointmentDetails()
-        .then(res => console.log(res.data[0]))
+        .then(res => setValues(res.data[0]))
         .catch((err) => console.log(err));
     }
     useEffect(() => {
