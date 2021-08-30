@@ -28,7 +28,7 @@ export default function HomeContent(props) {
         console.log();
         return {
           
-            fetchOffers: () => axios.get("https://munnyapi.azurewebsites.net/api/offers/GetOffers/")         
+            fetchOffers: () => axios.get("https://api.munnyfinds.com/api/offers/GetOffers/")         
         };
       };
       function refreshOffersList() {

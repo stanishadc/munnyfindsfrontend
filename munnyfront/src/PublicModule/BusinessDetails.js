@@ -95,7 +95,8 @@ export default function BusinessDetails(props) {
     }
     function refreshServiceList(id) {
         applicationAPI().fetchServices(id)
-            .then(res => setServicesList(res.data))
+            .then(res => (setServicesList(res.data),
+                console.log(res.data)))
             .catch(err => console.log(err))
     }
     function refreshReviewsList(id) {
@@ -104,25 +105,29 @@ export default function BusinessDetails(props) {
             .catch(err => console.log(err))
     }
     function AddToCart(serviceData) {
-
         setCart(current => [...current, serviceData]);
         setTotal(current => current + serviceData.price);
-        setItemSelected(current => [...current, serviceData.serviceId]);
+        setItemSelected(current => [...current, serviceData.servicePriceId]);
     }
     function RemoveFromCart(serviceData) {
-        setItemSelected(itemSelected.filter(item => item.serviceId !== serviceData.serviceId))
-        setCart(cart.filter(item => item.serviceId !== serviceData.serviceId))
+        setItemSelected(itemSelected.filter(item => item.servicePriceId !== serviceData.servicePriceId))
+        setCart(cart.filter(item => item.servicePriceId !== serviceData.servicePriceId))
         setTotal(current => current - serviceData.price);
     }
     function movetoCart() {
-        appointmentFieldValues.total = total;
-        appointmentFieldValues.userServices = cart;
-        appointmentFieldValues.businessId = values.businessId;
-        appointmentFieldValues.businessName = values.businessName;
-        localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
-        props.history.push({
-            pathname: '/chooseappointment'
-        })
+        if (total != "0") {
+            appointmentFieldValues.total = total;
+            appointmentFieldValues.userServices = cart;
+            appointmentFieldValues.businessId = values.businessId;
+            appointmentFieldValues.businessName = values.businessName;
+            localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
+            props.history.push({
+                pathname: '/chooseappointment'
+            })
+        }
+        else {
+            alert("Please select service. your cart is empty");
+        }
     }
     useEffect(() => {
         refreshBusinessList();
@@ -185,7 +190,7 @@ export default function BusinessDetails(props) {
                                                                                 <td className="text-2 text-left align-middle" style={{ width: '50%' }}>{services.servicePriceName}</td>
                                                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration} Duration</td>
                                                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
-                                                                                <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" disabled={itemSelected.indexOf(services.serviceId) !== -1} onClick={() => { AddToCart(services) }}>{itemSelected.indexOf(services.serviceId) !== -1 ? "Selected" : "Select"}</button></td>
+                                                                                <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-primary shadow-none text-nowrap" type="button" disabled={itemSelected.indexOf(services.servicePriceId) !== -1} onClick={() => { AddToCart(services) }}>{itemSelected.indexOf(services.servicePriceId) !== -1 ? "Selected" : "Select"}</button></td>
                                                                             </tr>
                                                                         )}
                                                                     </tbody>
@@ -200,9 +205,6 @@ export default function BusinessDetails(props) {
                                 </div>
                                 <hr className="my-4" />
                                 <h2 id="reviews" className="text-6 mb-3 mt-2">Reviews</h2>
-
-
-
                                 {reviewList && reviewList.filter(customer => customer.rating > 0).map(customer =>
                                     <div className="row">
                                         <div className="col-12 col-sm-3 text-center">
@@ -223,16 +225,16 @@ export default function BusinessDetails(props) {
                         </div>
                         <aside className="col-lg-4 mt-4 mt-lg-0">
                             <div className="bg-light shadow-md rounded p-3 sticky-top">
-                            <h5 className="mb-4">Order Summary</h5>
+                                <h5 className="mb-4">Order Summary</h5>
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                        <th>Name</th>
-                                        <th>Duration</th>
-                                        <th>Price</th>
-                                        <th>Remove</th>
+                                            <th>Name</th>
+                                            <th>Duration</th>
+                                            <th>Price</th>
+                                            <th>Remove</th>
                                         </tr>
-                                        </thead>
+                                    </thead>
                                     <tbody>
                                         {cart.map(services =>
                                             <tr>
@@ -240,7 +242,7 @@ export default function BusinessDetails(props) {
                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration}</td>
                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
                                                 <td className="align-middle" style={{ width: '20%' }}>
-                                                <button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" onClick={() => { RemoveFromCart(services) }}><i class="fas fa-trash-alt"></i></button></td>
+                                                    <button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" onClick={() => { RemoveFromCart(services) }}><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         )}
                                     </tbody>

@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import axios from 'axios'
@@ -28,7 +28,7 @@ const appointmentFieldValues = {
     updatedDate: moment(new Date()),
     review: '',
     rating: 0,
-    businessEmployeeId : 0
+    businessEmployeeId: 0
 }
 export default function MakePayment(props) {
     const [servicesData, setServicesData] = useState([])
@@ -37,7 +37,7 @@ export default function MakePayment(props) {
     if (localStorage.getItem('userAppointmentData') === undefined) {
         return (<Redirect to={"/"} />);
     }
-    else {        
+    else {
         if (loop === 0) {
             setloop(1);
             setServicesData(values.user)
@@ -48,60 +48,64 @@ export default function MakePayment(props) {
             create: newRecord => axios.post(url + "insert", newRecord)
         }
     }
-    const addAppoinment = (paymentPlace, bookingStatus,paymentStatus) => {
-        const formData = new FormData()
-        formData.append('appointmentId', values.appointmentId)
-        formData.append('appointmentNo', values.appointmentNo)
-        formData.append('startTime', values.startTime)
-        formData.append('endTime', values.endTime)
-        formData.append('duration', values.duration)
-        formData.append('appointmentTime', values.appointmentTime)
-        formData.append('customerId', values.customerId)
-        formData.append('businessId', values.businessId)
-        formData.append('businessEmployeeId', values.businessEmployeeId)
-        formData.append('userServices', JSON.stringify(values.userServices))
-        formData.append('bookingStatus', bookingStatus)
-        formData.append('paymentStatus', paymentStatus)
-        formData.append('modeOfPayment', values.modeOfPayment)
-        formData.append('subTotal', values.subTotal)
-        formData.append('discount', values.discount)
-        formData.append('total', values.total)
-        formData.append('tax', values.tax)
-        formData.append('appointmentDate', values.appointmentDate)
-        formData.append('startDate', values.startDate)
-        formData.append('endDate', values.endDate)
-        formData.append('duration', values.duration)
-        formData.append('createdDate', values.createdDate)
-        formData.append('updatedDate', values.updatedDate)
-        formData.append('review', values.review)
-        formData.append('rating', values.rating)
-        formData.append('paymentPlace', paymentPlace)
-        formData.append('businessEmployeeId', values.businessEmployeeId)
-        alert(values.businessEmployeeId)
-        applicationAPI().create(formData)
-            .then(res => {
-                console.log(res)
-                if (res.data.status === "Success") {
-                    //setLoading(true);
-                    var NewObject={};
-                    NewObject=JSON.parse(localStorage.getItem('userAppointmentData'));
-                    NewObject.appointmentNo=res.data.data;
-                    NewObject.bookingStatus=bookingStatus;
-                    NewObject.paymentStatus=paymentStatus;
-                    localStorage.setItem('userAppointmentData',JSON.stringify(NewObject));
-                    props.history.push({
-                        pathname: '/appointmentconfirmation'
-                    })
-                }
-            })
+    const addAppointment = (paymentPlace, bookingStatus, paymentStatus) => {
+        if (localStorage.getItem('MFFUserId')!==null) {
+            const formData = new FormData()
+            formData.append('appointmentId', values.appointmentId)
+            formData.append('appointmentNo', values.appointmentNo)
+            formData.append('startTime', values.startTime)
+            formData.append('endTime', values.endTime)
+            formData.append('duration', values.duration)
+            formData.append('appointmentTime', values.appointmentTime)
+            formData.append('customerId', localStorage.getItem('MFFUserId'))
+            formData.append('businessId', values.businessId)
+            formData.append('businessEmployeeId', values.businessEmployeeId)
+            formData.append('userServices', JSON.stringify(values.userServices))
+            formData.append('bookingStatus', bookingStatus)
+            formData.append('paymentStatus', paymentStatus)
+            formData.append('modeOfPayment', values.modeOfPayment)
+            formData.append('subTotal', values.subTotal)
+            formData.append('discount', values.discount)
+            formData.append('total', values.total)
+            formData.append('tax', values.tax)
+            formData.append('appointmentDate', values.appointmentDate)
+            formData.append('startDate', values.startDate)
+            formData.append('endDate', values.endDate)
+            formData.append('duration', values.duration)
+            formData.append('createdDate', values.createdDate)
+            formData.append('updatedDate', values.updatedDate)
+            formData.append('review', values.review)
+            formData.append('rating', values.rating)
+            formData.append('paymentPlace', paymentPlace)
+            formData.append('businessEmployeeId', values.businessEmployeeId)
+            applicationAPI().create(formData)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.status === "Success") {
+                        var NewObject = {};
+                        NewObject = JSON.parse(localStorage.getItem('userAppointmentData'));
+                        NewObject.appointmentNo = res.data.data;
+                        NewObject.bookingStatus = bookingStatus;
+                        NewObject.paymentStatus = paymentStatus;
+                        localStorage.setItem('userAppointmentData', JSON.stringify(NewObject));
+                        props.history.push({
+                            pathname: '/appointmentconfirmation'
+                        })
+                    }
+                }).catch(function (error) {
+                    if (error.response) {
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    }
+                });
+        }
+        else {
+            alert("Please login");
+        }
     }
-    function payatvenue()
-    {
-        addAppoinment("Pay at Venue","Confirmed","Pending")
-    }
-    function paypalpayment()
-    {
-        addAppoinment("Online","Confirmed","Success");
+    function payatvenue() {
+        addAppointment("Pay at Venue", "Confirmed", "Pending")
     }
     return (
         <div id="main-wrapper">
@@ -136,7 +140,7 @@ export default function MakePayment(props) {
                                         <div className="progress-bar" />
                                     </div>
                                     <Link to={"/appointmentconfirmation"} className="step-dot" />
-                                    </div>
+                                </div>
                             </div>
                             {/* Steps Progress bar end */}
                         </div>
@@ -149,17 +153,11 @@ export default function MakePayment(props) {
                                     <div className="col-md-7 col-lg-7 order-1 order-md-0">
                                         <ul className="nav nav-tabs mb-4 nav-fill" id="myTab" role="tablist">
                                             <li className="nav-item"> <a className="nav-link active" id="first-tab" data-toggle="tab" href="#firstTab" role="tab" aria-controls="firstTab" aria-selected="true">Pay at Venue</a> </li>
-                                            <li className="nav-item"> <a className="nav-link" id="second-tab" data-toggle="tab" href="#secondTab" role="tab" aria-controls="secondTab" aria-selected="false">PayPal</a> </li>
                                         </ul>
-                                        <div className="tab-content my-3" id="myTabContentVertical">                                            
+                                        <div className="tab-content my-3" id="myTabContentVertical">
                                             <div className="tab-pane fade show active" id="firstTab" role="tabpanel" aria-labelledby="first-tab">
                                                 <p className="text-info mb-4"><i className="fas fa-info-circle" /> Please pay the amount at venue using cash or card</p>
                                                 <Link onClick={() => payatvenue()} className="btn btn-primary btn-block d-flex align-items-center justify-content-center">Pay at Venue</Link>
-                                            </div>
-                                            <div className="tab-pane fade" id="secondTab" role="tabpanel" aria-labelledby="second-tab"> <img className="img-fluid" src="images/paypal-logo.png" alt="Paypal Logo" title="Pay easily, fast and secure with PayPal." />
-                                                <p className="lead">Pay easily, fast and secure with PayPal.</p>
-                                                <p className="text-info mb-4"><i className="fas fa-info-circle" /> You will be redirected to PayPal to complete your payment securely.</p>
-                                                <Link onClick={() => paypalpayment()} className="btn btn-primary btn-block d-flex align-items-center justify-content-center"><i className="fab fa-paypal fa-2x mr-2" />Pay via PayPal</Link>
                                             </div>
                                         </div>
                                     </div>
