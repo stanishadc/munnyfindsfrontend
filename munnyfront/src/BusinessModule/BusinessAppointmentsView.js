@@ -41,7 +41,7 @@ export default function BusinessAppointmentsView(props) {
         [name]: value
       })
     }
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/ppointments/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/appointments/") => {
       return {
         fetchAppointmentDetails: () => axios.get(url + 'getbyid/' + props.match.params["appointmentId"]),
         update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
@@ -80,13 +80,14 @@ export default function BusinessAppointmentsView(props) {
       applicationAPI()
         .update(formData.get("appointmentId"), formData)
         .then((res) => {
+          console.log(res)
           alert("Appointment Details Updated");
         });
     };
     function GetAppointment() {
       applicationAPI()
         .fetchAppointmentDetails()
-        .then((res) => setValues(res.data[0]))
+        .then(res => console.log(res.data[0]))
         .catch((err) => console.log(err));
     }
     useEffect(() => {
