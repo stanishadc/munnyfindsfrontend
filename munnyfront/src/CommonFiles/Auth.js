@@ -7,6 +7,9 @@ class Auth {
         this.Uauthenticated = true
         cb()
     }
+    uulogin(cb) {
+        this.Uauthenticated = true
+    }
     ulogout(cb) {        
         localStorage.setItem('MFFUserId',null);
         localStorage.setItem('MFFBusinessId',null);
@@ -17,6 +20,9 @@ class Auth {
     blogin(cb) {
         this.Bauthenticated = true
         cb()
+    }
+    bblogin(cb) {
+        this.Bauthenticated = true
     }
     blogout(cb) {
         localStorage.setItem('MFFUserId',null);

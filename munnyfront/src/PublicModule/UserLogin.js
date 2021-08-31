@@ -104,7 +104,7 @@ export default function UserLogin(props) {
             .then(res => {
                 console.log(res.data)
                 if (res.data.status === "Login Success") {
-                    auth.blogin(() => {
+                    auth.ulogin(() => {
                         localStorage.setItem('MFFUserId', res.data.userId);
                         {
                             props.handleClose();

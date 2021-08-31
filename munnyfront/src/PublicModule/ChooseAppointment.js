@@ -44,7 +44,7 @@ const appointmentFieldValues = {
     bookingStatus: 'Pending',
     paymentStatus: 'Pending',
     modeOfPayment: '',
-    paymentPlace:'',
+    paymentPlace: '',
     subTotal: 0,
     discount: 0,
     total: 0,
@@ -56,7 +56,7 @@ const appointmentFieldValues = {
     updatedDate: moment(new Date()),
     review: '',
     rating: 0,
-    businessEmployeeId: ''
+    businessEmployeeId: 0
 }
 export default function ChooseAppointment(props) {
     const [Timings, setTimings] = useState([])
@@ -95,7 +95,7 @@ export default function ChooseAppointment(props) {
         const json = await response.json();
         setBusinessEmployeeList(json)
         fetchBusinessEmployee()
-        }
+    }
     async function fetchOffline() {
         const response = await fetch("https://api.munnyfinds.com/api/BusinessOffline/GetById/" + values.businessId);
         const json = await response.json();
@@ -117,6 +117,9 @@ export default function ChooseAppointment(props) {
         if (tValue == undefined) {
             alert("Please Select Time");
         }
+        else if (values.businessEmployeeId === undefined) {
+            alert("Please select Employee");
+        }
         else {
             appointmentFieldValues.appointmentDate = moment(cValue);
             appointmentFieldValues.customerId = localStorage.getItem('MFFUserId');
@@ -136,8 +139,6 @@ export default function ChooseAppointment(props) {
             appointmentFieldValues.userServices = values.userServices;
             appointmentFieldValues.duration = appointmentDuration;
             appointmentFieldValues.businessEmployeeId = values.businessEmployeeId;
-            //console.log(values)
-            console.log(appointmentFieldValues)
             localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
             props.history.push({
                 pathname: '/appointmentsummary'
@@ -210,11 +211,11 @@ export default function ChooseAppointment(props) {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setValues({
-        ...values,
-        [name]: value,
+            ...values,
+            [name]: value,
         });
-        };
-        const applyErrorClass = (field) =>
+    };
+    const applyErrorClass = (field) =>
         field in errors && errors[field] === false ? " form-control-danger" : "";
     return (
         <div id="main-wrapper">
@@ -288,21 +289,21 @@ export default function ChooseAppointment(props) {
                                 </div>
 
                                 <div className="row">
-                                <div className="col-12 col-md-5">
+                                    <div className="col-12 col-md-5">
                                         <label className="text-muted mb-0 mb-sm-3">Appointment Date :</label>
                                     </div>
                                     <div class="col-12 col-md-7">
-                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => setCValue(date), date => handleDateChange(date)} inline minDate={new Date()} /> 
+                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => setCValue(date), date => handleDateChange(date)} inline minDate={new Date()} />
                                     </div>
                                 </div>
 
                                 <div className="row">
-                                <div className="col-12 col-md-7">
+                                    <div className="col-12 col-md-7">
                                         <label className="text-muted mb-0 mb-sm-3">Time :</label>
                                     </div>
-                                    
+
                                     <div class="col-12 col-md-5">
-                                    <span className="col-sm text-sm-right font-weight-500">{getTime()}</span>
+                                        <span className="col-sm text-sm-right font-weight-500">{getTime()}</span>
                                     </div>
                                 </div>
                                 <div className="bg-light-4 rounded p-3">

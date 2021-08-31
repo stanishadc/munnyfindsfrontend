@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import UserLogin from '../PublicModule/UserLogin'
 import auth from './Auth'
@@ -6,7 +6,29 @@ export default function Header(props) {
     const [isUOpen, setIsUOpen] = useState(false);    
     const toggleUPopup = () => {
         setIsUOpen(!isUOpen);
-    }    
+    }
+    function checkLogin() {
+        if (localStorage.getItem('MFFUserId') != 'null' && localStorage.getItem('MFFUserId') != null) {
+            if (localStorage.getItem('MFFUserId') != 'undefined') {
+                auth.Uauthenticated();
+                props.history.push('/user/profile')
+            }
+            else {
+                { toggleUPopup() }
+            }
+        }
+        else {
+            { toggleUPopup() }
+        }
+    }
+    useEffect(() => {
+        if (localStorage.getItem('MFFUserId') != null && localStorage.getItem('MFFUserId') != 'null') {
+            auth.uulogin();
+        }
+        else if (localStorage.getItem('MFFBusinessId') != null && localStorage.getItem('MFFBusinessId') != 'null') {
+            auth.bblogin();
+        }
+    }, [])
     return (
         <header id="header">
             <div className="container">
@@ -22,20 +44,14 @@ export default function Header(props) {
                                 <ul className="navbar-nav">
                                     <li className="dropdown active"> <Link to={"/"}>Home</Link>
                                     </li>
-                                    {/* <li className="dropdown"> <Link to={"/"}>Salons</Link>
-                                    </li>
-                                    <li className="dropdown"> <Link to={"/"}>Gyms</Link>
-                                    </li>
-                                    <li className="dropdown"> <Link to={"/"}>Yoga</Link>
-                                    </li> */}
                                     <li className="dropdown"> <Link to={"/offers"}>Offers</Link>
                                     </li>
                                     {auth.isUAuthenticated()?
-                                    <li className="dropdown"><Link to={"/user/profile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>MyAccount</Link></li>
-                                    :auth.isUAuthenticated()?
-                                    <li className="dropdown"> <Link to={"/business/businessprofile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>MyAccount</Link></li>
+                                    <li className="dropdown"><Link to={"/user/profile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>&nbsp;MyUAccount</Link></li>
+                                    :auth.isBAuthenticated()?
+                                    <li className="dropdown"> <Link to={"/business/businessprofile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>&nbsp;MyBAccount</Link></li>
                                     :
-                                    <li> <Link to={"/registerbusiness"}>Become a Partner</Link><Link title="Login / Sign up" onClick={toggleUPopup}>Login / Sign up</Link></li>
+                                    <li> <Link to={"/registerbusiness"}>Become a Partner</Link><Link title="Login / Sign up" onClick={checkLogin}>Login / Sign up</Link></li>
                                     }
                                 </ul>
                             </div>
