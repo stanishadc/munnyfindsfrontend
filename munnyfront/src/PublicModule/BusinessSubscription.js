@@ -3,41 +3,13 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Footer from "../CommonFiles/Footer";
 import Header from "../CommonFiles/Header";
-import BusinessLogin from "./BusinessLogin";
-const defaultProductImage = "/assets/img/default-avatar.jpg";
-const initialFieldValues = {
-  businessId: 0,
-  businessName: "",
-  businessTypeId: 0,
-  contactName: "",
-  landline: "",
-  mobileNo: "",
-  email: "",
-  address: "",
-  googleMapURL: "",
-  latitude: "",
-  longitude: "",
-  location: "",
-  zipCode: "",
-  city: "",
-  country: "",
-  totalRatings: 0,
-  rating: 0,
-  status: "true",
-  createdDate: new Date().toLocaleString(),
-  updatedDate: new Date().toLocaleString(),
-  businessurl: "",
-  password: "",
-  imageName: "",
-  imageSrc: defaultProductImage,
-  imageFile: null,
-};
 export default function BusinessSubscription(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    SubsciptionPayment();
+    SubsciptionPayment(e);
   };
-  async function SubsciptionPayment() {
+  function SubsciptionPayment(event) {
+    event.preventDefault();
     var data = JSON.stringify({
       tx_ref: "hooli-tx-1920bbtytty",
       amount: "100",
@@ -80,37 +52,123 @@ export default function BusinessSubscription(props) {
       <div id="main-wrapper">
         <Header></Header>
         <div id="content">
-          <section className="page-header page-header-text-light bg-secondary">
-            <div className="container">
-              <div className="row align-items-center">
-                <div className="col-md-8">
-                  <h1>New Business Registration</h1>
-                </div>
-                <div className="col-md-4">
-                  <ul className="breadcrumb justify-content-start justify-content-md-end mb-0">
-                    <li>
-                      <Link to={"/"}>Home</Link>
-                    </li>
-                    <li className="active">Business Registration</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
           <div className="container">
-            <div
-              id="businessRegister"
-              className="bg-light shadow-md rounded mx-auto p-4"
-            >
-              <div></div>
-              <hr />
-              <div className="tab-content pt-4">
-                <div className="tab-pane show active"></div>
-                <form onSubmit={handleSubmit}>
-                  <button className="btn btn-primary mr-2" type="submit">
-                    Register
-                  </button>
-                </form>
+            <div className="bg-light shadow-md rounded p-4">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="tab-content" id="myTabContentVertical">
+                    <div
+                      className="tab-pane fade show active"
+                      id="oneTab"
+                      role="tabpanel"
+                      aria-labelledby="one-tab"
+                    >
+                      <div className="row">
+                        <div className="col-sm-4 mb-4">
+                          <div className="card text-center">
+                            <div className="card-header">
+                              <h5 className="card-title text-4 mb-0">
+                                Talktime
+                              </h5>
+                            </div>
+                            <div className="card-body">
+                              <ul className="list-unstyled">
+                                <li className="mb-3">Talktime $8, 7 D</li>
+                                <li className="mb-3 text-black-50">
+                                  Validity 7 Days
+                                </li>
+                                <li>
+                                  <a
+                                    className="btn-link text-1"
+                                    data-toggle="modal"
+                                    data-target="#plan-detail"
+                                    href="#"
+                                  >
+                                    More Details
+                                  </a>
+                                </li>
+                              </ul>
+                              <button
+                                className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
+                                type="submit"
+                              >
+                                $ 10
+                              </button>
+                            </div>
+                          </div>
+                        </div>                      
+                        <div className="col-sm-4 mb-4">
+                          <div className="card text-center">
+                            <div className="card-header">
+                              <h5 className="card-title text-4 mb-0">
+                                Talktime
+                              </h5>
+                            </div>
+                            <div className="card-body">
+                              <ul className="list-unstyled">
+                                <li className="mb-3">
+                                  Local min 92 &amp; 10 SMS, 28 D
+                                </li>
+                                <li className="mb-3 text-black-50">
+                                  Validity 28 Days
+                                </li>
+                                <li>
+                                  <a
+                                    className="btn-link text-1"
+                                    data-toggle="modal"
+                                    data-target="#plan-detail"
+                                    href="#"
+                                  >
+                                    More Details
+                                  </a>
+                                </li>
+                              </ul>
+                              <button
+                                className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
+                                type="submit"
+                              >
+                                $ 100
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-sm-4 mb-4">
+                          <div className="card text-center">
+                            <div className="card-header bg-secondary">
+                              <h5 className="card-title text-4 text-white mb-0">
+                                Unlimited
+                              </h5>
+                            </div>
+                            <div className="card-body">
+                              <ul className="list-unstyled">
+                                <li className="mb-3">Unlimited Talktime</li>
+                                <li className="mb-3 text-black-50">
+                                  Validity 90 Days
+                                </li>
+                                <li>
+                                  <a
+                                    className="btn-link text-1"
+                                    data-toggle="modal"
+                                    data-target="#plan-detail"
+                                    href="#"
+                                  >
+                                    More Details
+                                  </a>
+                                </li>
+                              </ul>
+                              <button
+                                className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
+                                type="submit"
+                              >
+                                $ 499
+                              </button>
+                            </div>
+                          </div>
+                        </div>                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
