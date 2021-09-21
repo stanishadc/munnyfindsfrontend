@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "alertifyjs": "^1.13.1",
     "axios": "^0.21.1",
+    "mkcert": "^1.4.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-datepicker": "^3.7.0",
@@ -21,7 +22,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
