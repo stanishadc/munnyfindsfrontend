@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
 import BusinessLogin from './BusinessLogin';
 const defaultProductImage = "/assets/img/default-avatar.jpg";
-/*import "https://maps.googleapis.com/maps/api/js?key=AIzaSyAysr8AxbLW2LHnWXCZ-eGtk578USEn-Zs&libraries=places&callback=initMap";*/
 const initialFieldValues = {
     businessId: 0,
     businessName: '',
@@ -99,28 +98,31 @@ export default function BusinessRegister(props) {
             formData.append('country', values.country)
             formData.append('totalRatings', values.totalRatings)
             formData.append('rating', values.rating)
-            formData.append('createdDate', values.createdDate)
-            formData.append('updatedDate', values.updatedDate)
+            //formData.append('createdDate', values.createdDate)
+            //formData.append('updatedDate', values.updatedDate)
             formData.append('status', values.status)
             formData.append('password', values.password)
             formData.append("imageName", values.imageName);
             formData.append('imageFile', values.imageFile);
-            console.log(values)
+            //console.log(values)
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'https://api.munnyfinds.com/api/business/') => {
+    const applicationAPI = (url = 'https://localhost:44368/api/business/') => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord),
-            fetchType: () => axios.get('https://api.munnyfinds.com/api/businesstype/Get/'),
+            fetchType: () => axios.get('https://localhost:44368/api/businesstype/Get/'),
         }
     }
     const addOrEdit = (formData, onSuccess) => {
         if (formData.get('businessId') === "0") {
             applicationAPI().create(formData)
                 .then(res => {
-                    alert("New Business Added");
+                    //alert("New Business Added");
                     resetForm();
+                    props.history.push({
+                        pathname: '/subscription',
+                    })
                 })
         }
     }
