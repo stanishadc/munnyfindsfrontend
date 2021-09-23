@@ -58,7 +58,7 @@ export default function UserChangePasword(props) {
                    alert("Profile Updated");
             });
     };
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/customer/") => {
+    const applicationAPI = (url = "https://localhost:44368/api/customer/") => {
         return {
             fetchCustomerView: () => axios.get(url + 'getbyid/' + localStorage.getItem('MFFUserId')),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)

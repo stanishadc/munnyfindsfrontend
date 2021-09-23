@@ -73,13 +73,13 @@ export default function BusinessServicePrices(props) {
             }
         }
     }
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/serviceprice/") => {
+    const applicationAPI = (url = "https://localhost:44368/api/serviceprice/") => {
         return {
              fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchservice: () => axios.get('https://api.munnyfinds.com/api/service/GetById/'+localStorage.getItem('MFFBusinessId')),
+            fetchservice: () => axios.get('https://localhost:44368/api/service/GetById/'+localStorage.getItem('MFFBusinessId')),
         }
     }
     const showEditDetails = data => {

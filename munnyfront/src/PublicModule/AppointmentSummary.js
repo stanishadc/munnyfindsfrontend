@@ -11,7 +11,7 @@ export default function AppointmentSummary(props) {
         return (<Redirect to={"/"} />);
     }
     else {
-        console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
+        //console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
         if (loop === 0) {
             setloop(1);
             setServicesData(values.userServices)

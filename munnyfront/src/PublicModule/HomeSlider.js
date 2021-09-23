@@ -4,7 +4,7 @@ import OwlCarousel from 'react-owl-carousel2';
 export default function HomeSlider(props) {
     const [offersList, setOffersList] = useState([]);
     const applicationAPI = (
-        url = "https://api.munnyfinds.com/api/offers/"
+        url = "https://localhost:44368/api/offers/"
     ) => {
         return {
             fetchAll: () => axios.get(url + "GetOffers")

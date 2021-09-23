@@ -43,6 +43,7 @@ import BusinessEmployee from './BusinessModule/BusinessEmployee';
 import UserAppointmentsView from './UserModule/UserAppointmentsView';
 import OffersList from './PublicModule/OffersList';
 import Subscription from './PublicModule/BusinessSubscription';
+import PaymentStatus from './PublicModule/PaymentStatus';
 
 export const history = createBrowserHistory();
 export default class App extends Component {
@@ -73,6 +74,7 @@ export default class App extends Component {
           <Route path='/forgotpassword' component={ForgotPassword} />
           <Route path='/verifyotp' component={VerifyOTP} />
           <Route path='/subscription' component={Subscription} />
+          <Route path='/paymentstatus' component={PaymentStatus} />
 
           <Route path='/contactus' component={Contactus} />
           <Route path='/support' component={Support} />
