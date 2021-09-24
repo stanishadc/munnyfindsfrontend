@@ -34,3 +34,8 @@
 	border: 1px solid #999;
 	overflow: auto;
   }
+  .card-header
+  {
+	  background-color: #B2AC88 !important;
+	  color: #fff;
+  }

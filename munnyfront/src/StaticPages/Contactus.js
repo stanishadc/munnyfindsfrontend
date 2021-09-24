@@ -58,7 +58,7 @@ export default function Contactus(props) {
                                 <p className="text-3">{values.paraGraph} <a href="#">Help</a></p>
                                 <div className="featured-box style-1">
                                     <div className="featured-box-icon text-primary"> <i className="fas fa-map-marker-alt" /></div>
-                                    <h3>Quickai Inc.</h3>
+                                    <h3>MunnyFinds</h3>
                                     <p>{values.address}</p>
                                 </div>
                                 <div className="featured-box style-1">
