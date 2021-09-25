@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Footer from "../CommonFiles/Footer";
 import Header from "../CommonFiles/Header";
+import moment from "moment";
 export default function BusinessSubscription(props) {
   const [monthlyList, setMonthlyList] = useState([]);
   const [yearlyList, setYearlyList] = useState([]);
@@ -80,22 +81,31 @@ export default function BusinessSubscription(props) {
       fetchPYearly: () => axios.get(url + "GetBySubsctionType/4"),
     };
   };
-  const BasicYearlyPayment = (e) => {    
+  const BasicMonthlyPayment = (e) => {
     e.preventDefault();
-    window.location.replace(yearlyPLink)
+    localStorage.setItem("subscriptionTypeId", 1);
+    localStorage.setItem("MFFInterval", moment().add(1, 'months').calendar());
+    window.location.replace(monthlyPLink);
   };
-  const  BasicMonthlyPayment= (e) => {    
+  const BasicYearlyPayment = (e) => {
     e.preventDefault();
-    window.location.replace(monthlyPLink)
+    localStorage.setItem("subscriptionTypeId", 2);
+    localStorage.setItem("MFFInterval", moment().add(1, 'years').calendar());
+    window.location.replace(yearlyPLink);
   };
-  const PremiumYearlyPayment = (e) => {    
+   const PremiumMonthlyPayment = (e) => {
     e.preventDefault();
-    window.location.replace(yearlyPremiumPLink)
+    localStorage.setItem("subscriptionTypeId", 3);
+    localStorage.setItem("MFFInterval", moment().add(1, 'months').calendar());
+    window.location.replace(monthlyPremiumPLink);
   };
-  const  PremiumMonthlyPayment= (e) => {    
+  const PremiumYearlyPayment = (e) => {
     e.preventDefault();
-    window.location.replace(monthlyPremiumPLink)
+    localStorage.setItem("subscriptionTypeId", 4);
+    localStorage.setItem("MFFInterval", moment().add(1, 'years').calendar());
+    window.location.replace(yearlyPremiumPLink);
   };
+ 
   return (
     <div>
       <div id="main-wrapper">
@@ -135,12 +145,10 @@ export default function BusinessSubscription(props) {
                                   </li>
                                 ))}
                               </ul>
-                             <button
+                              <button
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
-                                onClick={(e) =>
-                                  BasicMonthlyPayment(e)
-                                }
+                                onClick={(e) => BasicMonthlyPayment(e)}
                               >
                                 NGN {monthlyPrice}
                               </button>
@@ -162,12 +170,10 @@ export default function BusinessSubscription(props) {
                                   </li>
                                 ))}
                               </ul>
-                             <button
+                              <button
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
-                                onClick={(e) =>
-                                  BasicYearlyPayment(e)
-                                }
+                                onClick={(e) => BasicYearlyPayment(e)}
                               >
                                 NGN {yearlyPrice}
                               </button>
@@ -192,9 +198,7 @@ export default function BusinessSubscription(props) {
                               <button
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
-                                onClick={(e) =>
-                                  PremiumMonthlyPayment(e)
-                                }
+                                onClick={(e) => PremiumMonthlyPayment(e)}
                               >
                                 NGN {monthlyPremiumPrice}
                               </button>
@@ -219,9 +223,7 @@ export default function BusinessSubscription(props) {
                               <button
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
-                                onClick={(e) =>
-                                  PremiumYearlyPayment(e)
-                                }
+                                onClick={(e) => PremiumYearlyPayment(e)}
                               >
                                 NGN {yearlyPremiumPrice}
                               </button>
