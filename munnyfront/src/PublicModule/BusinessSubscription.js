@@ -12,6 +12,10 @@ export default function BusinessSubscription(props) {
   const [yearlyPrice, setYearlyPrice] = useState(0);
   const [monthlyPremiumPrice, setMonthlyPremiumPrice] = useState(0);
   const [yearlyPremiumPrice, setYearlyPremiumPrice] = useState(0);
+  const [monthlyPLink, setMonthlyPLink] = useState(0);
+  const [yearlyPLink, setYearlyPLink] = useState(0);
+  const [monthlyPremiumPLink, setMonthlyPremiumPLink] = useState(0);
+  const [yearlyPremiumPLink, setYearlyPremiumPLink] = useState(0);
   useEffect(() => {
     getMonthlyData();
     getYearlyData();
@@ -24,7 +28,8 @@ export default function BusinessSubscription(props) {
       .then(
         (res) => (
           setMonthlyList(res.data),
-          setMonthlyPrice(res.data[0].subscriptionType.price)
+          setMonthlyPrice(res.data[0].subscriptionType.price),
+          setMonthlyPLink(res.data[0].subscriptionType.paymentLink)
         )
       )
       .catch((err) => console.log(err));
@@ -35,29 +40,32 @@ export default function BusinessSubscription(props) {
       .then(
         (res) => (
           setYearlyList(res.data),
-          setYearlyPrice(res.data[0].subscriptionType.price)
+          setYearlyPrice(res.data[0].subscriptionType.price),
+          setYearlyPLink(res.data[0].subscriptionType.paymentLink)
         )
       )
       .catch((err) => console.log(err));
   }
   function getMonthlyPremiumData() {
     applicationAPI()
-      .fetchYearly()
+      .fetchPMonthly()
       .then(
         (res) => (
           setMonthlyPremiumList(res.data),
-          setMonthlyPremiumPrice(res.data[0].subscriptionType.price)
+          setMonthlyPremiumPrice(res.data[0].subscriptionType.price),
+          setMonthlyPremiumPLink(res.data[0].subscriptionType.paymentLink)
         )
       )
       .catch((err) => console.log(err));
   }
   function getYearlyPremiumData() {
     applicationAPI()
-      .fetchYearly()
+      .fetchPYearly()
       .then(
         (res) => (
           setYearlyPremiumList(res.data),
-          setYearlyPremiumPrice(res.data[0].subscriptionType.price)
+          setYearlyPremiumPrice(res.data[0].subscriptionType.price),
+          setYearlyPremiumPLink(res.data[0].subscriptionType.paymentLink)
         )
       )
       .catch((err) => console.log(err));
@@ -68,15 +76,25 @@ export default function BusinessSubscription(props) {
     return {
       fetchMonthly: () => axios.get(url + "GetBySubsctionType/1"),
       fetchYearly: () => axios.get(url + "GetBySubsctionType/2"),
+      fetchPMonthly: () => axios.get(url + "GetBySubsctionType/3"),
+      fetchPYearly: () => axios.get(url + "GetBySubsctionType/4"),
     };
   };
   const BasicYearlyPayment = (e) => {    
     e.preventDefault();
-    window.location.replace('https://ravesandbox.flutterwave.com/pay/basicyearly')
+    window.location.replace(yearlyPLink)
   };
   const  BasicMonthlyPayment= (e) => {    
     e.preventDefault();
-    window.location.replace('https://ravesandbox.flutterwave.com/pay/basicmonthly')
+    window.location.replace(monthlyPLink)
+  };
+  const PremiumYearlyPayment = (e) => {    
+    e.preventDefault();
+    window.location.replace(yearlyPremiumPLink)
+  };
+  const  PremiumMonthlyPayment= (e) => {    
+    e.preventDefault();
+    window.location.replace(monthlyPremiumPLink)
   };
   return (
     <div>
@@ -175,7 +193,7 @@ export default function BusinessSubscription(props) {
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
                                 onClick={(e) =>
-                                  BasicMonthlyPayment(e)
+                                  PremiumMonthlyPayment(e)
                                 }
                               >
                                 NGN {monthlyPremiumPrice}
@@ -202,7 +220,7 @@ export default function BusinessSubscription(props) {
                                 className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
                                 type="submit"
                                 onClick={(e) =>
-                                  BasicMonthlyPayment(e)
+                                  PremiumYearlyPayment(e)
                                 }
                               >
                                 NGN {yearlyPremiumPrice}
