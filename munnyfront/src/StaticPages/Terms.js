@@ -10,7 +10,7 @@ const initialFieldValues = {
 };
 export default function Terms(props) {
     const [values, setValues] = useState(initialFieldValues)
-    const applicationAPI = (url = "https://localhost:44368/api/termsandconditions/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/termsandconditions/") => {
         return {
           fetchAll: () => axios.get(url + "get")
         };

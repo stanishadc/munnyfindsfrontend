@@ -33,7 +33,7 @@ export default function PaymentStatus(props) {
       UpdatePaymentStatus();
     }
   }
-  const applicationAPI = (url = "https://localhost:44368/api/businesssubscription/") => {
+  const applicationAPI = (url = "https://api.munnyfinds.com/api/businesssubscription/") => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }

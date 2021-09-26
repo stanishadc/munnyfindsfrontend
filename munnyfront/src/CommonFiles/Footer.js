@@ -61,7 +61,7 @@ export default function Footer(props) {
     const resetForm = () => {
         setValues(initialFieldValues)
         }
-    const applicationAPI = (url = "https://localhost:44368/api/subscribe/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/subscribe/") => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }
@@ -140,9 +140,9 @@ export default function Footer(props) {
                         <li className="nav-item"> <Link className="nav-link active" to={"aboutus"}>About Us</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to={"faq"}>Faq</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to={"contactus"}>Contact</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to={"support"}>Support</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to={"termsandconditions"}>Terms of Use</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to={"privacypolicy"}>Privacy Policy</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" target="_blank" to={process.env.PUBLIC_URL + "/staticfiles/Munnyfinds-Partner-Terms-of-Business.pdf"}>Partner Terms</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" target="_blank" to={process.env.PUBLIC_URL + "/staticfiles/Terms-and-Condition.pdf"}>Terms of Use</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" target="_blank" to={process.env.PUBLIC_URL + "/staticfiles/Privacy-Policy.pdf"}>Privacy Policy</Link> </li>
                     </ul>
                     <p className="copyright-text">Copyright © 2021 <Link to={"/"}>Munny Finds</Link>. All Rights Reserved.</p>
                 </div>

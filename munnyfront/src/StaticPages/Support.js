@@ -44,11 +44,11 @@ export default function Support(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = "https://localhost:44368/api/support/") => {
+    const applicationAPI = (url = "https://api.munnyfinds.com/api/support/") => {
         return {
-            fetchSupport: () => axios.get("https://localhost:44368/api/faq/" + 'get'),
+            fetchSupport: () => axios.get("https://api.munnyfinds.com/api/faq/" + 'get'),
             fetchSubjectName: (id) =>
-        axios.get("https://localhost:44368/api/subject/get/"),
+        axios.get("https://api.munnyfinds.com/api/subject/get/"),
 
             create: newRecord => axios.post(url + "insert", newRecord)
         }

@@ -62,7 +62,7 @@ export default function Footer(props) {
     const resetForm = () => {
         setValues(initialFieldValues)
         }
-    const applicationAPI = (url = 'https://localhost:44368/api/subscribe/') => {
+    const applicationAPI = (url = 'https://api.munnyfinds.com/api/subscribe/') => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }
