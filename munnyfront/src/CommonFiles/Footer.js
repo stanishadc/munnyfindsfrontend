@@ -85,11 +85,11 @@ export default function Footer(props) {
                                 <p>100% Payment Protection. Easy Return Policy.</p>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-md-3">
+                       <div className="col-sm-6 col-md-3">
                             <div className="featured-box text-center">
                                 <div className="featured-box-icon"> <i className="fas fa-bullhorn" /> </div>
-                                <h4>Refer &amp; Earn</h4>
-                                <p>Invite a friend to sign up and earn up to $100.</p>
+                                <h4>Best Offers</h4>
+                                <p>Get the best offers from top brands</p>
                             </div>
                         </div>
                         <div className="col-sm-6 col-md-3">
