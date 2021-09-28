@@ -173,7 +173,7 @@ export default function BusinessRegister(props) {
             className="bg-light shadow-md rounded mx-auto p-4"
           >
             <div>
-              <h2 class="text-4 mb-3 text-center font-weight-500">
+              <h2 class="text-4 mb-3 text-center font-weight-500" style={{color:"#000"}}>
                 Please Enter Business Details
                 <Link className="mx-2 text-primary" onClick={toggleBPopup}>
                   Already Registered ? Login
@@ -289,31 +289,7 @@ export default function BusinessRegister(props) {
                       />
                     </div>
                   </div>
-                  <div className="form-group row">
-                    <div class="col-lg-4">
-                      <label htmlFor="latitude">Latitude</label>
-                      <input
-                        className={"form-control" + applyErrorClass("latitude")}
-                        name="latitude"
-                        type="text"
-                        value={values.latitude}
-                        onChange={handleInputChange}
-                        placeholder="Latitude"
-                      />
-                    </div>
-                    <div class="col-lg-4">
-                      <label htmlFor="longitude">Longitude</label>
-                      <input
-                        className={
-                          "form-control" + applyErrorClass("longitude")
-                        }
-                        name="longitude"
-                        type="text"
-                        value={values.longitude}
-                        onChange={handleInputChange}
-                        placeholder="Longitude"
-                      />
-                    </div>
+                  <div className="form-group row">                  
                     <div class="col-lg-4">
                       <label htmlFor="city">City</label>
                       <input
@@ -325,8 +301,6 @@ export default function BusinessRegister(props) {
                         placeholder="City"
                       />
                     </div>
-                  </div>
-                  <div className="form-group row">
                     <div class="col-lg-4">
                       <label htmlFor="country">Country</label>
                       <input
@@ -349,6 +323,8 @@ export default function BusinessRegister(props) {
                         placeholder="ZipCode/Postal Code"
                       />
                     </div>
+                  </div>
+                  <div className="form-group row">                    
                     <div class="col-lg-4">
                       <label htmlFor="Password">Password</label>
                       <input
