@@ -11,7 +11,7 @@ export default function BusinessLogin(props) {
     const [values, setValues] = useState(initialLoginValues)
     const [errors, setErrors] = useState({})
     const applyErrorClass = field => ((field in errors && errors[field] == false) ? 'form-control-danger' : '')
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/business/") => {
+    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/business/") => {
         return {
             checkBusiness: newRecord => axios.post(url + "businesslogin", newRecord)
         }

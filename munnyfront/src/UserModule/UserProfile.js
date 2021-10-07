@@ -54,7 +54,7 @@ export default function UserProfile(props) {
                    alert("Profile Updated");
             });
     };
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/customer/") => {
+    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/customer/") => {
         return {
             fetchCustomerView: () => axios.get(url + 'getbyid/' + localStorage.getItem('MFFUserId')),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)

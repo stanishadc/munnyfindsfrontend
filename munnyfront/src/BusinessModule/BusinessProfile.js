@@ -112,10 +112,10 @@ export default function BusinessProfile(props) {
             addOrEdit(formData, resetForm)
         }
     }
-    const applicationAPI = (url = 'https://api.munnyfinds.com/api/business/') => {
+    const applicationAPI = (url = 'https://apimunnyfinds.azurewebsites.net/api/business/') => {
         return {
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
-            fetchType: () => axios.get('https://api.munnyfinds.com/api/businesstype/get'),
+            fetchType: () => axios.get('https://apimunnyfinds.azurewebsites.net/api/businesstype/get'),
             fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
         }
     }

@@ -66,13 +66,13 @@ export default function BusinessServices(props) {
             }
         }
     }
-    const applicationAPI = (url = "https://api.munnyfinds.com/api/service/") => {
+    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/service/") => {
         return {
              fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchCategory: () => axios.get('https://api.munnyfinds.com/api/category/Get'),
+            fetchCategory: () => axios.get('https://apimunnyfinds.azurewebsites.net/api/category/Get'),
         }
     }
     const showEditDetails = data => {
