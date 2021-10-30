@@ -116,7 +116,7 @@ export default function SalonSearch(props) {
                   <div class="form-row">
                     <div class="col-lg-12 form-group">
                       <div>
-                        <Select options={businessTypeList} onChange={opt => (GetCategory(opt.value),GetLocation(opt.value))}/>
+                        <Select defaultValue="Please Select" options={businessTypeList} onChange={opt => (GetCategory(opt.value),GetLocation(opt.value))}/>
                       </div>
                     </div>
                   </div>

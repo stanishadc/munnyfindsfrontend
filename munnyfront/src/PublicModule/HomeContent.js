@@ -106,7 +106,7 @@ export default function HomeContent(props) {
                                 <div className="featured-box style-4">
                                     <div className="featured-box-icon bg-light-4 text-primary rounded-circle"> <i className="fas fa-hands-helping" /> </div>
                                     <h3>Trust pay</h3>
-                                    <p className="text-3">100% Payment Protection. Easy Return Policy.</p>
+                                    <p className="text-3">100% Payment Protection</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
