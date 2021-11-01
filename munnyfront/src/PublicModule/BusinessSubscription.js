@@ -116,7 +116,7 @@ export default function BusinessSubscription(props) {
               <div className="row">
                 <div className="col-lg-12">
                   <h2 style={{ color: "#000" }}>
-                    Find the MunnyFinds plan that’s right for you
+                    Find the MunnyFinds plan that’s right for you 
                   </h2>
                   <br />
                   <br />
