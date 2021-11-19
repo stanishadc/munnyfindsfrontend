@@ -48,7 +48,7 @@ export default function BusinessServices(props) {
                 formData.append('categoryId', values.categoryId)
                 formData.append('serviceName', values.serviceName)            
                 formData.append('description', values.description)
-                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
                 formData.append('status', values.status)
                 add(formData)
             }
@@ -58,7 +58,7 @@ export default function BusinessServices(props) {
                 formData.append('categoryId', values.categoryId)
                 formData.append('serviceName', values.serviceName)            
                 formData.append('description', values.description)
-                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
                 formData.append('createdDate', values.createdDate)
                 formData.append('updatedDate', values.updatedDate)
                 formData.append('status', values.status)
@@ -68,7 +68,7 @@ export default function BusinessServices(props) {
     }
     const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/service/") => {
         return {
-             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
+             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),

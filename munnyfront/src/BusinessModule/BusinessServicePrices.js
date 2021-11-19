@@ -53,7 +53,7 @@ export default function BusinessServicePrices(props) {
                 formData.append('price', values.price)
                 formData.append('description', values.description)
                 formData.append('serviceId', values.serviceId)
-                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
                 formData.append('status', values.status)
                 add(formData)
             }
@@ -65,7 +65,7 @@ export default function BusinessServicePrices(props) {
                 formData.append('price', values.price)
                 formData.append('description', values.description)
                 formData.append('serviceId', values.serviceId)
-                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
                 formData.append('createdDate', values.createdDate)
                 formData.append('updatedDate', values.updatedDate)
                 formData.append('status', values.status)
@@ -75,11 +75,11 @@ export default function BusinessServicePrices(props) {
     }
     const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/serviceprice/") => {
         return {
-             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
+             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchservice: () => axios.get('https://apimunnyfinds.azurewebsites.net/api/service/GetById/'+localStorage.getItem('MFFBusinessId')),
+            fetchservice: () => axios.get('https://apimunnyfinds.azurewebsites.net/api/service/GetById/'+localStorage.getItem('MFFBusinessUserId')),
         }
     }
     const showEditDetails = data => {
@@ -186,14 +186,30 @@ export default function BusinessServicePrices(props) {
                                                     <label htmlFor="price">Price</label>
                                                     <input className={"form-control" + applyErrorClass('price')} name="price" type="text" value={values.price} onChange={handleInputChange} placeholder="Price" />
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <label htmlFor="duration">Duration</label>
+                                                <div class="col-lg-3">
+                                                    <label htmlFor="duration">Duration (Hours)</label>
                                                     <select className={"form-control" + applyErrorClass('duration')} type="text" value={values.duration} name="duration" onChange={handleInputChange}>
-                                                        <option value="0">Select Duration</option>
-                                                        <option  value="30">30 mins</option>
+                                                        <option value="0">Select Hours</option>
                                                         <option value="60">1 Hour</option>
-                                                        <option value="90">1 Hour 30 mins</option>
                                                         <option value="120">2 Hours</option>
+                                                        <option value="120">3 Hours</option>
+                                                        <option value="120">4 Hours</option>
+                                                        <option value="120">5 Hours</option>
+                                                        <option value="120">6 Hours</option>
+                                                        <option value="120">7 Hours</option>
+                                                        <option value="120">8 Hours</option>
+                                                        <option value="120">9 Hours</option>
+                                                        <option value="120">10 Hours</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label htmlFor="duration">Duration(Minutes)</label>
+                                                    <select className={"form-control" + applyErrorClass('duration')} type="text" value={values.duration} name="duration" onChange={handleInputChange}>
+                                                        <option value="0">Select Minutes</option>
+                                                        <option  value="30">00 mins</option>
+                                                        <option value="60">15 Mins</option>
+                                                        <option value="90">30 mins</option>
+                                                        <option value="120">45 mins</option>
                                                     </select>
                                                 </div>
                                             </div>

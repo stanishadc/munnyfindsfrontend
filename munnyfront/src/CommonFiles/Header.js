@@ -25,7 +25,7 @@ export default function Header(props) {
         if (localStorage.getItem('MFFUserId') != null && localStorage.getItem('MFFUserId') != 'null') {
             auth.uulogin();
         }
-        else if (localStorage.getItem('MFFBusinessId') != null && localStorage.getItem('MFFBusinessId') != 'null') {
+        else if (localStorage.getItem('MFFBusinessUserId') != null && localStorage.getItem('MFFBusinessUserId') != 'null') {
             auth.bblogin();
         }
     }, [])

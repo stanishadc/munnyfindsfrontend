@@ -51,7 +51,7 @@ export default class App extends Component {
     if (localStorage.getItem('MFFUserId') != null && localStorage.getItem('MFFUserId') != 'null') {
       auth.isUAuthenticated();
     }
-    else if (localStorage.getItem('MFFBusinessId') != null && localStorage.getItem('MFFBusinessId') != 'null') {
+    else if (localStorage.getItem('MFFBusinessUserId') != null && localStorage.getItem('MFFBusinessUserId') != 'null') {
       auth.isBAuthenticated();
     }
     return (
@@ -84,21 +84,21 @@ export default class App extends Component {
           <Route path='/faq' component={FAQ} />
           <Route path='/notfound' component={NotFound} />
 
-          <BusinessProtected path='/business/dashboard' component={BusinessDashboard} />
-          <BusinessProtected path='/business/availability' component={BusinessAvailability} />
-          <BusinessProtected path='/business/calendar' component={BusinessCalendar} />
-          <BusinessProtected path='/business/changepassword' component={BusinessPassword} />
-          <BusinessProtected path='/business/payments' component={BusinessPayments} />
-          <BusinessProtected path='/business/businessprofile' component={BusinessProfile} />
-          <BusinessProtected path='/business/services' component={BusinessServices} />
-          <BusinessProtected path='/business/serviceprices' component={BusinessServicePrices} />
-          <BusinessProtected path='/business/cancelledappointments' component={CancelledAppointments} />
-          <BusinessProtected path='/business/completedappointments' component={CompletedAppointments} />
-          <BusinessProtected path='/business/upcomingappointments' component={UpcomingAppointments} />
-          <BusinessProtected path='/business/appointment/:appointmentId' component={BusinessAppointmentsView} />
+          <Route path='/business/dashboard' component={BusinessDashboard} />
+          <Route path='/business/availability' component={BusinessAvailability} />
+          <Route path='/business/calendar' component={BusinessCalendar} />
+          <Route path='/business/changepassword' component={BusinessPassword} />
+          <Route path='/business/payments' component={BusinessPayments} />
+          <Route path='/business/businessprofile' component={BusinessProfile} />
+          <Route path='/business/services' component={BusinessServices} />
+          <Route path='/business/serviceprices' component={BusinessServicePrices} />
+          <Route path='/business/cancelledappointments' component={CancelledAppointments} />
+          <Route path='/business/completedappointments' component={CompletedAppointments} />
+          <Route path='/business/upcomingappointments' component={UpcomingAppointments} />
+          <Route path='/business/appointment/:appointmentId' component={BusinessAppointmentsView} />
 
-          <BusinessProtected path='/business/bimages/:businessId' component={BusinessImages} />
-          <BusinessProtected path='/business/businessemployee/:businessId' component={BusinessEmployee} />
+          <Route path='/business/bimages/:businessId' component={BusinessImages} />
+          <Route path='/business/businessemployee/:businessId' component={BusinessEmployee} />
 
           <UserProtected path='/user/profile' component={UserProfile} />
           <UserProtected path='/user/appointments' component={UserAppointments} />

@@ -6,7 +6,7 @@ export const BusinessProtected = ({ component: Component, ...rest }) => {
     return (
         <Route{...rest}
             render={(props) => {
-                if (localStorage.getItem('MFFBusinessId')!==null) {
+                if (localStorage.getItem('MFFBusinessUserId')!==null) {
                     return <Component{...props} />
                 }
                 else {

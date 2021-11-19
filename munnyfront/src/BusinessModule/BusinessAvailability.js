@@ -50,7 +50,7 @@ export default function BusinessAvailability(props) {
         e.preventDefault();
         const formData = new FormData()
         formData.append('businessAvailabilityId', values.businessAvailabilityId)
-        formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+        formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
         formData.append('monday', values.monday)
         formData.append('tuesday', values.tuesday)
         formData.append('wednesday', values.wednesday)
@@ -77,7 +77,7 @@ export default function BusinessAvailability(props) {
     }
     const applicationAPI = (url = "https://munnyfindsapi.azurewebsites.net/api/businessavailability/") => {
         return {
-            fetchAll: () => axios.get(url + 'GetByBusinessId/'+localStorage.getItem('MFFBusinessId')),
+            fetchAll: () => axios.get(url + 'GetByBusinessId/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)
         }

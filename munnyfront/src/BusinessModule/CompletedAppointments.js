@@ -9,7 +9,7 @@ export default function CompletedAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
     const applicationAPI = (url = 'https://apimunnyfinds.azurewebsites.net/api/appointments/') => {
         return {
-            fetchByCustomer: () => axios.get(url + 'GetCompletedAppointments/'+localStorage.getItem('MFFBusinessId'))
+            fetchByCustomer: () => axios.get(url + 'GetCompletedAppointments/'+localStorage.getItem('MFFBusinessUserId'))
         }
     }
     function refreshAppointmentList() {

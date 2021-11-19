@@ -47,7 +47,7 @@ formData.append('name', values.name)
 formData.append('email', values.email)
 formData.append('mobile', values.mobile)
 formData.append('designation', values.designation)
-formData.append('businessId', localStorage.getItem('MFFBusinessId'))
+formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
 console.log(values)
 addOrEdit(formData, resetForm)
 }
@@ -56,7 +56,7 @@ const applicationAPI = (
 url = "https://apimunnyfinds.azurewebsites.net/api/businessemployee/"
 ) => {
 return {
-fetchAll: () => axios.get(url + 'GetById/' + localStorage.getItem('MFFBusinessId')),
+fetchAll: () => axios.get(url + 'GetById/' + localStorage.getItem('MFFBusinessUserId')),
 create: (newRecord) => axios.post(url + "insert", newRecord),
 update: (id, updateRecord) =>
 axios.put(url + "update/" + id, updateRecord),
