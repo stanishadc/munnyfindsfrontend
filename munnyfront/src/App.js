@@ -96,10 +96,8 @@ export default class App extends Component {
           <Route path='/business/completedappointments' component={CompletedAppointments} />
           <Route path='/business/upcomingappointments' component={UpcomingAppointments} />
           <Route path='/business/appointment/:appointmentId' component={BusinessAppointmentsView} />
-
           <Route path='/business/bimages/:businessId' component={BusinessImages} />
           <Route path='/business/businessemployee/:businessId' component={BusinessEmployee} />
-
           <UserProtected path='/user/profile' component={UserProfile} />
           <UserProtected path='/user/appointments' component={UserAppointments} />
           <UserProtected path='/user/changepassword' component={UserChangePasword} />

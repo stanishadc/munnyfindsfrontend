@@ -148,4 +148,4 @@ export default function SalonSearch(props) {
       <Footer></Footer>
     </div>
   );
-}
+} 
