@@ -116,8 +116,8 @@ export default function BusinessProfile(props) {
         axios.put(url + "update/" + id, updateRecord),
       fetchType: () =>
         axios.get("http://munnyapi.azurewebsites.net/api/businesstype/get"),
-      fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessUserId'))
-      //fetchBusinessView: () => axios.get(url + "GetByBusinessUserId/3"),
+      //fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessUserId'))
+      fetchBusinessView: () => axios.get(url + "getbyid/37"),
     };
   };
 
@@ -469,19 +469,10 @@ export default function BusinessProfile(props) {
                           >
                             Cancel
                           </button>
-                          <Link
-                            to={"/business/businessimages/" + values.businessId}
-                            className="btn btn-success mr-2"
-                          >
-                            {" "}
+                          <Link to={"/business/businessimages/" + values.businessId} className="btn btn-success mr-2">
                             Add Image
                           </Link>
-                          <Link
-                            to={
-                              "/business/businessemployee/" + values.businessId
-                            }
-                            className="btn btn-info mr-2"
-                          >
+                          <Link to={"/business/businessemployee/" + values.businessId} className="btn btn-info mr-2">
                             Add Employee
                           </Link>
                         </div>
