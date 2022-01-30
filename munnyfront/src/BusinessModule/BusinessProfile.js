@@ -116,8 +116,8 @@ export default function BusinessProfile(props) {
         axios.put(url + "update/" + id, updateRecord),
       fetchType: () =>
         axios.get("https://apimunnyfinds.azurewebsites.net/api/businesstype/get"),
-      //fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
-      fetchBusinessView: () => axios.get(url + "GetByBusinessUserId/3"),
+      fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessUserId'))
+      //fetchBusinessView: () => axios.get(url + "GetByBusinessUserId/3"),
     };
   };
 
