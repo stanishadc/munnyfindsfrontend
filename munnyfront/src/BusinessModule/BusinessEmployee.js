@@ -53,7 +53,7 @@ addOrEdit(formData, resetForm)
 }
 };
 const applicationAPI = (
-url = "https://apimunnyfinds.azurewebsites.net/api/businessemployee/"
+url = "http://munnyapi.azurewebsites.net/api/businessemployee/"
 ) => {
 return {
 fetchAll: () => axios.get(url + 'GetById/' + localStorage.getItem('MFFBusinessUserId')),

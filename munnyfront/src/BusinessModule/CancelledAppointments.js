@@ -7,7 +7,7 @@ import BusinessSidebar from './BusinessSidebar';
 import moment from 'moment'
 export default function CancelledAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
-    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/appointments/") => {
+    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/appointments/") => {
         return {
             fetchByCustomer: () => axios.get(url + 'GetCancelledAppointments/'+localStorage.getItem('MFFBusinessUserId'))
         }

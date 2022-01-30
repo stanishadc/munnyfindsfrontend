@@ -26,8 +26,8 @@ export default function HomeContent(props) {
     const applicationAPI = () => {
         console.log();
         return {
-            fetchBusinessList: () => axios.get("https://apimunnyfinds.azurewebsites.net/api/business/GetTopBusiness/"),        
-          fetchCategory: () => axios.get("https://apimunnyfinds.azurewebsites.net/api/category/GetTopCategory/")         
+            fetchBusinessList: () => axios.get("http://munnyapi.azurewebsites.net/api/business/GetTopBusiness/"),        
+          fetchCategory: () => axios.get("http://munnyapi.azurewebsites.net/api/category/GetTopCategory/")         
         };
       };
     function refreshBusinessList() {
@@ -54,13 +54,13 @@ export default function HomeContent(props) {
                     <OwlCarousel options={options}>
                         {categoryList.map(category=>
                         <div className="item">
-                            <a href="#">
+                            <Link to={"/vendor/"+category.businessType}>
                                 <div className="card border-0"><img className="card-img-top rounded img-category" src={category.imageSrc} alt="banner" />
                                     <div className="card-body px-0 py-1">
                                         <p className="card-title font-weight-500 text-dark mb-0 text-center">{category.categoryName}</p>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         )}
                     </OwlCarousel>

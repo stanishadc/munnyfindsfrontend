@@ -86,18 +86,18 @@ export default function ChooseAppointment(props) {
         }
     }
     async function fetchOpeningHours() {
-        const response = await fetch("https://apimunnyfinds.azurewebsites.net/api/BusinessAvailability/GetByBusinessId/" + values.businessId);
+        const response = await fetch("http://munnyapi.azurewebsites.net/api/BusinessAvailability/GetByBusinessId/" + values.businessId);
         const json = await response.json();
         //setValues(json);
     }
     async function fetchBusinessEmployee() {
-        const response = await fetch("https://apimunnyfinds.azurewebsites.net/api/BusinessEmployee/GetById/" + values.businessId);
+        const response = await fetch("http://munnyapi.azurewebsites.net/api/BusinessEmployee/GetById/" + values.businessId);
         const json = await response.json();
         setBusinessEmployeeList(json)
         fetchBusinessEmployee()
     }
     async function fetchOffline() {
-        const response = await fetch("https://apimunnyfinds.azurewebsites.net/api/BusinessOffline/GetById/" + values.businessId);
+        const response = await fetch("http://munnyapi.azurewebsites.net/api/BusinessOffline/GetById/" + values.businessId);
         const json = await response.json();
         {
             json && json.map(d =>
@@ -106,7 +106,7 @@ export default function ChooseAppointment(props) {
         }
     }
     async function fetchAppointment() {
-        const response = await fetch("https://apimunnyfinds.azurewebsites.net/api/appointments/CheckOffline/" + values.businessId);
+        const response = await fetch("http://munnyapi.azurewebsites.net/api/appointments/CheckOffline/" + values.businessId);
         const json = await response.json();
         //console.log(json)
         setAppointmentOfflineData(json)

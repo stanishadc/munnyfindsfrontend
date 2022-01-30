@@ -73,13 +73,13 @@ export default function BusinessServicePrices(props) {
             }
         }
     }
-    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/serviceprice/") => {
+    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/serviceprice/") => {
         return {
              fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchservice: () => axios.get('https://apimunnyfinds.azurewebsites.net/api/service/GetById/'+localStorage.getItem('MFFBusinessUserId')),
+            fetchservice: () => axios.get('http://munnyapi.azurewebsites.net/api/service/GetById/'+localStorage.getItem('MFFBusinessUserId')),
         }
     }
     const showEditDetails = data => {

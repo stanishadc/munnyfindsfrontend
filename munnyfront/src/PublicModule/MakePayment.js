@@ -43,7 +43,7 @@ export default function MakePayment(props) {
             setServicesData(values.user)
         }
     }
-    const applicationAPI = (url = "https://apimunnyfinds.azurewebsites.net/api/appointments/") => {
+    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/appointments/") => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }
