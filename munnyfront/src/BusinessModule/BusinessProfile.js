@@ -106,6 +106,7 @@ export default function BusinessProfile(props) {
       formData.append("password", values.password);
       formData.append("currency", values.currency);
       formData.append("about", values.about);
+      formData.append("businessUserId", localStorage.getItem('MFFBusinessUserId'));
       console.log(values);
       addOrEdit(formData, resetForm);
     }
@@ -117,7 +118,7 @@ export default function BusinessProfile(props) {
       fetchType: () =>
         axios.get("http://munnyapi.azurewebsites.net/api/businesstype/get"),
       //fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessUserId'))
-      fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
+      fetchBusinessView: () => axios.get(url + 'GetByBusinessUserId/' + localStorage.getItem('MFFBusinessUserId'))
     };
   };
 
@@ -180,7 +181,6 @@ export default function BusinessProfile(props) {
                 <h5 className="mb-4">Business Profile</h5>
                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                   <li className="nav-item">
-                    {" "}
                     <Link
                       to={"/business/businessprofile"}
                       className="nav-link active"
@@ -192,10 +192,9 @@ export default function BusinessProfile(props) {
                       aria-selected="true"
                     >
                       Profile
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    {" "}
                     <Link
                       to={"/business/services"}
                       className="nav-link"
@@ -207,10 +206,9 @@ export default function BusinessProfile(props) {
                       aria-selected="false"
                     >
                       Services
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    {" "}
                     <Link
                       to={"/business/serviceprices"}
                       className="nav-link"
@@ -222,10 +220,9 @@ export default function BusinessProfile(props) {
                       aria-selected="false"
                     >
                       ServicePrices
-                    </Link>{" "}
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    {" "}
                     <Link
                       to={"/business/availability"}
                       className="nav-link"
@@ -237,8 +234,9 @@ export default function BusinessProfile(props) {
                       aria-selected="false"
                     >
                       Availability
-                    </Link>{" "}
+                    </Link>
                   </li>
+                  <li className="nav-item"> <Link to={"/business/businessemployee"} className="nav-link" id="employee" data-toggle="tab" href="#employee" role="tab" aria-controls="Employee" aria-selected="false">Employee</Link> </li>
                 </ul>
                 <div className="tab-content my-3" id="myTabContent">
                   <div className="tab-pane show active">

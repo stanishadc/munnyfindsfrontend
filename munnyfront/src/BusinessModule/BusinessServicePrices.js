@@ -8,7 +8,8 @@ import { handleSuccess, handleError } from "../CommonFiles/CustomAlerts";
 const initialFieldValues = {
   servicePriceId: 0,
   servicePriceName: "",
-  duration: "",
+  durationHours: "",
+  durationMinutes: "",
   price: "",
   description: "",
   status: "true",
@@ -49,11 +50,12 @@ export default function BusinessServicePrices(props) {
             {
                 formData.append('servicePriceId', values.servicePriceId)
                 formData.append('servicePriceName', values.servicePriceName)            
-                formData.append('duration', values.duration)
+                formData.append('durationHours', values.durationHours)
+                formData.append('durationMinutes', values.durationMinutes)
                 formData.append('price', values.price)
                 formData.append('description', values.description)
                 formData.append('serviceId', values.serviceId)
-                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('status', values.status)
                 add(formData)
             }
@@ -65,7 +67,7 @@ export default function BusinessServicePrices(props) {
                 formData.append('price', values.price)
                 formData.append('description', values.description)
                 formData.append('serviceId', values.serviceId)
-                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('createdDate', values.createdDate)
                 formData.append('updatedDate', values.updatedDate)
                 formData.append('status', values.status)
@@ -101,9 +103,15 @@ export default function BusinessServicePrices(props) {
             applicationAPI()
                 .create(formData)
                 .then((res) => {
-                    alert("New Service price Added");
+                    if(res.data.status=="Success")
+                    {
+                    handleSuccess("Service Price Deleted Succesfully");
                     resetForm();
                     refreshServicePriceList();
+                    }
+                    else{
+                        handleError("Failed to add Service Price");
+                    }
                 });
         } 
     const update = (formData) => {
@@ -164,6 +172,7 @@ export default function BusinessServicePrices(props) {
                                     <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="services" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link active" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="true">ServicePrices</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/availability"} className="nav-link" id="availability" data-toggle="tab" href="#availability" role="tab" aria-controls="availability" aria-selected="false">Availability</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/businessemployee"} className="nav-link" id="employee" data-toggle="tab" href="#employee" role="tab" aria-controls="Employee" aria-selected="false">Employee</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
                                     <div className="tab-pane show active">
@@ -189,29 +198,29 @@ export default function BusinessServicePrices(props) {
                                                     <input className={"form-control" + applyErrorClass('price')} name="price" type="text" value={values.price} onChange={handleInputChange} placeholder="Price" />
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <label htmlFor="duration">Duration (Hours)</label>
-                                                    <select className={"form-control" + applyErrorClass('duration')} type="text" value={values.duration} name="duration" onChange={handleInputChange}>
+                                                    <label htmlFor="durationHours">Duration(Hours)</label>
+                                                    <select className={"form-control" + applyErrorClass('durationHours')} type="text" value={values.durationHours} name="durationHours" onChange={handleInputChange}>
                                                         <option value="0">Select Hours</option>
-                                                        <option value="60">1 Hour</option>
-                                                        <option value="120">2 Hours</option>
-                                                        <option value="120">3 Hours</option>
-                                                        <option value="120">4 Hours</option>
-                                                        <option value="120">5 Hours</option>
-                                                        <option value="120">6 Hours</option>
-                                                        <option value="120">7 Hours</option>
-                                                        <option value="120">8 Hours</option>
-                                                        <option value="120">9 Hours</option>
-                                                        <option value="120">10 Hours</option>
+                                                        <option value="1">1 Hour</option>
+                                                        <option value="2">2 Hours</option>
+                                                        <option value="3">3 Hours</option>
+                                                        <option value="4">4 Hours</option>
+                                                        <option value="5">5 Hours</option>
+                                                        <option value="6">6 Hours</option>
+                                                        <option value="7">7 Hours</option>
+                                                        <option value="8">8 Hours</option>
+                                                        <option value="9">9 Hours</option>
+                                                        <option value="10">10 Hours</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <label htmlFor="duration">Duration(Minutes)</label>
-                                                    <select className={"form-control" + applyErrorClass('duration')} type="text" value={values.duration} name="duration" onChange={handleInputChange}>
-                                                        <option value="0">Select Minutes</option>
-                                                        <option  value="30">00 mins</option>
-                                                        <option value="60">15 Mins</option>
-                                                        <option value="90">30 mins</option>
-                                                        <option value="120">45 mins</option>
+                                                    <label htmlFor="durationMinutes">Duration(Minutes)</label>
+                                                    <select className={"form-control" + applyErrorClass('durationMinutes')} type="text" value={values.durationMinutes} name="durationMinutes" onChange={handleInputChange}>
+                                                        <option value="">Select Minutes</option>
+                                                        <option  value="0">00 mins</option>
+                                                        <option value="15">15 Mins</option>
+                                                        <option value="30">30 mins</option>
+                                                        <option value="45">45 mins</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -248,7 +257,7 @@ export default function BusinessServicePrices(props) {
                                             <tr key={servicePrice.servicePriceId}>
                                                 <td>{servicePrice.service.serviceName}</td>
                                                 <td>{servicePrice.servicePriceName}</td>
-                                                <td>{servicePrice.duration}</td>
+                                                <td>{servicePrice.durationHours+"Hrs "+servicePrice.durationMinutes+"Mins"}</td>
                                                 <td>{servicePrice.price}</td>
                                                 <td>
                                                     <button className="btn btn-success btn-sm mr-2" onClick={() => { showEditDetails(servicePrice) }}><i className="fas fa-pencil-alt" /></button>

@@ -11,8 +11,9 @@ class Auth {
         this.Uauthenticated = true
     }
     ulogout(cb) {        
-        localStorage.setItem('MFFUserId',null);
-        localStorage.setItem('MFFBusinessId',null);
+        localStorage.removeItem("MFFUserId");
+        localStorage.removeItem("MFFBusinessUserId");
+        localStorage.removeItem("MFFBusinessId");
         this.Uauthenticated = false;
         this.Bauthenticated = false;
         cb()
@@ -25,8 +26,9 @@ class Auth {
         this.Bauthenticated = true
     }
     blogout(cb) {
-        localStorage.setItem('MFFUserId',null);
-        localStorage.setItem('MFFBusinessId',null);
+        localStorage.removeItem("MFFUserId");
+        localStorage.removeItem("MFFBusinessUserId");
+        localStorage.removeItem("MFFBusinessId");
         this.Uauthenticated = false;
         this.Bauthenticated = false;
     }

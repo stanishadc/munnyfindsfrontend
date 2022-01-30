@@ -47,7 +47,8 @@ export default function BusinessLogin(props) {
             .then(res => {
                 if (res.data.status === "Login Success") {
                     auth.blogin(() => {                        
-                        localStorage.setItem('MFFBusinessId', res.data.businessId);
+                        localStorage.setItem('MFFBusinessUserId', res.data.userId);
+                        localStorage.setItem('MFFBusinessId', res.data.data[0].businessId);
                         { 
                             props.handleClose();
                             return <Redirect to='/business/businessprofile'/>
@@ -55,7 +56,7 @@ export default function BusinessLogin(props) {
                     });
                 }
                 else {
-                    alert("Invalid credentails");
+                    alert(res.data.status);
                 }
             })
     }

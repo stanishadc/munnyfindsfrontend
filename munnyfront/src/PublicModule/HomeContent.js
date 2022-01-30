@@ -98,8 +98,8 @@ export default function HomeContent(props) {
                             <div className="col-md-4">
                                 <div className="featured-box style-4">
                                     <div className="featured-box-icon bg-light-4 text-primary rounded-circle"> <i className="fas fa-bullhorn" /> </div>
-                                    <h3>Best Prices</h3>
-                                    <p className="text-3">Always get cheapest price with the best in the industry.</p>
+                                    <h3>Services</h3>
+                                    <p className="text-3">Connect with listed services</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
@@ -112,8 +112,8 @@ export default function HomeContent(props) {
                             <div className="col-md-4">
                                 <div className="featured-box style-4">
                                     <div className="featured-box-icon bg-light-4 text-primary rounded-circle"> <i className="far fa-life-ring" /> </div>
-                                    <h3>24X7 Support</h3>
-                                    <p className="text-3">We're here to help. Have a query and need help ?</p>
+                                    <h3>Book 24X7</h3>
+                                    <p className="text-3">Book anytime online at best prices</p>
                                 </div>
                             </div>
                         </div>

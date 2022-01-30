@@ -13,7 +13,7 @@ const OpeningHoursField={
 }
 const initialFieldValues = {
     businessAvailabilityId: 0,
-    businessId: "0",
+    businessUserId: "0",
     monday: true,
     tuesday: "true",
     wednesday: "true",
@@ -38,7 +38,7 @@ const initialFieldValues = {
 }
 export default function BusinessAvailability(props) {
     const [values, setValues] = useState(initialFieldValues)
-    const [openingHours, setOpeningHours] = useState(initialFieldValues)
+    //const [openingHours, setOpeningHours] = useState(initialFieldValues)
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({
@@ -50,7 +50,7 @@ export default function BusinessAvailability(props) {
         e.preventDefault();
         const formData = new FormData()
         formData.append('businessAvailabilityId', values.businessAvailabilityId)
-        formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
+        formData.append('businessUserId', localStorage.getItem('MFFBusinessUserId'))
         formData.append('monday', values.monday)
         formData.append('tuesday', values.tuesday)
         formData.append('wednesday', values.wednesday)
@@ -60,8 +60,8 @@ export default function BusinessAvailability(props) {
         formData.append('sunday', values.sunday)
         formData.append('mondayOpeningTime', values.mondayOpeningTime)
         formData.append('tuesdayOpeningTime', values.tuesdayOpeningTime)
-        formData.append('monday', values.wednesdayOpeningTime)
-        formData.append('wednesdayOpeningTime', values.thursdayOpeningTime)
+        formData.append('wednesdayOpeningTime', values.wednesdayOpeningTime)
+        formData.append('thursdayOpeningTime', values.thursdayOpeningTime)
         formData.append('fridayOpeningTime', values.fridayOpeningTime)
         formData.append('saturdayOpeningTime', values.saturdayOpeningTime)
         formData.append('sundayOpeningTime', values.sundayOpeningTime)
@@ -75,9 +75,9 @@ export default function BusinessAvailability(props) {
         console.log(values)
         addOrEdit(formData, resetForm)
     }
-    const applicationAPI = (url = "https://munnyfindsapi.azurewebsites.net/api/businessavailability/") => {
+    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/businessavailability/") => {
         return {
-            fetchAll: () => axios.get(url + 'GetByBusinessId/'+localStorage.getItem('MFFBusinessId')),
+            fetchAll: () => axios.get(url + 'getbybusinessuserid/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)
         }
@@ -105,7 +105,9 @@ export default function BusinessAvailability(props) {
     }
     function refreshBusinessTypeList() {
         applicationAPI().fetchAll()
-            .then(res => setValues(res.data[0]))
+            .then(res => 
+                setValues(res.data[0]))
+                //{res.data[0]===undefined ? setValues(res.data[0]) : setValues(initialFieldValues)})
             .catch(err => console.log(err))
     }
     useEffect(() => {
@@ -141,6 +143,7 @@ export default function BusinessAvailability(props) {
                                     <li className="nav-item"> <Link to={"/business/services"} className="nav-link" id="completed" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Services</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="false">ServicePrices</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/availability"} className="nav-link active" id="cancelled" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Availability</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/businessemployee"} className="nav-link" id="employee" data-toggle="tab" href="#employee" role="tab" aria-controls="Employee" aria-selected="false">Employee</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
                                     <div className="tab-pane show active">

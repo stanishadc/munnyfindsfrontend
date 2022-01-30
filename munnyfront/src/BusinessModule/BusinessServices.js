@@ -48,7 +48,7 @@ export default function BusinessServices(props) {
                 formData.append('categoryId', values.categoryId)
                 formData.append('serviceName', values.serviceName)            
                 formData.append('description', values.description)
-                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('status', values.status)
                 add(formData)
             }
@@ -58,7 +58,7 @@ export default function BusinessServices(props) {
                 formData.append('categoryId', values.categoryId)
                 formData.append('serviceName', values.serviceName)            
                 formData.append('description', values.description)
-                formData.append('businessId', localStorage.getItem('MFFBusinessUserId'))
+                formData.append('businessId', localStorage.getItem('MFFBusinessId'))
                 formData.append('createdDate', values.createdDate)
                 formData.append('updatedDate', values.updatedDate)
                 formData.append('status', values.status)
@@ -68,7 +68,7 @@ export default function BusinessServices(props) {
     }
     const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/service/") => {
         return {
-             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessUserId')),
+             fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
@@ -153,6 +153,7 @@ export default function BusinessServices(props) {
                                     <li className="nav-item"> <Link to={"/business/services"} className="nav-link active" id="services" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="true">Services</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/serviceprices"} className="nav-link" id="serviceprices" data-toggle="tab" href="#serviceprices" role="tab" aria-controls="serviceprices" aria-selected="false">ServicePrices</Link> </li>
                                     <li className="nav-item"> <Link to={"/business/availability"} className="nav-link" id="availability" data-toggle="tab" href="#availability" role="tab" aria-controls="availability" aria-selected="false">Availability</Link> </li>
+                                    <li className="nav-item"> <Link to={"/business/businessemployee"} className="nav-link" id="employee" data-toggle="tab" href="#employee" role="tab" aria-controls="Employee" aria-selected="false">Employee</Link> </li>
                                 </ul>
                                 <div className="tab-content my-3" id="myTabContent">
                                     <div className="tab-pane show active">

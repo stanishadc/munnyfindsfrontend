@@ -15,6 +15,7 @@ export default function AppointmentConfirmation(props) {
             setloop(1);
             setServicesData(values.userServices)
         }
+        localStorage.removeItem("userAppointmentData");
     }
     return (
         <div id="main-wrapper">

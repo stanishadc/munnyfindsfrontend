@@ -47,7 +47,7 @@ export default function BusinessEmployee(props) {
       formData.append("email", values.email);
       formData.append("mobile", values.mobile);
       formData.append("designation", values.designation);
-      formData.append("businessId", localStorage.getItem("MFFBusinessUserId"));
+      formData.append("businessId", localStorage.getItem("MFFBusinessId"));
       console.log(values);
       addOrEdit(formData, resetForm);
     }
@@ -158,7 +158,7 @@ export default function BusinessEmployee(props) {
                     {" "}
                     <Link
                       to={"/business/services"}
-                      className="nav-link active"
+                      className="nav-link"
                       id="services"
                       data-toggle="tab"
                       href="#services"
@@ -197,6 +197,7 @@ export default function BusinessEmployee(props) {
                       Availability
                     </Link>
                   </li>
+                  <li className="nav-item"> <Link to={"/business/businessemployee"} className="nav-link active" id="employee" data-toggle="tab" href="#employee" role="tab" aria-controls="Employee" aria-selected="false">Employee</Link> </li>
                 </ul>
                 <div className="tab-content my-3" id="myTabContent">
                   <div className="tab-pane show active">

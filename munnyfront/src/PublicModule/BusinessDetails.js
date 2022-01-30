@@ -82,6 +82,7 @@ export default function BusinessDetails(props) {
             .then(res =>
             (
                 setValues(res.data[0]),
+                console.log(res.data[0]),
                 refreshBusinessImagesList(res.data[0].businessId),
                 refreshServiceList(res.data[0].businessId),
                 refreshReviewsList(res.data[0].businessId)
