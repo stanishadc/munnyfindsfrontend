@@ -58,7 +58,7 @@ export default function BusinessEmployee(props) {
     return {
       fetchAll: () =>
         //axios.get(url + "GetById/" + localStorage.getItem("MFFBusinessUserId")),
-        axios.get(url + "GetById/37"),
+        axios.get(url + "GetById/" + localStorage.getItem("MFFBusinessId")),
       create: (newRecord) => axios.post(url + "insert", newRecord),
       update: (id, updateRecord) =>
         axios.put(url + "update/" + id, updateRecord),

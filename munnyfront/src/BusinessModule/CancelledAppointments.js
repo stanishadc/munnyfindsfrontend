@@ -9,7 +9,7 @@ export default function CancelledAppointments(props) {
     const [appointmentList, setAppointmentList] = useState([])
     const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/appointments/") => {
         return {
-            fetchByCustomer: () => axios.get(url + 'GetCancelledAppointments/'+localStorage.getItem('MFFBusinessUserId'))
+            fetchByCustomer: () => axios.get(url + 'GetCancelledAppointments/'+localStorage.getItem('MFFBusinessId'))
         }
     }
     function refreshAppointmentList() {

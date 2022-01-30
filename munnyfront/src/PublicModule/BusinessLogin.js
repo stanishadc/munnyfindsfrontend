@@ -47,7 +47,7 @@ export default function BusinessLogin(props) {
             .then(res => {
                 if (res.data.status === "Login Success") {
                     auth.blogin(() => {                        
-                        localStorage.setItem('MFFBusinessUserId', res.data.businessId);
+                        localStorage.setItem('MFFBusinessId', res.data.businessId);
                         { 
                             props.handleClose();
                             return <Redirect to='/business/businessprofile'/>

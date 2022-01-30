@@ -77,7 +77,7 @@ export default function BusinessAvailability(props) {
     }
     const applicationAPI = (url = "https://munnyfindsapi.azurewebsites.net/api/businessavailability/") => {
         return {
-            fetchAll: () => axios.get(url + 'GetByBusinessId/'+localStorage.getItem('MFFBusinessUserId')),
+            fetchAll: () => axios.get(url + 'GetByBusinessId/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)
         }

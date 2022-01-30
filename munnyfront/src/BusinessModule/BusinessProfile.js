@@ -117,7 +117,7 @@ export default function BusinessProfile(props) {
       fetchType: () =>
         axios.get("http://munnyapi.azurewebsites.net/api/businesstype/get"),
       //fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessUserId'))
-      fetchBusinessView: () => axios.get(url + "getbyid/37"),
+      fetchBusinessView: () => axios.get(url + 'getbyid/'+localStorage.getItem('MFFBusinessId'))
     };
   };
 
