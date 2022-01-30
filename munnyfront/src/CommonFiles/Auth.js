@@ -12,7 +12,7 @@ class Auth {
     }
     ulogout(cb) {        
         localStorage.setItem('MFFUserId',null);
-        localStorage.setItem('MFFBusinessUserId',null);
+        localStorage.setItem('MFFBusinessId',null);
         this.Uauthenticated = false;
         this.Bauthenticated = false;
         cb()
@@ -26,7 +26,7 @@ class Auth {
     }
     blogout(cb) {
         localStorage.setItem('MFFUserId',null);
-        localStorage.setItem('MFFBusinessUserId',null);
+        localStorage.setItem('MFFBusinessId',null);
         this.Uauthenticated = false;
         this.Bauthenticated = false;
     }

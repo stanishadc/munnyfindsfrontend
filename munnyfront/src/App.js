@@ -48,10 +48,10 @@ import PaymentStatus from './PublicModule/PaymentStatus';
 export const history = createBrowserHistory();
 export default class App extends Component {
   render() {
-    if (localStorage.getItem('MFFUserId') != null && localStorage.getItem('MFFUserId') != 'null') {
+    if (localStorage.getItem('MFFUserId') != null) {
       auth.isUAuthenticated();
     }
-    else if (localStorage.getItem('MFFBusinessUserId') != null && localStorage.getItem('MFFBusinessUserId') != 'null') {
+    else if (localStorage.getItem('MFFBusinessId') != null) {
       auth.isBAuthenticated();
     }
     return (
