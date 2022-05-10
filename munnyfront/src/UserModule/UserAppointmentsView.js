@@ -181,11 +181,19 @@ export default function UserAppointmentsView(props) {
                         <input className={"form-control" + applyErrorClass('tax')} name="tax" type="text" value={values.tax} onChange={handleInputChange} disabled />
                       </div>
                       <div className="col-sm-4 col-12">
-                        <label htmlFor="review">Review</label>
-                        <input className={"form-control" + applyErrorClass('review')} name="review" type="text" value={values.review} onChange={handleInputChange} disabled={values.bookingStatus == "Completed" ? false : true} />
+                        <label htmlFor="duration">Duration</label>
+                        <input className={"form-control" + applyErrorClass('duration')} name="duration" type="text" value={values.duration} onChange={handleInputChange} disabled />
                       </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row">                      
+                      <div className="col-sm-4 col-12">
+                        <label htmlFor="appointmentTime">Appointment Time</label>
+                        <input className={"form-control" + applyErrorClass('appointmentTime')} name="appointmentTime" type="text" value={values.appointmentTime} onChange={handleInputChange} disabled />
+                      </div>
+                      <div className="col-sm-4 col-12">
+                        <label htmlFor="paymentPlace">PaymentPlace</label>
+                        <input className={"form-control" + applyErrorClass('paymentPlace')} name="paymentPlace" type="text" value={values.paymentPlace} onChange={handleInputChange} disabled />
+                      </div>
                       <div className="col-sm-4 col-12">
                         <label htmlFor="rating">Rating</label>
                         <select name="rating" value={values.rating} onChange={handleInputChange} className="form-control" disabled={values.bookingStatus == "Completed" ? false : true}>
@@ -197,28 +205,20 @@ export default function UserAppointmentsView(props) {
                           <option value="5">5</option>
                         </select>
                       </div>
-                      <div className="col-sm-4 col-12">
-                        <label htmlFor="duration">Duration</label>
-                        <input className={"form-control" + applyErrorClass('duration')} name="duration" type="text" value={values.duration} onChange={handleInputChange} disabled />
-                      </div>
-                      <div className="col-sm-4 col-12">
-                        <label htmlFor="appointmentTime">Appointment Time</label>
-                        <input className={"form-control" + applyErrorClass('appointmentTime')} name="appointmentTime" type="text" value={values.appointmentTime} onChange={handleInputChange} disabled />
-                      </div>
                     </div>
                     <div className="form-group row">
-                      <div className="col-sm-4 col-12">
+                      <div className="col-sm-12 col-12">
                         <label htmlFor="userServices">UserServices</label>
                         <input className={"form-control" + applyErrorClass('userServices')} name="userServices" type="text" value={values.userServices} onChange={handleInputChange} disabled />
-                      </div>
-                      <div className="col-sm-4 col-12">
-                        <label htmlFor="paymentPlace">PaymentPlace</label>
-                        <input className={"form-control" + applyErrorClass('paymentPlace')} name="paymentPlace" type="text" value={values.paymentPlace} onChange={handleInputChange} disabled />
+                      </div>                      
+                    </div>
+                    <div className="form-group row">
+                    <div className="col-sm-12 col-12">
+                        <label htmlFor="review">Review</label>
+                        <input className={"form-control" + applyErrorClass('review')} name="review" type="text" value={values.review} onChange={handleInputChange} disabled={values.bookingStatus == "Completed" ? false : true} />
                       </div>
                     </div>
                     <button className="btn btn-primary" type="submit">Update Now</button>
-
-
                   </form>
                 </div>
               </div>

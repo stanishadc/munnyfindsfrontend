@@ -133,7 +133,7 @@ export default function SalonSearch(props) {
                   <Link
                     className="btn btn-primary btn-block"
                     type="submit"
-                    to={"/vendors/" + businessType}
+                    to={"/businesslist/" + businessType}
                   >
                     Search
                   </Link>

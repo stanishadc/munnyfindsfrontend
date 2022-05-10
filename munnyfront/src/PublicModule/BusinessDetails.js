@@ -215,8 +215,7 @@ export default function BusinessDetails(props) {
                                         </div>
                                         <div
                                             className="col-12 col-sm-9 text-center text-sm-left"> <span className="text-2">  <StarRatings rating={customer.rating} starDimension="20px" starSpacing="1px" starRatedColor="#8FCD2E" />  </span>
-                                            <p className="font-weight-600 mb-1">{customer.review}</p>
-                                            {/* <p>We stayed in this hotel for one night and were happy that we booked this hotel. Location is excellent and hotel has a lovely ambience . Rooms are very spacious with a decent decor. Overall experience was good.</p> */}
+                                            <p className="font-weight-600 mb-1">{customer.review}</p>                                            
                                             <hr />
                                         </div>
                                     </div>

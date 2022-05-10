@@ -8,7 +8,8 @@ export default function BusinessList(props) {
     const [businessList, setBusinessList] = useState([])
     const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/business/") => {
         return {
-            fetchAll: () => axios.get(url + 'GetListByType/'+ props.match.params["businesstype"])
+            //fetchAll: () => axios.get(url + 'GetListByType/'+ props.match.params["businesstype"])
+            fetchAll: () => axios.get(url + 'Get')
         }
     }
     function refreshBusinessList() {
