@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel2";
+import StarRatings from 'react-star-ratings';
 export default function HomeContent(props) {
   const [businessList, setBusinessList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+  const [testimonialList, setTestimonialList] = useState([]);
   const options = {
     nav: false,
     rewind: true,
@@ -23,8 +25,25 @@ export default function HomeContent(props) {
       },
     },
   };
+  const options2 = {
+    nav: false,
+    rewind: true,
+    loop: ".owl-carousel .item".length > 1 ? true : false,
+    autoplay: true,
+    margin: 10,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      500: {
+        items: 1,
+      },
+      768: {
+        items: 1,
+      },
+    },
+  };
   const applicationAPI = () => {
-    console.log();
     return {
       fetchBusinessList: () =>
         axios.get(
@@ -34,6 +53,10 @@ export default function HomeContent(props) {
         axios.get(
           "http://munnyapi.azurewebsites.net/api/category/GetTopCategory/"
         ),
+        fetchTestimonials: () =>
+        axios.get(
+          "http://munnyapi.azurewebsites.net/api/testimonial/gethomepage/"
+        )
     };
   };
   function refreshBusinessList() {
@@ -48,9 +71,16 @@ export default function HomeContent(props) {
       .then((res) => setCategoryList(res.data))
       .catch((err) => console.log(err));
   }
+  function refreshTestimonialList() {
+    applicationAPI()
+      .fetchTestimonials()
+      .then((res) => setTestimonialList(res.data))
+      .catch((err) => console.log(err));
+  }
   useEffect(() => {
     refreshBusinessList();
     refreshCategoryList();
+    refreshTestimonialList();
   }, []);
   return (
     <div>
@@ -168,85 +198,28 @@ export default function HomeContent(props) {
                 Send us the experience of munnyfinds service
               </p>
               <div className="row">
-                <div className="col-md-6 mb-4">
+              {testimonialList.length > 0 && (
+            <OwlCarousel options={options2}>
+              {testimonialList.map((business) => (
+              
+                <div className="col-md-12 mb-4">
                   <div className="testimonial bg-white rounded shadow-sm text-center p-4">
                     <p className="text-3">
-                      “Easy to use, reasonably priced simply dummy text of the
-                      printing and typesetting industry. Quidam lisque persius
-                      interesset his et, in quot quidam possim iriure.”
+                      {business.review}
                     </p>
                     <span className="text-warning">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                    </span>{" "}
-                    <span className="d-block font-weight-500">
-                      Jay Shah from India
-                    </span>{" "}
-                  </div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <div className="testimonial bg-white rounded shadow-sm text-center p-4">
-                    <p className="text-3">
-                      “ Discovered it just recently; very easy, quick and useful
-                      service. I would def. recommend it. text of the printing
-                      and typesetting industry.”
-                    </p>
-                    <span className="text-warning">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
+                    <StarRatings rating={business.rating} starDimension="20px" starSpacing="1px" starRatedColor="#8FCD2E" />
                     </span>
                     <span className="d-block font-weight-500">
-                      Dennis Jacques from USA
+                      {business.name}
                     </span>
                   </div>
                 </div>
-                <div className="col-md-6 mb-4">
-                  <div className="testimonial bg-white rounded shadow-sm text-center p-4">
-                    <p className="text-3">
-                      “Quickai is very easy to use and transfers funds quickly.
-                      simply dummy text of the printing and typesetting
-                      industry. Quidam lisque persius interesset his et.”
-                    </p>
-                    <span className="text-warning">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                    </span>{" "}
-                    <span className="d-block font-weight-500">
-                      Chris Tom from UK
-                    </span>{" "}
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="testimonial bg-white rounded shadow-sm text-center p-4">
-                    <p className="text-3">
-                      “Very reliable service, Quickai can be blindly trusted
-                      with our info I have been using this site to top up my
-                      mobile account and the service is as I said before
-                      reliable and trustworthy”
-                    </p>
-                    <span className="text-warning">
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="fas fa-star" />
-                      <i className="far fa-star" />
-                    </span>{" "}
-                    <span className="d-block font-weight-500">
-                      Mauri Lindberg from Australia
-                    </span>{" "}
-                  </div>
-                </div>
-              </div>
-            </div>
+                
+                ))}
+                </OwlCarousel>
+          )}
+              </div> </div>           
           </section>
         </div>
       </div>
