@@ -16,5 +16,5 @@ export default function UserSidebar(props) {
                 }}><i className="fas fa-sign-out-alt" />Logout</Link></li>
             </ul>
         </div>
-    )
+    ) 
 }
