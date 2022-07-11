@@ -1311,10 +1311,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.2s ease;
 }
 .page-header.page-header-text-light {
-  color: #010B13;
+  color: #fff;
 }
 .page-header.page-header-text-light h1 {
-  color: #010B13;
+  color: #fff;
 }
 .page-header.page-header-text-light .breadcrumb > li {
   color: rgba(250, 250, 250, 0.8);
@@ -1848,7 +1848,7 @@ body {
   width: 45px;
   margin-top: 0;
   margin-bottom: 12px;
-  color: #9A7b4f;
+  color: #016984;
   border-radius: 0;
 }
 .featured-box.style-1, .featured-box.style-2, .featured-box.style-3 {
@@ -1956,8 +1956,8 @@ body {
   position: relative;
 }
 .accordion:not(.accordion-alternate) .card-header a {
-  background-color: #9A7b4f;
-  color: #010B13;
+  background-color: #016984;
+  color: #fff;
 }
 .accordion:not(.accordion-alternate) .card-header a.collapsed {
   background-color: #f1f2f4;
@@ -3639,11 +3639,11 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
   }
 }
 .bg-primary, .badge-primary {
-  background-color: #9A7b4f !important;
+  background-color: #016984 !important;
 }
 
 .bg-secondary {
-  background-color: #947B4F !important;
+  background-color: #006883 !important;
 }
 
 .text-secondary {
@@ -3651,7 +3651,7 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 }
 
 .text-primary {
-  color: #9A7b4f !important;
+  color: #016984 !important;
 }
 
 .btn-link {
@@ -3671,12 +3671,12 @@ select.form-control:not([size]):not([multiple]):not(.form-control-sm) {
 }
 
 .btn-primary {
-  background-color: #010B13;
-  border-color: #010B13;
+  background-color: #1C4049;
+  border-color: #1C4049;
 }
 .btn-primary:hover {
-  background-color: #010B13;
-  border-color: #010B13;
+  background-color: #1C4049;
+  border-color: #1C4049;
 }
 
 .btn-secondary {
