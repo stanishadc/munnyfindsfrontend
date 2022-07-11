@@ -41,7 +41,7 @@ export default function UserAppointmentsView(props) {
       [name]: value
     })
   }
-  const applicationAPI = (url = 'http://munnyapi.azurewebsites.net/api/appointments/') => {
+  const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/appointments/') => {
     return {
       fetchAppointmentDetails: () => axios.get(url + 'getbyid/' + props.match.params["appointmentId"]),
       update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),

@@ -11,7 +11,7 @@ const initialFieldValues = {
   };
 export default function FAQ(props) {
     const [faqList, setFaqList] = useState([])
-    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/faq/") => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/faq/") => {
         return {
             fetchFaq: () => axios.get(url + 'get')
         };

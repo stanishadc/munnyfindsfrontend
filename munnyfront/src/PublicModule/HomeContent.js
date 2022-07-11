@@ -47,15 +47,15 @@ export default function HomeContent(props) {
     return {
       fetchBusinessList: () =>
         axios.get(
-          "http://munnyapi.azurewebsites.net/api/business/GetTopBusiness/"
+          "https://munnyapi.azurewebsites.net/api/business/GetTopBusiness/"
         ),
       fetchCategory: () =>
         axios.get(
-          "http://munnyapi.azurewebsites.net/api/category/GetTopCategory/"
+          "https://munnyapi.azurewebsites.net/api/category/GetTopCategory/"
         ),
         fetchTestimonials: () =>
         axios.get(
-          "http://munnyapi.azurewebsites.net/api/testimonial/gethomepage/"
+          "https://munnyapi.azurewebsites.net/api/testimonial/gethomepage/"
         )
     };
   };

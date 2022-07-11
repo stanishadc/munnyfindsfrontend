@@ -75,7 +75,7 @@ export default function BusinessAvailability(props) {
         console.log(values)
         addOrEdit(formData, resetForm)
     }
-    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/businessavailability/") => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businessavailability/") => {
         return {
             fetchAll: () => axios.get(url + 'getbybusinessuserid/'+localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),

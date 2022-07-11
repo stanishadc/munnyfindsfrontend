@@ -53,7 +53,7 @@ export default function BusinessEmployee(props) {
     }
   };
   const applicationAPI = (
-    url = "http://munnyapi.azurewebsites.net/api/businessemployee/"
+    url = "https://munnyapi.azurewebsites.net/api/businessemployee/"
   ) => {
     return {
       fetchAll: () =>

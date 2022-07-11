@@ -72,7 +72,7 @@ export default function BusinessSubscription(props) {
       .catch((err) => console.log(err));
   }
   const applicationAPI = (
-    url = "http://munnyapi.azurewebsites.net/api/subscriptiondata/"
+    url = "https://munnyapi.azurewebsites.net/api/subscriptiondata/"
   ) => {
     return {
       fetchMonthly: () => axios.get(url + "GetBySubsctionType/1"),

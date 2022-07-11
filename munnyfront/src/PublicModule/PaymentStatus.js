@@ -33,7 +33,7 @@ export default function PaymentStatus(props) {
       UpdatePaymentStatus();
     }
   }
-  const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/businesssubscription/") => {
+  const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businesssubscription/") => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }

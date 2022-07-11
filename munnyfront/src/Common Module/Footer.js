@@ -62,7 +62,7 @@ export default function Footer(props) {
     const resetForm = () => {
         setValues(initialFieldValues)
         }
-    const applicationAPI = (url = 'http://munnyapi.azurewebsites.net/api/subscribe/') => {
+    const applicationAPI = (url = 'https://munnyapi.azurewebsites.net/api/subscribe/') => {
         return {
             create: newRecord => axios.post(url + "insert", newRecord)
         }

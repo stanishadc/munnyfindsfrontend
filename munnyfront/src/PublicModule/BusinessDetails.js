@@ -71,10 +71,10 @@ export default function BusinessDetails(props) {
     const [total, setTotal] = useState(0);
     const applicationAPI = () => {
         return {
-            fetchBusinessDetails: () => axios.get('http://munnyapi.azurewebsites.net/api/business/GetByURL/' + props.match.params["businessurl"]),
-            fetchBusinessImages: (id) => axios.get('http://munnyapi.azurewebsites.net/api/BusinessImages/GetByBusiness/' + id),
-            fetchServices: (id) => axios.get('http://munnyapi.azurewebsites.net/api/ServicePrice/GetByBusinessId/' + id),
-            fetchReviews: (id) => axios.get('http://munnyapi.azurewebsites.net/api/appointments/GetByBusinessId/' + id),
+            fetchBusinessDetails: () => axios.get('https://munnyapi.azurewebsites.net/api/business/GetByURL/' + props.match.params["businessurl"]),
+            fetchBusinessImages: (id) => axios.get('https://munnyapi.azurewebsites.net/api/BusinessImages/GetByBusiness/' + id),
+            fetchServices: (id) => axios.get('https://munnyapi.azurewebsites.net/api/ServicePrice/GetByBusinessId/' + id),
+            fetchReviews: (id) => axios.get('https://munnyapi.azurewebsites.net/api/appointments/GetByBusinessId/' + id),
         }
     }
     function refreshBusinessList() {

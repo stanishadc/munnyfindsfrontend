@@ -74,7 +74,7 @@ export default function BusinessImages(props) {
     }
   };
   const applicationAPI = (
-    url = "http://munnyapi.azurewebsites.net/api/businessimages/"
+    url = "https://munnyapi.azurewebsites.net/api/businessimages/"
   ) => {
     return {
       fetchProductImages: () =>

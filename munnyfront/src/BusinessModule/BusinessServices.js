@@ -66,13 +66,13 @@ export default function BusinessServices(props) {
             }
         }
     }
-    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/service/") => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/service/") => {
         return {
              fetchAll: () => axios.get(url + 'GetById/'+localStorage.getItem('MFFBusinessId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord),
             delete: id => axios.delete(url + "delete/" + id),
-            fetchCategory: () => axios.get('http://munnyapi.azurewebsites.net/api/category/Get'),
+            fetchCategory: () => axios.get('https://munnyapi.azurewebsites.net/api/category/Get'),
         }
     }
     const showEditDetails = data => {

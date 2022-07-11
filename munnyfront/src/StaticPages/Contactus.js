@@ -13,7 +13,7 @@ const initialFieldValues = {
     };
 export default function Contactus(props) {
     const [values, setValues] = useState(initialFieldValues)
-    const applicationAPI = (url = "http://munnyapi.azurewebsites.net/api/contactus/") => {
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/contactus/") => {
         return {
           fetchAll: () => axios.get(url + "get")
         };

@@ -13,7 +13,13 @@ export default function AppointmentConfirmation(props) {
     else {
         if (loop === 0) {
             setloop(1);
-            setServicesData(values.userServices)
+            if(values !==null)
+            {
+                if(values.userServices !==null)
+                {
+                    setValues(values.userServices)
+                }
+            }
         }
         localStorage.removeItem("userAppointmentData");
     }
