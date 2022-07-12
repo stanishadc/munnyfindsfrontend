@@ -6,8 +6,10 @@ export const BusinessProtected = ({ component: Component, ...rest }) => {
     return (
         <Route{...rest}
             render={(props) => {
-                if (localStorage.getItem('MFFBusinessUserId').length>0) {
-                    return <Component{...props} />
+                if (localStorage.getItem('MFFBusinessUserId') !== null) {
+                    if (localStorage.getItem('MFFBusinessUserId').length > 0) {
+                        return <Component{...props} />
+                    }
                 }
                 else {
                     return (
