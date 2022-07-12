@@ -39,7 +39,7 @@ export default function VerifyOTP(props) {
         e.preventDefault();
         if (validate()) {
             try {
-                initialLoginValues.customerEmail = "tanishasayyad@gmail.com";//values.match.params["email"]
+                initialLoginValues.customerEmail = values.match.params["email"]
                 initialLoginValues.customerOTP = values.customerOTP1+values.customerOTP2+values.customerOTP3+values.customerOTP4;
                 alert(initialLoginValues.customerOTP)
                 VerifyUser(initialLoginValues)

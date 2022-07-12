@@ -178,7 +178,7 @@ export default function BusinessDetails(props) {
                                         <div className="accordion" id="accordionDefault">
                                             <div className="card">
                                                 <div className="card-header" id="headingOne">
-                                                    <h5 className="mb-0"> <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How can I make a account?</a> </h5>
+                                                    <h5 className="mb-0"> <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Our Services</a> </h5>
                                                 </div>
                                                 <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionDefault">
                                                     <div className="card-body">

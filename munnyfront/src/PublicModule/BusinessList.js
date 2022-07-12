@@ -89,15 +89,6 @@ export default function BusinessList(props) {
                                                 <p className="reviews mb-2">
                                                     <span className="reviews-score px-2 py-1 mr-1 rounded font-weight-600 text-light">{bus.rating}</span><span className="text-black-50" href="#">({bus.totalRatings} reviews)</span>
                                                 </p>
-                                                <p className="hotels-amenities d-flex align-items-center mb-2 text-4">
-                                                    <span data-toggle="tooltip" data-original-title="Internet/Wi-Fi"><i className="fas fa-wifi" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Restaurant"><i className="fas fa-utensils" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Bar"><i className="fas fa-glass-martini" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Swimming Pool"><i className="fas fa-swimmer" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Business Facilities"><i className="fas fa-chalkboard-teacher" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Spa"><i className="fas fa-spa" /></span>
-                                                    <span data-toggle="tooltip" data-original-title="Gym"><i className="fas fa-dumbbell" /></span>
-                                                </p>
                                             </div>
                                             <div className="card-footer bg-transparent d-flex align-items-center">
                                                 <div className="text-dark text-3 font-weight-500 mr-2 mr-lg-3">Boys Hair Cutting</div>
