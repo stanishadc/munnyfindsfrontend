@@ -75,7 +75,6 @@ export default function UserLogin(props) {
                 //formData.append("updatedDate", values.updatedDate);
                 formData.append("status", rvalues.status);
                 formData.append("customerOTP", rvalues.customerOTP);
-                console.log(rvalues)
                 addOrEdit(formData,);
             } catch (err) {
                 console.log(err);
@@ -86,7 +85,6 @@ export default function UserLogin(props) {
         if (formData.get('customerId') === "0") {
             applicationAPI().create(formData)
                 .then(res => {
-                    console.log(res);
                     if (res.data.status == "Success") {
                         props.handleClose();
                         props.history.push({

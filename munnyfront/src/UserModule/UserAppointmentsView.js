@@ -34,6 +34,7 @@ const initialFieldValues = {
 export default function UserAppointmentsView(props) {
   const [values, setValues] = useState(initialFieldValues)
   const [errors, setErrors] = useState({})
+  const [userS, setUserS] = useState([]);
   const handleInputChange = e => {
     const { name, value } = e.target;
     setValues({
@@ -86,7 +87,7 @@ export default function UserAppointmentsView(props) {
   function GetAppointment() {
     applicationAPI()
       .fetchAppointmentDetails()
-      .then((res) => setValues(res.data[0]))
+      .then((res) => (setValues(res.data[0]), setUserS(JSON.parse(res.data[0].userServices))))
       .catch((err) => console.log(err));
   }
   useEffect(() => {
@@ -134,7 +135,6 @@ export default function UserAppointmentsView(props) {
                         <label htmlFor="bookingStatus">Booking Status</label>
                         <select name="bookingStatus" value={values.bookingStatus} onChange={handleInputChange} className="form-control" disabled={values.bookingStatus == "Completed" ? true : false}>
                           <option value="Pending">Pending</option>
-                          <option value="Completed">Completed</option>
                           <option value="Cancelled">Cancelled</option>
                         </select>
                       </div>
@@ -185,7 +185,7 @@ export default function UserAppointmentsView(props) {
                         <input className={"form-control" + applyErrorClass('duration')} name="duration" type="text" value={values.duration} onChange={handleInputChange} disabled />
                       </div>
                     </div>
-                    <div className="form-group row">                      
+                    <div className="form-group row">
                       <div className="col-sm-4 col-12">
                         <label htmlFor="appointmentTime">Appointment Time</label>
                         <input className={"form-control" + applyErrorClass('appointmentTime')} name="appointmentTime" type="text" value={values.appointmentTime} onChange={handleInputChange} disabled />
@@ -208,14 +208,30 @@ export default function UserAppointmentsView(props) {
                     </div>
                     <div className="form-group row">
                       <div className="col-sm-12 col-12">
-                        <label htmlFor="userServices">UserServices</label>
-                        <input className={"form-control" + applyErrorClass('userServices')} name="userServices" type="text" value={values.userServices} onChange={handleInputChange} disabled />
-                      </div>                      
-                    </div>
-                    <div className="form-group row">
-                    <div className="col-sm-12 col-12">
                         <label htmlFor="review">Review</label>
                         <input className={"form-control" + applyErrorClass('review')} name="review" type="text" value={values.review} onChange={handleInputChange} disabled={values.bookingStatus == "Completed" ? false : true} />
+                      </div>
+                    </div>
+                    <div className="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-tab">
+                      <div className="table-responsive-md">
+                        <table className="table table-hover border">
+                          <thead className="thead-light">
+                            <tr>
+                              <th>Service Name</th>
+                              <th>Duration</th>
+                              <th>Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {userS && userS.map(app =>
+                              <tr key={app.serviceId}>
+                                <td>{app.service.serviceName}</td>
+                                <td>{app.durationHours}</td>
+                                <td>{app.price}</td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                     <button className="btn btn-primary" type="submit">Update Now</button>
