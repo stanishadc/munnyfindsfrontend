@@ -97,7 +97,7 @@ export default function HomeContent(props) {
             <OwlCarousel options={options}>
               {categoryList.map((category) => (
                 <div className="item">
-                  <Link to={"/vendor/" + category.businessType}>
+                  <Link to={"/vendors/" + category.businessType.businessTypeURL}>
                     <div className="card border-0">
                       <img
                         className="card-img-top rounded img-category"

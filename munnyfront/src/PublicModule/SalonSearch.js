@@ -28,6 +28,10 @@ export default function SalonSearch(props) {
     return {
       fetchBusinessType: (id) =>
         axios.get("https://munnyapi.azurewebsites.net/api/businesstype/Get/"),
+        fetchCategoryType: (id) =>
+        axios.get("https://munnyapi.azurewebsites.net/api/category/Get/"),
+        fetchAllLocations: (id) =>
+        axios.get("https://munnyapi.azurewebsites.net/api/business/Get/"),
 
       fetchCategory: (id) =>
         axios.get("https://munnyapi.azurewebsites.net/api/category/GetByType/" + id),
@@ -75,6 +79,22 @@ export default function SalonSearch(props) {
       )
       .catch((err) => console.log(err));
   }
+  function refreshAllCategory() {
+    applicationAPI()
+      .fetchCategoryType()
+      .then(
+        (res) => (setCategoryList(res.data),updateCategoryData(res.data))
+      )
+      .catch((err) => console.log(err));
+  }
+  function refreshAllLocation() {
+    applicationAPI()
+      .fetchAllLocations()
+      .then(
+        (res) => (setlocationList(res.data),updateLocationData(res.data))
+      )
+      .catch((err) => console.log(err));
+  }
 
   async function updateServiceData(array) {
     const list = [];
@@ -99,6 +119,8 @@ export default function SalonSearch(props) {
   }
   useEffect(() => {
     refreshBusinessType();
+    refreshAllCategory();
+    refreshAllLocation();
   }, []);
   return (
     <div id="main-wrapper">
@@ -116,18 +138,18 @@ export default function SalonSearch(props) {
                   <div class="form-row">
                     <div class="col-lg-12 form-group">
                       <div>
-                        <Select defaultValue="Please Select" options={businessTypeList} onChange={opt => (GetCategory(opt.value),GetLocation(opt.value))}/>
+                        <Select placeholder="Select Services" options={businessTypeList} onChange={opt => (GetCategory(opt.value),GetLocation(opt.value))}/>
                       </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-lg-12 form-group">
-                    <Select options={categoryList} onChange={opt => GetCategory(opt.value)}/>
+                    <Select placeholder="Select Category" options={categoryList} onChange={opt => GetCategory(opt.value)}/>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-lg-12 form-group">
-                    <Select options={locationList} onChange={opt => GetCategory(opt.value)}/>
+                    <Select placeholder="Select Location" options={locationList} onChange={opt => GetCategory(opt.value)}/>
                     </div>
                   </div>
                   <Link
