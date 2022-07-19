@@ -176,7 +176,7 @@ export default function BusinessRegister(props) {
               <h2 class="text-4 mb-3 text-center font-weight-500" style={{color:"#000"}}>
                 Please Enter Business Details
                 <Link className="mx-2 text-primary" onClick={toggleBPopup}>
-                  Already Registered ? Login
+                  Already Registered ? Please click here to login
                 </Link>
               </h2>
             </div>

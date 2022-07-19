@@ -106,8 +106,10 @@ export default function BusinessProfile(props) {
       formData.append("password", values.password);
       formData.append("currency", values.currency);
       formData.append("about", values.about);
+      formData.append("imageSrc", values.imageSrc);
+      formData.append("imageFile", values.imageFile);
+      formData.append("imageName", values.imageName);
       formData.append("businessUserId", localStorage.getItem('MFFBusinessUserId'));
-      console.log(values);
       addOrEdit(formData, resetForm);
     }
   };

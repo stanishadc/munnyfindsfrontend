@@ -7,15 +7,15 @@ import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 const AvailabilityFieldValues = {
-    businessAvailabilityId: 0,
+    businessAvailabilityId: "0",
     businessId: "0",
     monday: true,
-    tuesday: "true",
-    wednesday: "true",
-    thursday: "true",
-    friday: "true",
-    saturday: "true",
-    sunday: "true",
+    tuesday: true,
+    wednesday: true,
+    thursday: true,
+    friday: true,
+    saturday: true,
+    sunday: true,
     mondayOpeningTime: "9:00",
     tuesdayOpeningTime: "9:00",
     wednesdayOpeningTime: "9:00",
@@ -309,7 +309,7 @@ export default function ChooseAppointment(props) {
                                 <div className="bg-light-4 rounded p-3">
                                     <div className="row">
                                         <div className="col-sm text-3 font-weight-600">Payment Amount</div>
-                                        <div className="col-sm text-sm-right text-5 font-weight-500">${totalAmount}</div>
+                                        <div className="col-sm text-sm-right text-5 font-weight-500">{totalAmount}</div>
                                     </div>
                                 </div>
                                 {/* <p className="text-center my-4"><a className="btn-link" data-toggle="collapse" href="#couponCode" aria-expanded="false" aria-controls="couponCode">Apply a Coupon Code</a></p>

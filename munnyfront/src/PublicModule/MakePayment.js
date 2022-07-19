@@ -165,11 +165,11 @@ export default function MakePayment(props) {
                                         <div className="bg-light-2 rounded p-4 mb-4">
                                             <h3 className="text-4 mb-4">Payable Amount</h3>
                                             <ul className="list-unstyled">
-                                                <li className="mb-2">Amount <span className="float-right text-4 font-weight-500 text-dark">${values.subTotal}</span></li>
+                                                <li className="mb-2">Amount <span className="float-right text-4 font-weight-500 text-dark">{values.subTotal}</span></li>
                                                 {/* <li className="mb-2">Discount <span className="text-success">(10% Off!)</span> <span className="float-right text-4 font-weight-500 text-dark">-$15</span></li> */}
                                             </ul>
                                             <hr />
-                                            <div className="text-dark text-4 font-weight-500 py-1"> Total Amount<span className="float-right text-7">${values.total}</span></div>
+                                            <div className="text-dark text-4 font-weight-500 py-1"> Total Amount<span className="float-right text-7">{values.total}</span></div>
                                         </div>
                                     </div>
                                 </div>

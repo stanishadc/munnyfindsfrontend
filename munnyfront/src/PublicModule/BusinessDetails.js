@@ -64,6 +64,7 @@ const selectedServices = {
 export default function BusinessDetails(props) {
     const [values, setValues] = useState(initialFieldValues)
     const [reviewList, setReviewList] = useState([])
+    const [currency, setCurrency] = useState([])
     const [businessImagesList, setBusinessImagesList] = useState([])
     const [servicesList, setServicesList] = useState([])
     const [itemSelected, setItemSelected] = useState([])
@@ -82,7 +83,7 @@ export default function BusinessDetails(props) {
             .then(res =>
             (
                 setValues(res.data[0]),
-                console.log(res.data[0]),
+                setCurrency(res.data[0].currency),
                 refreshBusinessImagesList(res.data[0].businessId),
                 refreshServiceList(res.data[0].businessId),
                 refreshReviewsList(res.data[0].businessId)
@@ -188,9 +189,9 @@ export default function BusinessDetails(props) {
                                                                     <tbody>
                                                                         {servicesList.map(services =>
                                                                             <tr>
-                                                                                <td className="text-2 text-left align-middle" style={{ width: '50%' }}>{services.servicePriceName}</td>
+                                                                                <td className="text-2 text-left align-middle" style={{ width: '40%' }}>{services.servicePriceName}</td>
                                                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration} Duration</td>
-                                                                                <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
+                                                                                <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{currency} {services.price}</td>
                                                                                 <td className="align-middle" style={{ width: '20%' }}><button className="btn btn-sm btn-primary shadow-none text-nowrap" type="button" disabled={itemSelected.indexOf(services.servicePriceId) !== -1} onClick={() => { AddToCart(services) }}>{itemSelected.indexOf(services.servicePriceId) !== -1 ? "Selected" : "Select"}</button></td>
                                                                             </tr>
                                                                         )}
@@ -240,14 +241,14 @@ export default function BusinessDetails(props) {
                                             <tr>
                                                 <td className="text-2 text-left align-middle" style={{ width: '50%' }}>{services.servicePriceName}</td>
                                                 <td className="text-2 text-primary text-center align-middle" style={{ width: '20%' }}>{services.duration}</td>
-                                                <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>${services.price}</td>
+                                                <td className="text-2 text-primary text-center align-middle" style={{ width: '10%' }}>{currency} {services.price}</td>
                                                 <td className="align-middle" style={{ width: '20%' }}>
                                                     <button className="btn btn-sm btn-outline-primary shadow-none text-nowrap" type="button" onClick={() => { RemoveFromCart(services) }}><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                         )}
                                     </tbody>
                                     <tfoot>
-                                        <tr><td></td><td></td><td><b>Total</b></td><td><b>$ {total}</b></td></tr>
+                                        <tr><td></td><td></td><td><b>Total</b></td><td><b>{currency} {total}</b></td></tr>
                                     </tfoot>
                                 </table>
                                 {/* <Link className="btn btn-primary btn-block" to={{ pathname: '/chooseappointment', cartData: { appointmentData: cart,totalAmount:total}}}>Book Now</Link> */}

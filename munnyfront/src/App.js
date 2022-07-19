@@ -44,6 +44,7 @@ import UserAppointmentsView from './UserModule/UserAppointmentsView';
 import OffersList from './PublicModule/OffersList';
 import Subscription from './PublicModule/BusinessSubscription';
 import PaymentStatus from './PublicModule/PaymentStatus';
+import Pricing from './PublicModule/Pricing';
 
 export const history = createBrowserHistory();
 export default class App extends Component {
@@ -58,6 +59,7 @@ export default class App extends Component {
           <Route path='/yogasearch' component={YogaSearch} />
           <Route path='/vendors/:businesstype' component={BusinessList} />
           <Route path='/offers' component={OffersList} />
+          <Route path='/pricing' component={Pricing} />
 
           <Route path='/registerbusiness' component={BusinessRegister} />
           <Route path='/businesslist' component={BusinessList} />

@@ -93,7 +93,7 @@ export default function AppointmentConfirmation(props) {
                                 <hr />
                                 <div className="row">
                                     <div className="col-sm text-muted">Payment Amount</div>
-                                    <div className="col-sm text-sm-right text-6 font-weight-500">${values.total}</div>
+                                    <div className="col-sm text-sm-right text-6 font-weight-500">{values.total}</div>
                                 </div>
                                 <div className="row">
                                     <table className="table">

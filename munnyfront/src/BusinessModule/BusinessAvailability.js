@@ -6,39 +6,38 @@ import Header from '../CommonFiles/Header';
 import BusinessSidebar from './BusinessSidebar';
 import { handleSuccess, handleError } from "../CommonFiles/CustomAlerts";
 import AddDuration from './AddDuration';
-const OpeningHoursField={
-    day:true,
-    openingHour:'',
-    closingHour:''
+const OpeningHoursField = {
+    day: true,
+    openingHour: '',
+    closingHour: ''
 }
 const initialFieldValues = {
-    businessAvailabilityId: 0,
+    businessAvailabilityId: "0",
     businessUserId: "0",
     monday: true,
-    tuesday: "true",
-    wednesday: "true",
-    thursday: "true",
-    friday: "true",
-    saturday: "true",
-    sunday: "true",
-    mondayOpeningTime:"9:00",
-    tuesdayOpeningTime:"9:00",
-    wednesdayOpeningTime:"9:00",
-    thursdayOpeningTime:"9:00",
-    fridayOpeningTime:"9:00",
-    saturdayOpeningTime:"9:00",
-    sundayOpeningTime:"9:00",
-    mondayClosingTime:"20:00",
-    tuesdayClosingTime:"20:00",
-    wednesdayClosingTime:"20:00",
-    thursdayClosingTime:"20:00",
-    fridayClosingTime:"20:00",
-    saturdayClosingTime:"20:00",
-    sundayClosingTime:"20:00"
+    tuesday: true,
+    wednesday: true,
+    thursday: true,
+    friday: true,
+    saturday: true,
+    sunday: true,
+    mondayOpeningTime: "9:00",
+    tuesdayOpeningTime: "9:00",
+    wednesdayOpeningTime: "9:00",
+    thursdayOpeningTime: "9:00",
+    fridayOpeningTime: "9:00",
+    saturdayOpeningTime: "9:00",
+    sundayOpeningTime: "9:00",
+    mondayClosingTime: "20:00",
+    tuesdayClosingTime: "20:00",
+    wednesdayClosingTime: "20:00",
+    thursdayClosingTime: "20:00",
+    fridayClosingTime: "20:00",
+    saturdayClosingTime: "20:00",
+    sundayClosingTime: "20:00"
 }
 export default function BusinessAvailability(props) {
     const [values, setValues] = useState(initialFieldValues)
-    //const [openingHours, setOpeningHours] = useState(initialFieldValues)
     const handleInputChange = e => {
         const { name, value } = e.target;
         setValues({
@@ -46,11 +45,19 @@ export default function BusinessAvailability(props) {
             [name]: value
         })
     }
+    const handleChange = (e) => {
+        const { checked } = e.target
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            [name]: checked
+        })
+      }
     const handleSubmit = e => {
         e.preventDefault();
         const formData = new FormData()
         formData.append('businessAvailabilityId', values.businessAvailabilityId)
-        formData.append('businessUserId', localStorage.getItem('MFFBusinessUserId'))
+        formData.append('businessUserId', values.businessUserId)
         formData.append('monday', values.monday)
         formData.append('tuesday', values.tuesday)
         formData.append('wednesday', values.wednesday)
@@ -77,7 +84,7 @@ export default function BusinessAvailability(props) {
     }
     const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businessavailability/") => {
         return {
-            fetchAll: () => axios.get(url + 'getbybusinessuserid/'+localStorage.getItem('MFFBusinessUserId')),
+            fetchAll: () => axios.get(url + 'getbybusinessuserid/' + localStorage.getItem('MFFBusinessUserId')),
             create: newRecord => axios.post(url + "insert", newRecord),
             update: (id, updateRecord) => axios.put(url + "update/" + id, updateRecord)
         }
@@ -87,7 +94,6 @@ export default function BusinessAvailability(props) {
             applicationAPI()
                 .create(formData)
                 .then((res) => {
-                    console.log(res)
                     handleSuccess("New Settings Added");
                     resetForm();
                 });
@@ -105,9 +111,8 @@ export default function BusinessAvailability(props) {
     }
     function refreshBusinessTypeList() {
         applicationAPI().fetchAll()
-            .then(res => 
+            .then(res =>
                 setValues(res.data[0]))
-                //{res.data[0]===undefined ? setValues(res.data[0]) : setValues(initialFieldValues)})
             .catch(err => console.log(err))
     }
     useEffect(() => {
@@ -163,7 +168,7 @@ export default function BusinessAvailability(props) {
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Monday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Monday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.mondayOpeningTime} name="mondayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -172,12 +177,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.mondayClosingTime} name="mondayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.monday} checked={values.monday} name="monday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.monday} checked={values.monday} name="monday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Tuesday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Tuesday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.tuesdayOpeningTime} name="tuesdayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -186,12 +191,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.tuesdayClosingTime} name="tuesdayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.tuesday} checked={values.tuesday} name="tuesday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.tuesday} checked={values.tuesday} name="tuesday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Wednesday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Wednesday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.wednesdayOpeningTime} name="wednesdayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -200,12 +205,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.wednesdayClosingTime} name="wednesdayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.wednesday} checked={values.wednesday} name="wednesday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.wednesday} checked={values.wednesday} name="wednesday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Thursday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Thursday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.thursdayOpeningTime} name="thursdayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -214,12 +219,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.thursdayClosingTime} name="thursdayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.thursday} checked={values.thursday} name="thursday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.thursday} checked={values.thursday} name="thursday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Friday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Friday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.fridayOpeningTime} name="fridayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -228,12 +233,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.fridayClosingTime} name="fridayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.friday} checked={values.friday} name="friday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.friday} checked={values.friday} name="friday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Saturday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Saturday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.saturdayOpeningTime} name="saturdayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -242,12 +247,12 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.saturdayClosingTime} name="saturdayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.saturday} checked={values.saturday} name="saturday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.saturday} checked={values.saturday} name="saturday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style={{verticalAlign:'middle'}}>Sunday</td>
+                                                                    <td style={{ verticalAlign: 'middle' }}>Sunday</td>
                                                                     <td>
                                                                         <select className="form-control" value={values.sundayOpeningTime} name="sundayOpeningTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
@@ -256,8 +261,8 @@ export default function BusinessAvailability(props) {
                                                                         <select className="form-control" value={values.sundayClosingTime} name="sundayClosingTime" onChange={handleInputChange}>
                                                                             <AddDuration></AddDuration>
                                                                         </select></td>
-                                                                    <td style={{verticalAlign:'middle'}}>
-                                                                            <input type="checkbox" value={values.sunday} checked={values.sunday} name="sunday" className="form-control" onChange={handleInputChange}/>
+                                                                    <td style={{ verticalAlign: 'middle' }}>
+                                                                        <input type="checkbox" value={values.sunday} checked={values.sunday} name="sunday" className="form-control" onChange={handleChange} />
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

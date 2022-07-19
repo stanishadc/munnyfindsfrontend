@@ -188,8 +188,8 @@ export default function BusinessServicePrices(props) {
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <label htmlFor="price">ServicePriceName</label>
-                                                    <input className={"form-control" + applyErrorClass('servicePriceName')} name="servicePriceName" type="text" value={values.servicePriceName} onChange={handleInputChange} placeholder="ServicePriceName" />
+                                                    <label htmlFor="price">Service Name</label>
+                                                    <input className={"form-control" + applyErrorClass('servicePriceName')} name="servicePriceName" type="text" value={values.servicePriceName} onChange={handleInputChange} placeholder="Service Name" />
                                                 </div>
                                                 </div>
                                                 <div className="form-group row">

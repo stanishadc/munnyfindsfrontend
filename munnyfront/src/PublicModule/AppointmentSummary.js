@@ -72,7 +72,7 @@ export default function AppointmentSummary(props) {
                                 </div>
                                 <div className="row">
                                     <p className="col-sm text-muted mb-0 mb-sm-3">Amount:</p>
-                                    <p className="col-sm text-sm-right font-weight-500">${values.subTotal}</p>
+                                    <p className="col-sm text-sm-right font-weight-500">{values.subTotal}</p>
                                 </div>
                                 <div className="row">
                                     <table className="table">
@@ -97,7 +97,7 @@ export default function AppointmentSummary(props) {
                                 <div className="bg-light-4 rounded p-3">
                                     <div className="row">
                                         <div className="col-sm text-3 font-weight-600">Payment Amount</div>
-                                        <div className="col-sm text-sm-right text-5 font-weight-500">${values.total}</div>
+                                        <div className="col-sm text-sm-right text-5 font-weight-500">{values.total}</div>
                                     </div>
                                 </div>
                                 <p className="mt-4 mb-0">
