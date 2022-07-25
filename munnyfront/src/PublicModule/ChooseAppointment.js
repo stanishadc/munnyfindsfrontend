@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
 import Header from '../CommonFiles/Header';
@@ -56,9 +57,18 @@ const appointmentFieldValues = {
     updatedDate: moment(new Date()),
     review: '',
     rating: 0,
-    businessEmployeeId: 0
+    businessEmployeeId: 0,
+    businessUserId:0
+}
+const TimingFieldValues = {
+    isOpened: 0,
+    startTime: moment(new Date()).format('hh'),
+    endTime: moment(new Date()).add(60, 'minutes').format('hh'),
+    day: '',
+    dayNo: 0
 }
 export default function ChooseAppointment(props) {
+    const [OpenTimings, setOpenTimings] = useState(TimingFieldValues)
     const [Timings, setTimings] = useState([])
     const [values, setValues] = useState(JSON.parse(localStorage.getItem('userAppointmentData')))
     const [cValue, setCValue] = useState(new Date());
@@ -71,24 +81,17 @@ export default function ChooseAppointment(props) {
     const [appointmentOfflineData, setAppointmentOfflineData] = useState([])
     const [businessEmployeeList, setBusinessEmployeeList] = useState([]);
     const [errors, setErrors] = useState({});
-    if (localStorage.getItem('userAppointmentData') === undefined) {
-        return (<Redirect to={"/"} />);
-    }
-    else {
-        console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
-        if (loop === 0) {
-            setloop(1);
-            setServicesData(values.userServices)
-            fetchOpeningHours();
-            fetchAppointment();
-            setTotalAmount(values.total)
-            fetchBusinessEmployee();
+    const fetchOpeningHours = (formData) => {
+            applicationAPI()
+                .create(formData)
+                .then((res) => {
+                    setTimings(res.data.intervals);
+                });
+    };
+    const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businessavailability/") => {
+        return {
+            create: newRecord => axios.post(url + "GetOpeningTimings", newRecord)
         }
-    }
-    async function fetchOpeningHours() {
-        //const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessAvailability/GetByBusinessId/" + values.businessId);
-        //const json = await response.json();
-        //setValues(json);
     }
     async function fetchBusinessEmployee() {
         const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessEmployee/GetById/" + values.businessId);
@@ -99,7 +102,7 @@ export default function ChooseAppointment(props) {
     async function fetchOffline() {
         const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessOffline/GetById/" + values.businessId);
         const json = await response.json();
-        {
+        {            
             json && json.map(d =>
                 setOfflineDate((de) => ([...de, new Date(d.offlineDate)]))
             )
@@ -108,9 +111,8 @@ export default function ChooseAppointment(props) {
     async function fetchAppointment() {
         const response = await fetch("https://munnyapi.azurewebsites.net/api/appointments/CheckOffline/" + values.businessId);
         const json = await response.json();
-        //console.log(json)
         setAppointmentOfflineData(json)
-        bindTimings(new Date())
+        //bindTimings(new Date())
         fetchOffline()
     }
     function movetoCart() {
@@ -139,6 +141,7 @@ export default function ChooseAppointment(props) {
             appointmentFieldValues.userServices = values.userServices;
             appointmentFieldValues.duration = appointmentDuration;
             appointmentFieldValues.businessEmployeeId = values.businessEmployeeId;
+            appointmentFieldValues.businessUserId = values.businessUserId;
             localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
             props.history.push({
                 pathname: '/appointmentsummary'
@@ -158,13 +161,18 @@ export default function ChooseAppointment(props) {
         setTValue(e.target.value);
     }
     const handleDateChange = (newdate) => {
+        const formData = new FormData()
+        formData.append('searchDate', moment(newdate).format('LL'))
+        formData.append('businessUserId', values.businessUserId)
+                fetchOpeningHours(formData);
         setCValue(newdate);
-        bindTimings(newdate);
+        //bindTimings(newdate);
     }
     function bindTimings(sdate) {
+        console.log(OpenTimings);
         var duration = 30;//initialFieldValues.duration;        
-        var starttime = 9;//initialFieldValues.startTime;
-        var endtime = 20;//initialFieldValues.endTime;
+        var starttime = "9";//OpenTimings.startTime;
+        var endtime = 20;//OpenTimings.endTime;
         var todayee = new Date();
         var ap = ['AM', 'PM']; // AM-PM
         var times = []; // time array
@@ -192,7 +200,7 @@ export default function ChooseAppointment(props) {
             //times[i] = ("" + ((hh == 24) ? 24 : hh % 24)).slice(-2);
             tt = tt + x;
         }
-        {
+        {            
             const filteredItems = appointmentOfflineData.filter(book => moment(book.startDate).format('MM/DD/yyyy') === moment(sdate).format('MM/DD/yyyy'))
             if (filteredItems.length > 0) {
                 filteredItems.map(b => {
@@ -217,6 +225,25 @@ export default function ChooseAppointment(props) {
     };
     const applyErrorClass = (field) =>
         field in errors && errors[field] === false ? " form-control-danger" : "";
+    useEffect(() => {
+        if (localStorage.getItem('userAppointmentData') === undefined) {
+            return (<Redirect to={"/"} />);
+        }
+        else {
+            console.log(JSON.parse(localStorage.getItem('userAppointmentData')))
+            if (loop === 0) {
+                setloop(1);
+                setServicesData(values.userServices)
+                const formData = new FormData()
+                formData.append('searchDate', moment(new Date()).format('LL'))
+                formData.append('businessUserId', values.businessUserId)
+                fetchOpeningHours(formData);
+                //fetchAppointment();
+                setTotalAmount(values.total)
+                fetchBusinessEmployee();
+            }
+        }
+    }, []);
     return (
         <div id="main-wrapper">
             <Header></Header>
@@ -293,7 +320,7 @@ export default function ChooseAppointment(props) {
                                         <label className="text-muted mb-0 mb-sm-3">Appointment Date :</label>
                                     </div>
                                     <div class="col-12 col-md-7">
-                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => setCValue(date), date => handleDateChange(date)} inline minDate={new Date()} />
+                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => handleDateChange(date)} inline minDate={new Date()} />
                                     </div>
                                 </div>
 

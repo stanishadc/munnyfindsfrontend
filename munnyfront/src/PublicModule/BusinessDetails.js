@@ -33,7 +33,9 @@ const appointmentFieldValues = {
     review: '',
     rating: 0,
     businessName: '',
-    businessTypeName: ''
+    businessTypeName: '',
+    businessEmployeeId: 0,
+    businessUserId:0
 }
 const initialFieldValues = {
     businessId: 0,
@@ -122,6 +124,7 @@ export default function BusinessDetails(props) {
             appointmentFieldValues.userServices = cart;
             appointmentFieldValues.businessId = values.businessId;
             appointmentFieldValues.businessName = values.businessName;
+            appointmentFieldValues.businessUserId = values.businessUserId;
             localStorage.setItem('userAppointmentData', JSON.stringify(appointmentFieldValues));
             props.history.push({
                 pathname: '/chooseappointment'

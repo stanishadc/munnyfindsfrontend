@@ -47,20 +47,10 @@ export default function Contactus(props) {
             <div id="content">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-6">
-                            <div className="bg-light shadow-md rounded h-100 p-3">
-                                <iframe className="h-100 w-100" src={values.googleMapUrl} allowFullScreen />
-                            </div>
-                    </div>
                         <div className="col-md-6 mt-4 mt-md-0">
                             <div className="bg-light shadow-md rounded p-4">
                                 <h2 className="text-6">{values.title}</h2>
-                                <p className="text-3">{values.paraGraph} <a href="#">Help</a></p>
-                                <div className="featured-box style-1">
-                                    <div className="featured-box-icon text-primary"> <i className="fas fa-map-marker-alt" /></div>
-                                    <h3>MunnyFinds</h3>
-                                    <p>{values.address}</p>
-                                </div>
+                                <p className="text-3">{values.paraGraph} <a href="#">Talk to an Agent</a></p>
                                 <div className="featured-box style-1">
                                     <div className="featured-box-icon text-primary"> <i className="fas fa-phone" /> </div>
                                     <h3>Telephone</h3>

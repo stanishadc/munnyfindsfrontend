@@ -57,21 +57,18 @@ export default function Aboutus(props) {
                         <div className="row mt-4 mb-2">
                             <div className="col-md-4">
                                 <div className="featured-box style-1">
-                                    <div className="featured-box-icon text-primary"> <i className="far fa-thumbs-up" /></div>
                                     <h3>{values.subTitle}</h3>
                                     <p>{values.subParaGraph}</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="featured-box style-1">
-                                    <div className="featured-box-icon text-primary"> <i className="far fa-paper-plane" /> </div>
                                     <h3>{values.subTitle1}</h3>
                                     <p>{values.subParaGraph1}</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="featured-box style-1">
-                                    <div className="featured-box-icon text-primary"> <i className="far fa-eye" /> </div>
                                     <h3>{values.subTitle2}</h3>
                                     <p>{values.subParaGraph2}</p>
                                 </div>

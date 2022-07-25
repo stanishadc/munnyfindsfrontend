@@ -28,7 +28,8 @@ const appointmentFieldValues = {
     updatedDate: moment(new Date()),
     review: '',
     rating: 0,
-    businessEmployeeId: 0
+    businessEmployeeId: 0,
+    businessUserId:0
 }
 export default function MakePayment(props) {
     const [servicesData, setServicesData] = useState([])
@@ -78,6 +79,7 @@ export default function MakePayment(props) {
             formData.append('rating', values.rating)
             formData.append('paymentPlace', paymentPlace)
             formData.append('businessEmployeeId', values.businessEmployeeId)
+            formData.append('businessUserId', values.businessUserId)
             applicationAPI().create(formData)
                 .then(res => {
                     console.log(res)
