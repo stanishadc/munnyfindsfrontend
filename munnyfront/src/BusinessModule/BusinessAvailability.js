@@ -94,15 +94,15 @@ export default function BusinessAvailability(props) {
             applicationAPI()
                 .create(formData)
                 .then((res) => {
-                    handleSuccess("New Settings Added");
-                    resetForm();
+                    alert("New Settings Added");
+                    refreshBusinessTypeList();
                 });
         } else {
             applicationAPI()
                 .update(formData.get("businessAvailabilityId"), formData)
                 .then((res) => {
-                    handleSuccess("Settings Updated");
-                    resetForm();
+                    alert("Settings Updated");
+                    refreshBusinessTypeList();
                 });
         }
     };

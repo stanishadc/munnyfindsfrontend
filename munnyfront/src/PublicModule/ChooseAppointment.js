@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Footer from '../CommonFiles/Footer';
@@ -58,7 +58,7 @@ const appointmentFieldValues = {
     review: '',
     rating: 0,
     businessEmployeeId: 0,
-    businessUserId:0
+    businessUserId: 0
 }
 const TimingFieldValues = {
     isOpened: 0,
@@ -68,7 +68,7 @@ const TimingFieldValues = {
     dayNo: 0
 }
 export default function ChooseAppointment(props) {
-    const [OpenTimings, setOpenTimings] = useState(TimingFieldValues)
+    const [OpenDays, setOpenDays] = useState([])
     const [Timings, setTimings] = useState([])
     const [values, setValues] = useState(JSON.parse(localStorage.getItem('userAppointmentData')))
     const [cValue, setCValue] = useState(new Date());
@@ -82,11 +82,11 @@ export default function ChooseAppointment(props) {
     const [businessEmployeeList, setBusinessEmployeeList] = useState([]);
     const [errors, setErrors] = useState({});
     const fetchOpeningHours = (formData) => {
-            applicationAPI()
-                .create(formData)
-                .then((res) => {
-                    setTimings(res.data.intervals);
-                });
+        applicationAPI()
+            .create(formData)
+            .then((res) => {
+                setTimings(res.data.intervals);
+            });
     };
     const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businessavailability/") => {
         return {
@@ -97,24 +97,48 @@ export default function ChooseAppointment(props) {
         const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessEmployee/GetById/" + values.businessId);
         const json = await response.json();
         setBusinessEmployeeList(json)
-        fetchBusinessEmployee()
+        //fetchBusinessEmployee()
     }
     async function fetchOffline() {
         const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessOffline/GetById/" + values.businessId);
         const json = await response.json();
-        {            
+        {
             json && json.map(d =>
                 setOfflineDate((de) => ([...de, new Date(d.offlineDate)]))
             )
         }
     }
-    async function fetchAppointment() {
-        const response = await fetch("https://munnyapi.azurewebsites.net/api/appointments/CheckOffline/" + values.businessId);
+    async function fetchOpeningDays() {
+        const response = await fetch("https://munnyapi.azurewebsites.net/api/BusinessAvailability/GetOpeningDays/" + values.businessUserId);
         const json = await response.json();
-        setAppointmentOfflineData(json)
+        setOpenDays(json)
+        return json;
+        //setAppointmentOfflineData(json)
         //bindTimings(new Date())
-        fetchOffline()
-    }
+        //fetchOffline()        
+    };
+    const isWeekday = (date: Date) => {
+        const day = date.getDay()
+        const length = OpenDays.length;
+        if (length == 1) {
+            return day !== OpenDays[0];
+        }
+        else if (length == 2) {
+            return day !== OpenDays[0] && day !== OpenDays[1];
+        }
+        else if (length == 3) {
+            return day !== OpenDays[0] && day !== OpenDays[1] && day !== OpenDays[2];
+        }
+        else if (length == 4) {
+            return day !== OpenDays[0] && day !== OpenDays[1] && day !== OpenDays[2] && day !== OpenDays[3];
+        }
+        else if (length == 5) {
+            return day !== OpenDays[0] && day !== OpenDays[1] && day !== OpenDays[2] && day !== OpenDays[3] && day !== OpenDays[4];
+        }
+        else if (length == 6) {
+            return day !== OpenDays[0] && day !== OpenDays[1] && day !== OpenDays[2] && day !== OpenDays[3] && day !== OpenDays[4] && day !== OpenDays[5];
+        }
+    };
     function movetoCart() {
         if (tValue == undefined) {
             alert("Please Select Time");
@@ -164,12 +188,12 @@ export default function ChooseAppointment(props) {
         const formData = new FormData()
         formData.append('searchDate', moment(newdate).format('LL'))
         formData.append('businessUserId', values.businessUserId)
-                fetchOpeningHours(formData);
+        fetchOpeningHours(formData);
         setCValue(newdate);
+        getTime();
         //bindTimings(newdate);
     }
     function bindTimings(sdate) {
-        console.log(OpenTimings);
         var duration = 30;//initialFieldValues.duration;        
         var starttime = "9";//OpenTimings.startTime;
         var endtime = 20;//OpenTimings.endTime;
@@ -200,7 +224,7 @@ export default function ChooseAppointment(props) {
             //times[i] = ("" + ((hh == 24) ? 24 : hh % 24)).slice(-2);
             tt = tt + x;
         }
-        {            
+        {
             const filteredItems = appointmentOfflineData.filter(book => moment(book.startDate).format('MM/DD/yyyy') === moment(sdate).format('MM/DD/yyyy'))
             if (filteredItems.length > 0) {
                 filteredItems.map(b => {
@@ -238,6 +262,7 @@ export default function ChooseAppointment(props) {
                 formData.append('searchDate', moment(new Date()).format('LL'))
                 formData.append('businessUserId', values.businessUserId)
                 fetchOpeningHours(formData);
+                fetchOpeningDays();
                 //fetchAppointment();
                 setTotalAmount(values.total)
                 fetchBusinessEmployee();
@@ -320,7 +345,7 @@ export default function ChooseAppointment(props) {
                                         <label className="text-muted mb-0 mb-sm-3">Appointment Date :</label>
                                     </div>
                                     <div class="col-12 col-md-7">
-                                        <DatePicker excludeDates={offlineDate} selected={cValue} onChange={date => handleDateChange(date)} inline minDate={new Date()} />
+                                        <DatePicker filterDate={isWeekday} selected={cValue} onChange={date => handleDateChange(date)} inline minDate={new Date()} />
                                     </div>
                                 </div>
 

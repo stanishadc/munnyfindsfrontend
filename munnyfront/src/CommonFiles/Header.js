@@ -46,7 +46,7 @@ export default function Header(props) {
                                     </li>
                                     <li className="dropdown"> <Link to={"/offers"}>Offers</Link>
                                     </li>
-                                    <li className="dropdown"> <Link to={"/pricing"}>Pricing</Link>
+                                    <li className="dropdown"> <Link to={"/pricing"}>Partner fees</Link>
                                     </li>
                                     {auth.isUAuthenticated()?
                                     <li className="dropdown"><Link to={"/user/profile"}><span className="user-icon ml-sm-2"><i className="fas fa-user" /></span>&nbsp;MyUAccount</Link></li>
