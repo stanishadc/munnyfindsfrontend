@@ -23,21 +23,59 @@ export default function PaymentStatus(props) {
   const [paymentStatus, setPaymentStatus] = useState("");
   const [pgReference, setpgReference] = useState("");
   useEffect(() => {
-    readQueryString();
+    if (localStorage.getItem("subscriptionTypeId") === "5") {
+      UpdateFreePaymentStatus();
+    }
+    else {
+      readQueryString();
+    }
   }, []);
   function readQueryString() {
-    if (
-      qs.parse(props.location.search, { ignoreQueryPrefix: true }).status ===
-      "success"
-    ) {
+    console.log(qs);
+    console.log(props.location)
+    if (qs.parse(props.location.search, { ignoreQueryPrefix: true }).status === "success") {
       UpdatePaymentStatus();
     }
   }
   const applicationAPI = (url = "https://munnyapi.azurewebsites.net/api/businesssubscription/") => {
-        return {
-            create: newRecord => axios.post(url + "insert", newRecord)
-        }
+    return {
+      create: newRecord => axios.post(url + "insert", newRecord)
     }
+  }
+  function UpdateFreePaymentStatus() {
+    var currentDate = moment();
+var futureMonth = moment(currentDate).add(1, 'M');
+var futureMonthEnd = moment(futureMonth).endOf('month');
+
+if(currentDate.date() != futureMonth.date() && futureMonth.isSame(futureMonthEnd.format('YYYY-MM-DD'))) {
+    futureMonth = futureMonth.add(1, 'd');
+}
+    const formData = new FormData();
+    formData.append("subscriptionTypeId", localStorage.getItem("subscriptionTypeId"));
+    formData.append(
+      "businessUserId",
+      localStorage.getItem("MFFBusinessUserId")
+    );
+    formData.append("createdDate", moment().format());
+    formData.append("startDate", currentDate.format());
+    formData.append("endDate", futureMonth.format());
+    formData.append("updatedDate", moment().format());
+    formData.append("paymentStatus", "");
+    formData.append("pGReference", "");
+    applicationAPI()
+      .create(formData)
+      .then((res) => {
+        localStorage.removeItem("MFFInterval");
+        localStorage.removeItem("subscriptionTypeId");
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
   function UpdatePaymentStatus() {
     if (localStorage.getItem("MFFBusinessUserId") !== null) {
       const formData = new FormData();
@@ -66,8 +104,8 @@ export default function PaymentStatus(props) {
           }
         });
     }
-    else{
-        alert("Please login")
+    else {
+      alert("Please login")
     }
   }
   return (
@@ -80,7 +118,7 @@ export default function PaymentStatus(props) {
               <p className="text-success text-16 line-height-07">
                 <i className="fas fa-check-circle" />
               </p>
-              <h2 className="text-8" style={{color:'#000'}}>Congratulations</h2>
+              <h2 className="text-8" style={{ color: '#000' }}>Congratulations</h2>
               <p className="lead">
                 We have received your business application.Your application
                 status will be notified via email.

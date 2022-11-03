@@ -5,6 +5,8 @@ import Footer from "../CommonFiles/Footer";
 import Header from "../CommonFiles/Header";
 import moment from "moment";
 export default function BusinessSubscription(props) {
+  const [freeList, setFreeList] = useState([]);
+  const [freePrice, setFreePrice] = useState([]);
   const [monthlyList, setMonthlyList] = useState([]);
   const [yearlyList, setYearlyList] = useState([]);
   const [monthlyPremiumList, setMonthlyPremiumList] = useState([]);
@@ -18,11 +20,23 @@ export default function BusinessSubscription(props) {
   const [monthlyPremiumPLink, setMonthlyPremiumPLink] = useState(0);
   const [yearlyPremiumPLink, setYearlyPremiumPLink] = useState(0);
   useEffect(() => {
+    getFreeData();
     getMonthlyData();
     getYearlyData();
     getMonthlyPremiumData();
     getYearlyPremiumData();
   }, []);
+  function getFreeData() {
+    applicationAPI()
+      .fetchFree()
+      .then(
+        (res) => (
+          setFreeList(res.data),
+          setFreePrice(res.data[0].subscriptionType.price)
+        )
+      )
+      .catch((err) => console.log(err));
+  }
   function getMonthlyData() {
     applicationAPI()
       .fetchMonthly()
@@ -75,11 +89,20 @@ export default function BusinessSubscription(props) {
     url = "https://munnyapi.azurewebsites.net/api/subscriptiondata/"
   ) => {
     return {
+      fetchFree: () => axios.get(url + "GetBySubsctionType/5"),
       fetchMonthly: () => axios.get(url + "GetBySubsctionType/1"),
       fetchYearly: () => axios.get(url + "GetBySubsctionType/2"),
       fetchPMonthly: () => axios.get(url + "GetBySubsctionType/3"),
       fetchPYearly: () => axios.get(url + "GetBySubsctionType/4"),
     };
+  };
+  const FreePayment = (e) => {
+    e.preventDefault();
+    localStorage.setItem("subscriptionTypeId", 5);
+    localStorage.setItem("MFFInterval", moment().add(1, 'months').calendar());
+    props.history.push({
+      pathname: '/paymentstatus'
+  })
   };
   const BasicMonthlyPayment = (e) => {
     e.preventDefault();
@@ -130,7 +153,32 @@ export default function BusinessSubscription(props) {
                       aria-labelledby="one-tab"
                     >
                       <div className="row">
-                        <div className="col-sm-3 mb-4">
+                      <div className="col-sm-4 mb-4">
+                          <div className="card text-center">
+                            <div className="card-header">
+                              <h5 className="card-title text-4 mb-0">
+                                Free Plan
+                              </h5>
+                            </div>
+                            <div className="card-body">
+                              <ul className="list-unstyled">
+                                {freeList.map((monthly) => (
+                                  <li className="mb-3">
+                                    {monthly.subscriptionText}
+                                  </li>
+                                ))}
+                              </ul>
+                              <button
+                                className="btn btn-sm btn-block btn-outline-primary text-5 py-1 font-weight-500 shadow-none"
+                                type="submit"
+                                onClick={(e) => FreePayment(e)}
+                              >
+                                NGN {freePrice}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-sm-4 mb-4">
                           <div className="card text-center">
                             <div className="card-header">
                               <h5 className="card-title text-4 mb-0">
@@ -155,7 +203,7 @@ export default function BusinessSubscription(props) {
                             </div>
                           </div>
                         </div>
-                        <div className="col-sm-3 mb-4">
+                        <div className="col-sm-4 mb-4">
                           <div className="card text-center">
                             <div className="card-header">
                               <h5 className="card-title text-4 mb-0">
@@ -180,7 +228,7 @@ export default function BusinessSubscription(props) {
                             </div>
                           </div>
                         </div>
-                        <div className="col-sm-3 mb-4">
+                        <div className="col-sm-4 mb-4">
                           <div className="card text-center">
                             <div className="card-header">
                               <h5 className="card-title text-4 mb-0">
@@ -205,7 +253,7 @@ export default function BusinessSubscription(props) {
                             </div>
                           </div>
                         </div>
-                        <div className="col-sm-3 mb-4">
+                        <div className="col-sm-4 mb-4">
                           <div className="card text-center">
                             <div className="card-header">
                               <h5 className="card-title text-4 mb-0">

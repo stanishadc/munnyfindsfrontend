@@ -120,7 +120,7 @@ export default function BusinessRegister(props) {
         .create(formData)
         .then((res) => {
           if (res.data.status == "Success") {
-            //localStorage.setItem("MFFBusinessUserId", res.data.data);            
+            localStorage.setItem("MFFBusinessUserId", res.data.data);            
             resetForm();
             props.history.push({
               pathname: "/subscription",
